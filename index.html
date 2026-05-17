@@ -3,10 +3,413 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Calculator Tools</title>
+<title>Free Calculator Tools - Age, BMI, Tip, GPA & More</title>
+<meta name="description" content="Free online calculator tools. Age calculator, BMI calculator, Tip calculator, GPA calculator, Mortgage calculator and more.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#f0f4ff;min-height:100vh;padding:20px 14px 40px}
+  .header{text-align:center;margin-bottom:24px}
+  .badge{display:inline-block;background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#64748b;margin-bottom:14px}
+  h1{font-size:28px;font-weight:800;color:#0f172a;margin-bottom:6px}
+  h1 span{color:#3b82f6}
+  .subtitle{font-size:13px;color:#94a3b8}
+  .tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;max-width:600px;margin-left:auto;margin-right:auto}
+  .tool-btn{background:#fff;border:2px solid #e2e8f0;border-radius:14px;padding:12px 6px;cursor:pointer;text-align:center;transition:all 0.2s}
+  .tool-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+  .tool-btn.active{border-color:#3b82f6;background:#eff6ff}
+  .tool-icon{font-size:22px;display:block;margin-bottom:5px}
+  .tool-name{font-size:9px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px}
+  .tool-btn.active .tool-name{color:#1e40af}
+  .card{background:#fff;border-radius:22px;border:1px solid #e2e8f0;box-shadow:0 4px 24px rgba(0,0,0,0.06);max-width:600px;margin:0 auto;overflow:hidden}
+  .card-top{padding:20px;border-bottom:1px solid #f1f5f9;background:#f8faff}
+  .card-title{font-size:18px;font-weight:800;color:#0f172a;margin-bottom:3px}
+  .card-desc{font-size:13px;color:#94a3b8}
+  .card-body{padding:20px}
+  .calc-section{display:none}
+  .calc-section.active{display:block}
+  label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#64748b;margin-bottom:7px;margin-top:16px}
+  label:first-child{margin-top:0}
+  input,select{width:100%;background:#f8fafc;border:2px solid #e2e8f0;border-radius:11px;padding:12px 14px;color:#0f172a;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
+  input:focus,select:focus{border-color:#3b82f6;background:#fff}
+  input::placeholder{color:#cbd5e1}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+  .chip{padding:8px 14px;border-radius:20px;border:2px solid #e2e8f0;background:#f8fafc;font-size:12px;font-weight:600;color:#64748b;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif}
+  .chip.active{background:#3b82f6;border-color:#3b82f6;color:#fff}
+  .calc-btn{width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px rgba(59,130,246,0.3)}
+  .calc-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(59,130,246,0.4)}
+  .result-box{margin-top:18px;background:linear-gradient(135deg,#f8fafc,#f0f4ff);border:2px solid #e2e8f0;border-radius:16px;padding:20px;text-align:center;display:none}
+  .result-main{font-size:30px;font-weight:800;color:#0f172a;margin-bottom:8px}
+  .result-sub{font-size:14px;color:#64748b;margin-top:4px}
+  .result-green{color:#10b981}
+  .result-red{color:#ef4444}
+  .result-blue{color:#3b82f6}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .stat-box{background:#fff;border-radius:10px;padding:10px 6px;border:1px solid #e2e8f0;text-align:center}
+  .stat-num{font-size:16px;font-weight:700;color:#0f172a}
+  .stat-label{font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;margin-top:2px}
+  .footer{text-align:center;margin-top:24px;font-size:12px;color:#94a3b8}
+  .footer strong{color:#3b82f6}
+  .counter-row{display:flex;align-items:center;gap:16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:11px;padding:10px 14px;width:fit-content}
+  .counter-btn{width:32px;height:32px;border-radius:50%;border:2px solid #e2e8f0;background:#fff;font-size:18px;font-weight:700;color:#3b82f6;cursor:pointer}
+  .counter-val{font-size:18px;font-weight:700;color:#0f172a;min-width:30px;text-align:center}
+</style>
 </head>
 <body>
-<h1>Calculator Tools - Coming Soon!</h1>
-<p>Free online calculator tools for everyone.</p>
+
+<div class="header">
+  <div class="badge">🌐 Free Online Tools</div>
+  <h1>Smart <span>Calculator</span> Tools</h1>
+  <p class="subtitle">8 Free Tools · No Signup · Works Everywhere</p>
+</div>
+
+<div class="tools-grid">
+  <button class="tool-btn active" onclick="showTool('age',this)"><span class="tool-icon">🎂</span><div class="tool-name">Age</div></button>
+  <button class="tool-btn" onclick="showTool('tip',this)"><span class="tool-icon">🍽️</span><div class="tool-name">Tip</div></button>
+  <button class="tool-btn" onclick="showTool('gpa',this)"><span class="tool-icon">🎓</span><div class="tool-name">GPA</div></button>
+  <button class="tool-btn" onclick="showTool('miles',this)"><span class="tool-icon">🛣️</span><div class="tool-name">Miles↔KM</div></button>
+  <button class="tool-btn" onclick="showTool('mortgage',this)"><span class="tool-icon">🏠</span><div class="tool-name">Mortgage</div></button>
+  <button class="tool-btn" onclick="showTool('bmi',this)"><span class="tool-icon">💪</span><div class="tool-name">BMI</div></button>
+  <button class="tool-btn" onclick="showTool('tax',this)"><span class="tool-icon">📋</span><div class="tool-name">Tax</div></button>
+  <button class="tool-btn" onclick="showTool('compound',this)"><span class="tool-icon">📈</span><div class="tool-name">Interest</div></button>
+</div>
+
+<div class="card">
+  <div class="card-top">
+    <div class="card-title" id="cardTitle">🎂 Age Calculator</div>
+    <div class="card-desc" id="cardDesc">Find your exact age in years, months & days</div>
+  </div>
+  <div class="card-body">
+
+    <!-- AGE -->
+    <div class="calc-section active" id="age">
+      <label>Your Date of Birth</label>
+      <input type="date" id="dob" max="">
+      <button class="calc-btn" onclick="calcAge()">Calculate My Age</button>
+      <div class="result-box" id="ageResult">
+        <div class="result-main" id="ageMain"></div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num" id="ageMonths"></div><div class="stat-label">Months</div></div>
+          <div class="stat-box"><div class="stat-num" id="ageDays"></div><div class="stat-label">Days</div></div>
+          <div class="stat-box"><div class="stat-num" id="ageTotalDays"></div><div class="stat-label">Total Days</div></div>
+        </div>
+        <div class="result-sub" id="ageBirthday"></div>
+      </div>
+    </div>
+
+    <!-- TIP -->
+    <div class="calc-section" id="tip">
+      <label>Bill Amount ($)</label>
+      <input type="number" id="tipBill" placeholder="e.g. 85.50">
+      <label>Tip Percentage</label>
+      <div class="chip-row">
+        <button class="chip" onclick="setTip(10,this)">10%</button>
+        <button class="chip" onclick="setTip(15,this)">15%</button>
+        <button class="chip active" onclick="setTip(18,this)">18%</button>
+        <button class="chip" onclick="setTip(20,this)">20%</button>
+        <button class="chip" onclick="setTip(25,this)">25%</button>
+      </div>
+      <label>Number of People</label>
+      <div class="counter-row">
+        <button class="counter-btn" onclick="changePeople(-1)">−</button>
+        <span class="counter-val" id="peopleCount">1</span>
+        <button class="counter-btn" onclick="changePeople(1)">+</button>
+      </div>
+      <button class="calc-btn" onclick="calcTip()">Calculate Tip</button>
+      <div class="result-box" id="tipResult">
+        <div class="result-main" id="tipMain"></div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num" id="tipTotal"></div><div class="stat-label">Total Bill</div></div>
+          <div class="stat-box"><div class="stat-num" id="tipAmt"></div><div class="stat-label">Total Tip</div></div>
+          <div class="stat-box"><div class="stat-num" id="tipPer"></div><div class="stat-label">Tip/Person</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GPA -->
+    <div class="calc-section" id="gpa">
+      <label>Your Courses</label>
+      <div id="courseList">
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input placeholder="Course Name" style="flex:2;margin:0">
+          <select style="flex:1;margin:0"><option>A+</option><option>A</option><option selected>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select>
+          <input type="number" placeholder="Cr" style="flex:0.6;margin:0" value="3">
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input placeholder="Course Name" style="flex:2;margin:0">
+          <select style="flex:1;margin:0"><option>A+</option><option>A</option><option>A-</option><option selected>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select>
+          <input type="number" placeholder="Cr" style="flex:0.6;margin:0" value="3">
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcGPA()">Calculate GPA</button>
+      <div class="result-box" id="gpaResult">
+        <div class="result-main result-blue" id="gpaMain"></div>
+        <div class="result-sub result-green" id="gpaStanding"></div>
+      </div>
+    </div>
+
+    <!-- MILES -->
+    <div class="calc-section" id="miles">
+      <label>Convert Direction</label>
+      <div class="chip-row">
+        <button class="chip active" onclick="setMilesMode('mi',this)">Miles → KM</button>
+        <button class="chip" onclick="setMilesMode('km',this)">KM → Miles</button>
+      </div>
+      <label id="milesLabel">Miles</label>
+      <input type="number" id="milesVal" placeholder="e.g. 26.2">
+      <button class="calc-btn" onclick="calcMiles()">Convert Now</button>
+      <div class="result-box" id="milesResult">
+        <div class="result-main result-blue" id="milesMain"></div>
+        <div class="result-sub" id="milesSub"></div>
+      </div>
+    </div>
+
+    <!-- MORTGAGE -->
+    <div class="calc-section" id="mortgage">
+      <label>Home Price ($)</label>
+      <input type="number" id="mPrice" placeholder="e.g. 350000">
+      <label>Down Payment ($)</label>
+      <input type="number" id="mDown" placeholder="e.g. 70000 (20%)">
+      <label>Annual Interest Rate (%)</label>
+      <input type="number" id="mRate" placeholder="e.g. 6.8" step="0.1">
+      <label>Loan Term</label>
+      <div class="chip-row">
+        <button class="chip" onclick="setYears(10,this)">10 yr</button>
+        <button class="chip" onclick="setYears(15,this)">15 yr</button>
+        <button class="chip" onclick="setYears(20,this)">20 yr</button>
+        <button class="chip active" onclick="setYears(30,this)">30 yr</button>
+      </div>
+      <button class="calc-btn" onclick="calcMortgage()">Calculate Payment</button>
+      <div class="result-box" id="mortgageResult">
+        <div class="result-main" id="mortgageMain"></div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num" id="mortLoan"></div><div class="stat-label">Loan</div></div>
+          <div class="stat-box"><div class="stat-num result-red" id="mortInterest"></div><div class="stat-label">Interest</div></div>
+          <div class="stat-box"><div class="stat-num" id="mortTotal"></div><div class="stat-label">Total Paid</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BMI -->
+    <div class="calc-section" id="bmi">
+      <div class="chip-row">
+        <button class="chip active" onclick="setBmiUnit('imperial',this)">Imperial (US)</button>
+        <button class="chip" onclick="setBmiUnit('metric',this)">Metric</button>
+      </div>
+      <div id="bmiImperial">
+        <label>Height</label>
+        <div style="display:flex;gap:10px">
+          <input type="number" id="bmiFt" placeholder="Feet" style="flex:1">
+          <input type="number" id="bmiIn" placeholder="Inches" style="flex:1">
+        </div>
+        <label>Weight (lbs)</label>
+        <input type="number" id="bmiLbs" placeholder="e.g. 160">
+      </div>
+      <div id="bmiMetric" style="display:none">
+        <label>Height (cm)</label>
+        <input type="number" id="bmiCm" placeholder="e.g. 175">
+        <label>Weight (kg)</label>
+        <input type="number" id="bmiKg" placeholder="e.g. 70">
+      </div>
+      <button class="calc-btn" onclick="calcBMI()">Calculate BMI</button>
+      <div class="result-box" id="bmiResult">
+        <div class="result-main" id="bmiMain"></div>
+        <div class="result-sub" id="bmiStatus" style="font-size:15px;font-weight:700;margin-top:6px"></div>
+        <div class="result-sub" id="bmiAdvice"></div>
+      </div>
+    </div>
+
+    <!-- TAX -->
+    <div class="calc-section" id="tax">
+      <label>Annual Income ($)</label>
+      <input type="number" id="taxIncome" placeholder="e.g. 75000">
+      <label>Filing Status</label>
+      <div class="chip-row">
+        <button class="chip active" onclick="setTaxStatus('single',this)">Single</button>
+        <button class="chip" onclick="setTaxStatus('married',this)">Married</button>
+      </div>
+      <p style="font-size:12px;color:#94a3b8;margin-top:10px;padding:8px 12px;background:#f8fafc;border-radius:8px">📌 Based on 2024 US Federal Tax Brackets</p>
+      <button class="calc-btn" onclick="calcTax()">Estimate My Tax</button>
+      <div class="result-box" id="taxResult">
+        <div class="result-main result-red" id="taxMain"></div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num" id="taxRate"></div><div class="stat-label">Eff. Rate</div></div>
+          <div class="stat-box"><div class="stat-num result-green" id="taxAfter"></div><div class="stat-label">After Tax</div></div>
+          <div class="stat-box"><div class="stat-num" id="taxMonthly"></div><div class="stat-label">Monthly</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPOUND -->
+    <div class="calc-section" id="compound">
+      <label>Initial Investment ($)</label>
+      <input type="number" id="cPrincipal" placeholder="e.g. 10000">
+      <label>Annual Interest Rate (%)</label>
+      <input type="number" id="cRate" placeholder="e.g. 7" step="0.1">
+      <label>Time Period (Years)</label>
+      <input type="number" id="cYears" placeholder="e.g. 10">
+      <label>Compound Frequency</label>
+      <div class="chip-row">
+        <button class="chip" onclick="setFreq(1,this)">Yearly</button>
+        <button class="chip" onclick="setFreq(4,this)">Quarterly</button>
+        <button class="chip active" onclick="setFreq(12,this)">Monthly</button>
+        <button class="chip" onclick="setFreq(365,this)">Daily</button>
+      </div>
+      <button class="calc-btn" onclick="calcCompound()">Calculate Growth</button>
+      <div class="result-box" id="compoundResult">
+        <div class="result-main result-green" id="compoundMain"></div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num result-green" id="compoundGrowth"></div><div class="stat-label">Growth %</div></div>
+          <div class="stat-box"><div class="stat-num result-green" id="compoundInterest"></div><div class="stat-label">Earned</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  Free tools for everyone · <strong>calculatorhub</strong> · No ads, No signup
+</div>
+
+<script>
+// ── STATE ──
+let tipPct=18, people=1, milesMode='mi', mortYears=30, bmiUnit='imperial', taxStatus='single', freq=12;
+
+// ── TOOL SWITCHER ──
+const titles={age:['🎂 Age Calculator','Find your exact age in years, months & days'],tip:['🍽️ Tip Calculator','Split restaurant bills easily'],gpa:['🎓 GPA Calculator','Calculate your Grade Point Average'],miles:['🛣️ Miles ↔ KM Converter','Convert miles to kilometers & back'],mortgage:['🏠 Mortgage Calculator','Calculate monthly home loan payments'],bmi:['💪 BMI Calculator','Check your Body Mass Index'],tax:['📋 Tax Calculator','Estimate your US income tax'],compound:['📈 Compound Interest','Grow your savings over time']};
+function showTool(id,btn){
+  document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('cardTitle').textContent=titles[id][0];
+  document.getElementById('cardDesc').textContent=titles[id][1];
+}
+
+// ── AGE ──
+document.getElementById('dob').max=new Date().toISOString().split('T')[0];
+function calcAge(){
+  const dob=new Date(document.getElementById('dob').value);
+  if(!dob.getTime())return;
+  const now=new Date();
+  let y=now.getFullYear()-dob.getFullYear(),m=now.getMonth()-dob.getMonth(),d=now.getDate()-dob.getDate();
+  if(d<0){m--;d+=30}if(m<0){y--;m+=12}
+  const total=Math.floor((now-dob)/86400000);
+  const next=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());
+  if(next<now)next.setFullYear(now.getFullYear()+1);
+  const daysTo=Math.floor((next-now)/86400000);
+  document.getElementById('ageMain').textContent=y+' Years Old';
+  document.getElementById('ageMonths').textContent=m;
+  document.getElementById('ageDays').textContent=d;
+  document.getElementById('ageTotalDays').textContent=total.toLocaleString();
+  document.getElementById('ageBirthday').textContent='🎂 Next birthday in '+daysTo+' days!';
+  document.getElementById('ageResult').style.display='block';
+}
+
+// ── TIP ──
+function setTip(v,btn){tipPct=v;document.querySelectorAll('#tip .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
+function changePeople(d){people=Math.max(1,people+d);document.getElementById('peopleCount').textContent=people}
+function calcTip(){
+  const b=parseFloat(document.getElementById('tipBill').value);if(!b)return;
+  const t=(b*tipPct)/100,total=b+t;
+  document.getElementById('tipMain').textContent='$'+(total/people).toFixed(2)+' per person';
+  document.getElementById('tipTotal').textContent='$'+total.toFixed(2);
+  document.getElementById('tipAmt').textContent='$'+t.toFixed(2);
+  document.getElementById('tipPer').textContent='$'+(t/people).toFixed(2);
+  document.getElementById('tipResult').style.display='block';
+}
+
+// ── GPA ──
+const gp={'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D':1.0,'F':0};
+function calcGPA(){
+  const rows=document.querySelectorAll('#courseList > div');
+  let pts=0,cr=0;
+  rows.forEach(r=>{
+    const sel=r.querySelector('select').value;
+    const c=parseFloat(r.querySelectorAll('input')[1].value)||0;
+    pts+=(gp[sel]||0)*c;cr+=c;
+  });
+  if(!cr)return;
+  const g=(pts/cr).toFixed(2);
+  const s=g>=3.7?'Summa Cum Laude 🏆':g>=3.3?'Magna Cum Laude 🎖️':g>=3.0?'Cum Laude 🎓':g>=2.0?'Good Standing ✅':'Academic Probation ⚠️';
+  document.getElementById('gpaMain').textContent=g+' GPA';
+  document.getElementById('gpaStanding').textContent=s;
+  document.getElementById('gpaResult').style.display='block';
+}
+
+// ── MILES ──
+function setMilesMode(m,btn){milesMode=m;document.querySelectorAll('#miles .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById('milesLabel').textContent=m==='mi'?'Miles':'Kilometers'}
+function calcMiles(){
+  const v=parseFloat(document.getElementById('milesVal').value);if(!v)return;
+  let main,sub;
+  if(milesMode==='mi'){main=(v*1.60934).toFixed(3)+' Kilometers';sub='Also: '+(v*5280).toLocaleString()+' feet'}
+  else{main=(v/1.60934).toFixed(3)+' Miles';sub='Also: '+(v*1000).toLocaleString()+' meters'}
+  document.getElementById('milesMain').textContent=main;
+  document.getElementById('milesSub').textContent=sub;
+  document.getElementById('milesResult').style.display='block';
+}
+
+// ── MORTGAGE ──
+function setYears(y,btn){mortYears=y;document.querySelectorAll('#mortgage .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
+function calcMortgage(){
+  const p=parseFloat(document.getElementById('mPrice').value)-(parseFloat(document.getElementById('mDown').value)||0);
+  const r=parseFloat(document.getElementById('mRate').value)/100/12;
+  const n=mortYears*12;
+  if(!p||!r||p<=0)return;
+  const m=(p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  const tot=m*n,int=tot-p;
+  document.getElementById('mortgageMain').textContent='$'+Math.round(m).toLocaleString()+'/month';
+  document.getElementById('mortLoan').textContent='$'+(p/1000).toFixed(0)+'K';
+  document.getElementById('mortInterest').textContent='$'+(int/1000).toFixed(0)+'K';
+  document.getElementById('mortTotal').textContent='$'+(tot/1000).toFixed(0)+'K';
+  document.getElementById('mortgageResult').style.display='block';
+}
+
+// ── BMI ──
+function setBmiUnit(u,btn){bmiUnit=u;document.querySelectorAll('#bmi .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById('bmiImperial').style.display=u==='imperial'?'block':'none';document.getElementById('bmiMetric').style.display=u==='metric'?'block':'none'}
+function calcBMI(){
+  let bmi;
+  if(bmiUnit==='imperial'){const t=(parseFloat(document.getElementById('bmiFt').value)||0)*12+(parseFloat(document.getElementById('bmiIn').value)||0);bmi=703*parseFloat(document.getElementById('bmiLbs').value)/(t*t)}
+  else{const h=parseFloat(document.getElementById('bmiCm').value)/100;bmi=parseFloat(document.getElementById('bmiKg').value)/(h*h)}
+  if(!bmi||isNaN(bmi))return;
+  bmi=bmi.toFixed(1);
+  const s=bmi<18.5?['Underweight','#3b82f6','Consider a balanced diet']:bmi<25?['Normal Weight ✅','#10b981','You are in a healthy range!']:bmi<30?['Overweight','#f59e0b','Light exercise can help']:['Obese','#ef4444','Consult a healthcare provider'];
+  document.getElementById('bmiMain').textContent=bmi+' BMI';
+  document.getElementById('bmiStatus').textContent=s[0];document.getElementById('bmiStatus').style.color=s[1];
+  document.getElementById('bmiAdvice').textContent=s[2];
+  document.getElementById('bmiResult').style.display='block';
+}
+
+// ── TAX ──
+function setTaxStatus(s,btn){taxStatus=s;document.querySelectorAll('#tax .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
+function calcTax(){
+  const inc=parseFloat(document.getElementById('taxIncome').value);if(!inc)return;
+  const b=taxStatus==='single'?[[11600,.10],[47150,.12],[100525,.22],[191950,.24],[243725,.32],[609350,.35],[Infinity,.37]]:[[23200,.10],[94300,.12],[201050,.22],[383900,.24],[487450,.32],[731200,.35],[Infinity,.37]];
+  let tax=0,prev=0;
+  for(const[l,r]of b){if(inc<=prev)break;tax+=(Math.min(inc,l)-prev)*r;prev=l}
+  const rate=((tax/inc)*100).toFixed(1),after=inc-tax;
+  document.getElementById('taxMain').textContent='-$'+Math.round(tax).toLocaleString()+' Tax';
+  document.getElementById('taxRate').textContent=rate+'%';
+  document.getElementById('taxAfter').textContent='$'+(after/1000).toFixed(1)+'K';
+  document.getElementById('taxMonthly').textContent='$'+Math.round(after/12).toLocaleString();
+  document.getElementById('taxResult').style.display='block';
+}
+
+// ── COMPOUND ──
+function setFreq(f,btn){freq=f;document.querySelectorAll('#compound .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
+function calcCompound(){
+  const p=parseFloat(document.getElementById('cPrincipal').value);
+  const r=parseFloat(document.getElementById('cRate').value)/100;
+  const t=parseFloat(document.getElementById('cYears').value);
+  if(!p||!r||!t)return;
+  const amt=p*Math.pow(1+r/freq,freq*t);
+  const int=amt-p,growth=((int/p)*100).toFixed(1);
+  document.getElementById('compoundMain').textContent='$'+amt.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('compoundGrowth').textContent='+'+growth+'%';
+  document.getElementById('compoundInterest').textContent='$'+int.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('compoundResult').style.display='block';
+}
+</script>
 </body>
 </html>
