@@ -1,415 +1,662 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Calculator Tools - Age, BMI, Tip, GPA & More</title>
-<meta name="description" content="Free online calculator tools. Age calculator, BMI calculator, Tip calculator, GPA calculator, Mortgage calculator and more.">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Inter',sans-serif;background:#f0f4ff;min-height:100vh;padding:20px 14px 40px}
-  .header{text-align:center;margin-bottom:24px}
-  .badge{display:inline-block;background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#64748b;margin-bottom:14px}
-  h1{font-size:28px;font-weight:800;color:#0f172a;margin-bottom:6px}
-  h1 span{color:#3b82f6}
-  .subtitle{font-size:13px;color:#94a3b8}
-  .tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;max-width:600px;margin-left:auto;margin-right:auto}
-  .tool-btn{background:#fff;border:2px solid #e2e8f0;border-radius:14px;padding:12px 6px;cursor:pointer;text-align:center;transition:all 0.2s}
-  .tool-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
-  .tool-btn.active{border-color:#3b82f6;background:#eff6ff}
-  .tool-icon{font-size:22px;display:block;margin-bottom:5px}
-  .tool-name{font-size:9px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px}
-  .tool-btn.active .tool-name{color:#1e40af}
-  .card{background:#fff;border-radius:22px;border:1px solid #e2e8f0;box-shadow:0 4px 24px rgba(0,0,0,0.06);max-width:600px;margin:0 auto;overflow:hidden}
-  .card-top{padding:20px;border-bottom:1px solid #f1f5f9;background:#f8faff}
-  .card-title{font-size:18px;font-weight:800;color:#0f172a;margin-bottom:3px}
-  .card-desc{font-size:13px;color:#94a3b8}
-  .card-body{padding:20px}
-  .calc-section{display:none}
-  .calc-section.active{display:block}
-  label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#64748b;margin-bottom:7px;margin-top:16px}
-  label:first-child{margin-top:0}
-  input,select{width:100%;background:#f8fafc;border:2px solid #e2e8f0;border-radius:11px;padding:12px 14px;color:#0f172a;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
-  input:focus,select:focus{border-color:#3b82f6;background:#fff}
-  input::placeholder{color:#cbd5e1}
-  .chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-  .chip{padding:8px 14px;border-radius:20px;border:2px solid #e2e8f0;background:#f8fafc;font-size:12px;font-weight:600;color:#64748b;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif}
-  .chip.active{background:#3b82f6;border-color:#3b82f6;color:#fff}
-  .calc-btn{width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px rgba(59,130,246,0.3)}
-  .calc-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(59,130,246,0.4)}
-  .result-box{margin-top:18px;background:linear-gradient(135deg,#f8fafc,#f0f4ff);border:2px solid #e2e8f0;border-radius:16px;padding:20px;text-align:center;display:none}
-  .result-main{font-size:30px;font-weight:800;color:#0f172a;margin-bottom:8px}
-  .result-sub{font-size:14px;color:#64748b;margin-top:4px}
-  .result-green{color:#10b981}
-  .result-red{color:#ef4444}
-  .result-blue{color:#3b82f6}
-  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-  .stat-box{background:#fff;border-radius:10px;padding:10px 6px;border:1px solid #e2e8f0;text-align:center}
-  .stat-num{font-size:16px;font-weight:700;color:#0f172a}
-  .stat-label{font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;margin-top:2px}
-  .footer{text-align:center;margin-top:24px;font-size:12px;color:#94a3b8}
-  .footer strong{color:#3b82f6}
-  .counter-row{display:flex;align-items:center;gap:16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:11px;padding:10px 14px;width:fit-content}
-  .counter-btn{width:32px;height:32px;border-radius:50%;border:2px solid #e2e8f0;background:#fff;font-size:18px;font-weight:700;color:#3b82f6;cursor:pointer}
-  .counter-val{font-size:18px;font-weight:700;color:#0f172a;min-width:30px;text-align:center}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ SEO Meta Tags -->
+  <title>Smart Calculator Tools – Free Online Calculators | No Signup</title>
+  <meta name="description" content="10+ free online calculator tools – Age, BMI, GPA, Mortgage, Tip, Currency, Date Difference, Tax, Interest & Miles→KM. No signup, no ads, works everywhere." />
+  <meta name="keywords" content="free calculator, age calculator, BMI calculator, currency converter, date calculator, GPA calculator, mortgage calculator, online tools" />
+  <meta name="author" content="CalculatorHub" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/" />
+
+  <!-- ✅ Open Graph (for WhatsApp / Facebook sharing) -->
+  <meta property="og:title" content="Smart Calculator Tools – Free Online Calculators" />
+  <meta property="og:description" content="10+ free tools. No ads. No signup. Works on any device." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mudanmemon121.github.io/calculatortools/" />
+
+  <!-- ✅ Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Smart Calculator Tools" />
+  <meta name="twitter:description" content="10+ free online calculators. No ads, no signup." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --surface2: #e8edf8;
+      --border: #d4dcf0;
+      --text: #0f1623;
+      --text2: #4a5568;
+      --accent: #3b6cf8;
+      --accent2: #6c3bf8;
+      --accent-light: #eef2ff;
+      --card-shadow: 0 4px 24px rgba(59,108,248,0.10);
+      --radius: 18px;
+      --transition: 0.25s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="dark"] {
+      --bg: #0d0f1a;
+      --surface: #161927;
+      --surface2: #1e2235;
+      --border: #2a2f4a;
+      --text: #eef0ff;
+      --text2: #8892b0;
+      --accent: #5b8dff;
+      --accent2: #9b6bff;
+      --accent-light: #1a2040;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ─── Header ─── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.25rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px;
+      padding: 5px 12px; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent);
+      border: 1px solid var(--border);
+      text-transform: uppercase;
+    }
+
+    /* ─── Dark Mode Toggle ─── */
+    .theme-toggle {
+      width: 48px; height: 26px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 99px; cursor: pointer;
+      position: relative; transition: background var(--transition);
+      outline: none;
+    }
+    .theme-toggle::after {
+      content: ''; position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      transition: transform var(--transition);
+    }
+    [data-theme="dark"] .theme-toggle::after { transform: translateX(22px); }
+    .theme-icon { font-size: 1rem; cursor: pointer; background: none; border: none; color: var(--text2); }
+
+    /* ─── Hero ─── */
+    .hero {
+      text-align: center; padding: 60px 24px 32px;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p { color: var(--text2); font-size: 1.05rem; font-weight: 300; }
+    .hero-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+    .pill {
+      font-size: 0.78rem; font-weight: 500;
+      padding: 5px 14px; border-radius: 99px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text2);
+    }
+
+    /* ─── Tool Grid ─── */
+    .tools-section { max-width: 960px; margin: 0 auto; padding: 0 20px 60px; }
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text2);
+      margin-bottom: 16px;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px; margin-bottom: 32px;
+    }
+    .tool-btn {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 10px;
+      cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      transition: all var(--transition);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .tool-btn:hover {
+      border-color: var(--accent);
+      box-shadow: var(--card-shadow);
+      transform: translateY(-3px);
+    }
+    .tool-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-light);
+      box-shadow: 0 0 0 3px rgba(59,108,248,0.15);
+    }
+    .tool-btn .icon { font-size: 1.8rem; line-height: 1; }
+    .tool-btn .label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text2); }
+    .tool-btn.active .label { color: var(--accent); }
+
+    /* ─── Calculator Panel ─── */
+    .calc-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      animation: fadeUp 0.3s ease;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .calc-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 4px;
+    }
+    .calc-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 28px; }
+
+    /* ─── Form Elements ─── */
+    .field { margin-bottom: 18px; }
+    label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text2); margin-bottom: 8px; }
+    input, select {
+      width: 100%; padding: 13px 16px;
+      background: var(--surface2); border: 1.5px solid var(--border);
+      border-radius: 12px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 1rem;
+      transition: border-color var(--transition), background var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus { border-color: var(--accent); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .row { grid-template-columns: 1fr; } }
+
+    /* ─── Button ─── */
+    .btn {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none; border-radius: 14px;
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.3px;
+      transition: opacity var(--transition), transform var(--transition);
+      margin-top: 8px;
+    }
+    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn:active { transform: scale(0.98); }
+
+    /* ─── Result ─── */
+    .result {
+      margin-top: 20px; padding: 20px 24px;
+      background: linear-gradient(135deg, var(--accent-light), var(--surface2));
+      border: 1.5px solid var(--accent);
+      border-radius: 16px; display: none;
+      animation: fadeUp 0.25s ease;
+    }
+    .result.show { display: block; }
+    .result-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .result-value { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text); }
+    .result-sub { font-size: 0.85rem; color: var(--text2); margin-top: 4px; }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center; padding: 24px;
+      font-size: 0.82rem; color: var(--text2);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="badge">🌐 Free Online Tools</div>
+<!-- ─── Header ─── -->
+<header>
+  <div class="logo">⚡ CalcTools</div>
+  <div class="header-right">
+    <span class="badge">🟢 Free · No Ads</span>
+    <button class="theme-icon" onclick="toggleTheme()" title="Toggle Dark Mode" aria-label="Toggle dark mode">🌙</button>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+  </div>
+</header>
+
+<!-- ─── Hero ─── -->
+<div class="hero">
   <h1>Smart <span>Calculator</span> Tools</h1>
-  <p class="subtitle">8 Free Tools · No Signup · Works Everywhere</p>
-</div>
-
-<div class="tools-grid">
-  <button class="tool-btn active" onclick="showTool('age',this)"><span class="tool-icon">🎂</span><div class="tool-name">Age</div></button>
-  <button class="tool-btn" onclick="showTool('tip',this)"><span class="tool-icon">🍽️</span><div class="tool-name">Tip</div></button>
-  <button class="tool-btn" onclick="showTool('gpa',this)"><span class="tool-icon">🎓</span><div class="tool-name">GPA</div></button>
-  <button class="tool-btn" onclick="showTool('miles',this)"><span class="tool-icon">🛣️</span><div class="tool-name">Miles↔KM</div></button>
-  <button class="tool-btn" onclick="showTool('mortgage',this)"><span class="tool-icon">🏠</span><div class="tool-name">Mortgage</div></button>
-  <button class="tool-btn" onclick="showTool('bmi',this)"><span class="tool-icon">💪</span><div class="tool-name">BMI</div></button>
-  <button class="tool-btn" onclick="showTool('tax',this)"><span class="tool-icon">📋</span><div class="tool-name">Tax</div></button>
-  <button class="tool-btn" onclick="showTool('compound',this)"><span class="tool-icon">📈</span><div class="tool-name">Interest</div></button>
-</div>
-
-<div class="card">
-  <div class="card-top">
-    <div class="card-title" id="cardTitle">🎂 Age Calculator</div>
-    <div class="card-desc" id="cardDesc">Find your exact age in years, months & days</div>
-  </div>
-  <div class="card-body">
-
-    <!-- AGE -->
-    <div class="calc-section active" id="age">
-      <label>Your Date of Birth</label>
-      <input type="date" id="dob" max="">
-      <button class="calc-btn" onclick="calcAge()">Calculate My Age</button>
-      <div class="result-box" id="ageResult">
-        <div class="result-main" id="ageMain"></div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="stat-num" id="ageMonths"></div><div class="stat-label">Months</div></div>
-          <div class="stat-box"><div class="stat-num" id="ageDays"></div><div class="stat-label">Days</div></div>
-          <div class="stat-box"><div class="stat-num" id="ageTotalDays"></div><div class="stat-label">Total Days</div></div>
-        </div>
-        <div class="result-sub" id="ageBirthday"></div>
-      </div>
-    </div>
-
-    <!-- TIP -->
-    <div class="calc-section" id="tip">
-      <label>Bill Amount ($)</label>
-      <input type="number" id="tipBill" placeholder="e.g. 85.50">
-      <label>Tip Percentage</label>
-      <div class="chip-row">
-        <button class="chip" onclick="setTip(10,this)">10%</button>
-        <button class="chip" onclick="setTip(15,this)">15%</button>
-        <button class="chip active" onclick="setTip(18,this)">18%</button>
-        <button class="chip" onclick="setTip(20,this)">20%</button>
-        <button class="chip" onclick="setTip(25,this)">25%</button>
-      </div>
-      <label>Number of People</label>
-      <div class="counter-row">
-        <button class="counter-btn" onclick="changePeople(-1)">−</button>
-        <span class="counter-val" id="peopleCount">1</span>
-        <button class="counter-btn" onclick="changePeople(1)">+</button>
-      </div>
-      <button class="calc-btn" onclick="calcTip()">Calculate Tip</button>
-      <div class="result-box" id="tipResult">
-        <div class="result-main" id="tipMain"></div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="stat-num" id="tipTotal"></div><div class="stat-label">Total Bill</div></div>
-          <div class="stat-box"><div class="stat-num" id="tipAmt"></div><div class="stat-label">Total Tip</div></div>
-          <div class="stat-box"><div class="stat-num" id="tipPer"></div><div class="stat-label">Tip/Person</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- GPA -->
-    <div class="calc-section" id="gpa">
-      <label>Your Courses</label>
-      <div id="courseList">
-        <div style="display:flex;gap:8px;margin-bottom:8px">
-          <input placeholder="Course Name" style="flex:2;margin:0">
-          <select style="flex:1;margin:0"><option>A+</option><option>A</option><option selected>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select>
-          <input type="number" placeholder="Cr" style="flex:0.6;margin:0" value="3">
-        </div>
-        <div style="display:flex;gap:8px;margin-bottom:8px">
-          <input placeholder="Course Name" style="flex:2;margin:0">
-          <select style="flex:1;margin:0"><option>A+</option><option>A</option><option>A-</option><option selected>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select>
-          <input type="number" placeholder="Cr" style="flex:0.6;margin:0" value="3">
-        </div>
-      </div>
-      <button class="calc-btn" onclick="calcGPA()">Calculate GPA</button>
-      <div class="result-box" id="gpaResult">
-        <div class="result-main result-blue" id="gpaMain"></div>
-        <div class="result-sub result-green" id="gpaStanding"></div>
-      </div>
-    </div>
-
-    <!-- MILES -->
-    <div class="calc-section" id="miles">
-      <label>Convert Direction</label>
-      <div class="chip-row">
-        <button class="chip active" onclick="setMilesMode('mi',this)">Miles → KM</button>
-        <button class="chip" onclick="setMilesMode('km',this)">KM → Miles</button>
-      </div>
-      <label id="milesLabel">Miles</label>
-      <input type="number" id="milesVal" placeholder="e.g. 26.2">
-      <button class="calc-btn" onclick="calcMiles()">Convert Now</button>
-      <div class="result-box" id="milesResult">
-        <div class="result-main result-blue" id="milesMain"></div>
-        <div class="result-sub" id="milesSub"></div>
-      </div>
-    </div>
-
-    <!-- MORTGAGE -->
-    <div class="calc-section" id="mortgage">
-      <label>Home Price ($)</label>
-      <input type="number" id="mPrice" placeholder="e.g. 350000">
-      <label>Down Payment ($)</label>
-      <input type="number" id="mDown" placeholder="e.g. 70000 (20%)">
-      <label>Annual Interest Rate (%)</label>
-      <input type="number" id="mRate" placeholder="e.g. 6.8" step="0.1">
-      <label>Loan Term</label>
-      <div class="chip-row">
-        <button class="chip" onclick="setYears(10,this)">10 yr</button>
-        <button class="chip" onclick="setYears(15,this)">15 yr</button>
-        <button class="chip" onclick="setYears(20,this)">20 yr</button>
-        <button class="chip active" onclick="setYears(30,this)">30 yr</button>
-      </div>
-      <button class="calc-btn" onclick="calcMortgage()">Calculate Payment</button>
-      <div class="result-box" id="mortgageResult">
-        <div class="result-main" id="mortgageMain"></div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="stat-num" id="mortLoan"></div><div class="stat-label">Loan</div></div>
-          <div class="stat-box"><div class="stat-num result-red" id="mortInterest"></div><div class="stat-label">Interest</div></div>
-          <div class="stat-box"><div class="stat-num" id="mortTotal"></div><div class="stat-label">Total Paid</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BMI -->
-    <div class="calc-section" id="bmi">
-      <div class="chip-row">
-        <button class="chip active" onclick="setBmiUnit('imperial',this)">Imperial (US)</button>
-        <button class="chip" onclick="setBmiUnit('metric',this)">Metric</button>
-      </div>
-      <div id="bmiImperial">
-        <label>Height</label>
-        <div style="display:flex;gap:10px">
-          <input type="number" id="bmiFt" placeholder="Feet" style="flex:1">
-          <input type="number" id="bmiIn" placeholder="Inches" style="flex:1">
-        </div>
-        <label>Weight (lbs)</label>
-        <input type="number" id="bmiLbs" placeholder="e.g. 160">
-      </div>
-      <div id="bmiMetric" style="display:none">
-        <label>Height (cm)</label>
-        <input type="number" id="bmiCm" placeholder="e.g. 175">
-        <label>Weight (kg)</label>
-        <input type="number" id="bmiKg" placeholder="e.g. 70">
-      </div>
-      <button class="calc-btn" onclick="calcBMI()">Calculate BMI</button>
-      <div class="result-box" id="bmiResult">
-        <div class="result-main" id="bmiMain"></div>
-        <div class="result-sub" id="bmiStatus" style="font-size:15px;font-weight:700;margin-top:6px"></div>
-        <div class="result-sub" id="bmiAdvice"></div>
-      </div>
-    </div>
-
-    <!-- TAX -->
-    <div class="calc-section" id="tax">
-      <label>Annual Income ($)</label>
-      <input type="number" id="taxIncome" placeholder="e.g. 75000">
-      <label>Filing Status</label>
-      <div class="chip-row">
-        <button class="chip active" onclick="setTaxStatus('single',this)">Single</button>
-        <button class="chip" onclick="setTaxStatus('married',this)">Married</button>
-      </div>
-      <p style="font-size:12px;color:#94a3b8;margin-top:10px;padding:8px 12px;background:#f8fafc;border-radius:8px">📌 Based on 2024 US Federal Tax Brackets</p>
-      <button class="calc-btn" onclick="calcTax()">Estimate My Tax</button>
-      <div class="result-box" id="taxResult">
-        <div class="result-main result-red" id="taxMain"></div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="stat-num" id="taxRate"></div><div class="stat-label">Eff. Rate</div></div>
-          <div class="stat-box"><div class="stat-num result-green" id="taxAfter"></div><div class="stat-label">After Tax</div></div>
-          <div class="stat-box"><div class="stat-num" id="taxMonthly"></div><div class="stat-label">Monthly</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- COMPOUND -->
-    <div class="calc-section" id="compound">
-      <label>Initial Investment ($)</label>
-      <input type="number" id="cPrincipal" placeholder="e.g. 10000">
-      <label>Annual Interest Rate (%)</label>
-      <input type="number" id="cRate" placeholder="e.g. 7" step="0.1">
-      <label>Time Period (Years)</label>
-      <input type="number" id="cYears" placeholder="e.g. 10">
-      <label>Compound Frequency</label>
-      <div class="chip-row">
-        <button class="chip" onclick="setFreq(1,this)">Yearly</button>
-        <button class="chip" onclick="setFreq(4,this)">Quarterly</button>
-        <button class="chip active" onclick="setFreq(12,this)">Monthly</button>
-        <button class="chip" onclick="setFreq(365,this)">Daily</button>
-      </div>
-      <button class="calc-btn" onclick="calcCompound()">Calculate Growth</button>
-      <div class="result-box" id="compoundResult">
-        <div class="result-main result-green" id="compoundMain"></div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="stat-num result-green" id="compoundGrowth"></div><div class="stat-label">Growth %</div></div>
-          <div class="stat-box"><div class="stat-num result-green" id="compoundInterest"></div><div class="stat-label">Earned</div></div>
-        </div>
-      </div>
-    </div>
-
+  <p>10 Free Tools · No Signup · Works Everywhere</p>
+  <div class="hero-pills">
+    <span class="pill">✅ Free Forever</span>
+    <span class="pill">🚫 No Ads</span>
+    <span class="pill">📱 Mobile Friendly</span>
+    <span class="pill">⚡ Instant Results</span>
   </div>
 </div>
 
-<div class="footer">
-  Free tools for everyone · <strong>calculatorhub</strong> · No ads, No signup
+<!-- ─── Tools ─── -->
+<div class="tools-section">
+  <div class="section-label">Choose a Tool</div>
+  <div class="tools-grid" id="toolGrid">
+    <button class="tool-btn active" onclick="showTool('age',this)"><span class="icon">🎂</span><span class="label">Age</span></button>
+    <button class="tool-btn" onclick="showTool('tip',this)"><span class="icon">💰</span><span class="label">Tip</span></button>
+    <button class="tool-btn" onclick="showTool('gpa',this)"><span class="icon">🎓</span><span class="label">GPA</span></button>
+    <button class="tool-btn" onclick="showTool('miles',this)"><span class="icon">🛣️</span><span class="label">Miles→KM</span></button>
+    <button class="tool-btn" onclick="showTool('mortgage',this)"><span class="icon">🏠</span><span class="label">Mortgage</span></button>
+    <button class="tool-btn" onclick="showTool('bmi',this)"><span class="icon">💪</span><span class="label">BMI</span></button>
+    <button class="tool-btn" onclick="showTool('tax',this)"><span class="icon">🧾</span><span class="label">Tax</span></button>
+    <button class="tool-btn" onclick="showTool('interest',this)"><span class="icon">📈</span><span class="label">Interest</span></button>
+    <button class="tool-btn" onclick="showTool('currency',this)"><span class="icon">💱</span><span class="label">Currency</span></button>
+    <button class="tool-btn" onclick="showTool('date',this)"><span class="icon">📅</span><span class="label">Date Diff</span></button>
+  </div>
+
+  <!-- ══════════ AGE ══════════ -->
+  <div class="calc-panel" id="tool-age">
+    <div class="calc-title">🎂 Age Calculator</div>
+    <div class="calc-desc">Find your exact age in years, months & days</div>
+    <div class="field"><label>Your Date of Birth</label><input type="date" id="ageDob" /></div>
+    <button class="btn" onclick="calcAge()">Calculate My Age</button>
+    <div class="result" id="ageResult">
+      <div class="result-label">Your Age</div>
+      <div class="result-value" id="ageValue">—</div>
+      <div class="result-sub" id="ageSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ TIP ══════════ -->
+  <div class="calc-panel" id="tool-tip" style="display:none">
+    <div class="calc-title">💰 Tip Calculator</div>
+    <div class="calc-desc">Calculate tip and split the bill easily</div>
+    <div class="row">
+      <div class="field"><label>Bill Amount ($)</label><input type="number" id="tipBill" placeholder="e.g. 50" /></div>
+      <div class="field"><label>Tip %</label><input type="number" id="tipPct" placeholder="e.g. 15" value="15"/></div>
+    </div>
+    <div class="field"><label>Split Among</label><input type="number" id="tipSplit" placeholder="1" value="1" /></div>
+    <button class="btn" onclick="calcTip()">Calculate Tip</button>
+    <div class="result" id="tipResult">
+      <div class="result-label">Per Person Total</div>
+      <div class="result-value" id="tipValue">—</div>
+      <div class="result-sub" id="tipSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ GPA ══════════ -->
+  <div class="calc-panel" id="tool-gpa" style="display:none">
+    <div class="calc-title">🎓 GPA Calculator</div>
+    <div class="calc-desc">Enter up to 5 courses with grades and credit hours</div>
+    <div id="gpaRows">
+      <div class="row" style="margin-bottom:10px">
+        <div class="field"><label>Grade (0–4)</label><input type="number" class="gGrade" placeholder="e.g. 3.7" step="0.1" max="4" /></div>
+        <div class="field"><label>Credit Hours</label><input type="number" class="gCredit" placeholder="e.g. 3" /></div>
+      </div>
+      <div class="row" style="margin-bottom:10px">
+        <div class="field"><label>&nbsp;</label><input type="number" class="gGrade" placeholder="e.g. 4.0" step="0.1" max="4" /></div>
+        <div class="field"><label>&nbsp;</label><input type="number" class="gCredit" placeholder="e.g. 3" /></div>
+      </div>
+      <div class="row" style="margin-bottom:10px">
+        <div class="field"><label>&nbsp;</label><input type="number" class="gGrade" placeholder="e.g. 3.3" step="0.1" max="4" /></div>
+        <div class="field"><label>&nbsp;</label><input type="number" class="gCredit" placeholder="e.g. 4" /></div>
+      </div>
+    </div>
+    <button class="btn" onclick="calcGPA()">Calculate GPA</button>
+    <div class="result" id="gpaResult">
+      <div class="result-label">Your GPA</div>
+      <div class="result-value" id="gpaValue">—</div>
+      <div class="result-sub" id="gpaSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ MILES ══════════ -->
+  <div class="calc-panel" id="tool-miles" style="display:none">
+    <div class="calc-title">🛣️ Miles ↔ KM Converter</div>
+    <div class="calc-desc">Convert between miles and kilometers instantly</div>
+    <div class="row">
+      <div class="field"><label>Miles</label><input type="number" id="milesVal" placeholder="e.g. 10" oninput="autoConvert('miles')" /></div>
+      <div class="field"><label>Kilometers</label><input type="number" id="kmVal" placeholder="e.g. 16.09" oninput="autoConvert('km')" /></div>
+    </div>
+    <div class="result show" id="milesResult">
+      <div class="result-label">Formula</div>
+      <div class="result-value" id="milesValue">1 mile = 1.60934 km</div>
+      <div class="result-sub">Type in either field to auto-convert</div>
+    </div>
+  </div>
+
+  <!-- ══════════ MORTGAGE ══════════ -->
+  <div class="calc-panel" id="tool-mortgage" style="display:none">
+    <div class="calc-title">🏠 Mortgage Calculator</div>
+    <div class="calc-desc">Estimate your monthly home loan payment</div>
+    <div class="row">
+      <div class="field"><label>Loan Amount ($)</label><input type="number" id="mortLoan" placeholder="e.g. 300000" /></div>
+      <div class="field"><label>Annual Interest %</label><input type="number" id="mortRate" placeholder="e.g. 6.5" step="0.1" /></div>
+    </div>
+    <div class="field"><label>Loan Term (Years)</label><input type="number" id="mortYears" placeholder="e.g. 30" /></div>
+    <button class="btn" onclick="calcMortgage()">Calculate Payment</button>
+    <div class="result" id="mortResult">
+      <div class="result-label">Monthly Payment</div>
+      <div class="result-value" id="mortValue">—</div>
+      <div class="result-sub" id="mortSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ BMI ══════════ -->
+  <div class="calc-panel" id="tool-bmi" style="display:none">
+    <div class="calc-title">💪 BMI Calculator</div>
+    <div class="calc-desc">Check your Body Mass Index and health category</div>
+    <div class="row">
+      <div class="field"><label>Weight (kg)</label><input type="number" id="bmiWeight" placeholder="e.g. 70" /></div>
+      <div class="field"><label>Height (cm)</label><input type="number" id="bmiHeight" placeholder="e.g. 175" /></div>
+    </div>
+    <button class="btn" onclick="calcBMI()">Calculate BMI</button>
+    <div class="result" id="bmiResult">
+      <div class="result-label">Your BMI</div>
+      <div class="result-value" id="bmiValue">—</div>
+      <div class="result-sub" id="bmiSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ TAX ══════════ -->
+  <div class="calc-panel" id="tool-tax" style="display:none">
+    <div class="calc-title">🧾 Tax Calculator</div>
+    <div class="calc-desc">Calculate tax amount and total price after tax</div>
+    <div class="row">
+      <div class="field"><label>Price ($)</label><input type="number" id="taxPrice" placeholder="e.g. 100" /></div>
+      <div class="field"><label>Tax Rate %</label><input type="number" id="taxRate" placeholder="e.g. 10" /></div>
+    </div>
+    <button class="btn" onclick="calcTax()">Calculate Tax</button>
+    <div class="result" id="taxResult">
+      <div class="result-label">Total with Tax</div>
+      <div class="result-value" id="taxValue">—</div>
+      <div class="result-sub" id="taxSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ INTEREST ══════════ -->
+  <div class="calc-panel" id="tool-interest" style="display:none">
+    <div class="calc-title">📈 Interest Calculator</div>
+    <div class="calc-desc">Simple & compound interest in seconds</div>
+    <div class="row">
+      <div class="field"><label>Principal ($)</label><input type="number" id="intPrincipal" placeholder="e.g. 1000" /></div>
+      <div class="field"><label>Annual Rate %</label><input type="number" id="intRate" placeholder="e.g. 5" step="0.1" /></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Time (Years)</label><input type="number" id="intYears" placeholder="e.g. 3" /></div>
+      <div class="field"><label>Type</label>
+        <select id="intType">
+          <option value="simple">Simple Interest</option>
+          <option value="compound">Compound Interest</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" onclick="calcInterest()">Calculate Interest</button>
+    <div class="result" id="intResult">
+      <div class="result-label">Total Amount</div>
+      <div class="result-value" id="intValue">—</div>
+      <div class="result-sub" id="intSub"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ CURRENCY ══════════ -->
+  <div class="calc-panel" id="tool-currency" style="display:none">
+    <div class="calc-title">💱 Currency Converter</div>
+    <div class="calc-desc">Convert between popular world currencies (approximate rates)</div>
+    <div class="field"><label>Amount</label><input type="number" id="currAmount" placeholder="e.g. 100" /></div>
+    <div class="row">
+      <div class="field"><label>From</label>
+        <select id="currFrom">
+          <option value="USD">🇺🇸 USD – US Dollar</option>
+          <option value="EUR">🇪🇺 EUR – Euro</option>
+          <option value="GBP">🇬🇧 GBP – British Pound</option>
+          <option value="PKR">🇵🇰 PKR – Pakistani Rupee</option>
+          <option value="INR">🇮🇳 INR – Indian Rupee</option>
+          <option value="AED">🇦🇪 AED – UAE Dirham</option>
+          <option value="SAR">🇸🇦 SAR – Saudi Riyal</option>
+          <option value="JPY">🇯🇵 JPY – Japanese Yen</option>
+          <option value="CAD">🇨🇦 CAD – Canadian Dollar</option>
+          <option value="AUD">🇦🇺 AUD – Australian Dollar</option>
+        </select>
+      </div>
+      <div class="field"><label>To</label>
+        <select id="currTo">
+          <option value="PKR">🇵🇰 PKR – Pakistani Rupee</option>
+          <option value="USD">🇺🇸 USD – US Dollar</option>
+          <option value="EUR">🇪🇺 EUR – Euro</option>
+          <option value="GBP">🇬🇧 GBP – British Pound</option>
+          <option value="INR">🇮🇳 INR – Indian Rupee</option>
+          <option value="AED">🇦🇪 AED – UAE Dirham</option>
+          <option value="SAR">🇸🇦 SAR – Saudi Riyal</option>
+          <option value="JPY">🇯🇵 JPY – Japanese Yen</option>
+          <option value="CAD">🇨🇦 CAD – Canadian Dollar</option>
+          <option value="AUD">🇦🇺 AUD – Australian Dollar</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" onclick="calcCurrency()">Convert Currency</button>
+    <div class="result" id="currResult">
+      <div class="result-label">Converted Amount</div>
+      <div class="result-value" id="currValue">—</div>
+      <div class="result-sub" id="currSub">Rates are approximate. For live rates, check xe.com</div>
+    </div>
+  </div>
+
+  <!-- ══════════ DATE DIFF ══════════ -->
+  <div class="calc-panel" id="tool-date" style="display:none">
+    <div class="calc-title">📅 Date Difference Calculator</div>
+    <div class="calc-desc">Find the exact number of days between two dates</div>
+    <div class="row">
+      <div class="field"><label>Start Date</label><input type="date" id="dateStart" /></div>
+      <div class="field"><label>End Date</label><input type="date" id="dateEnd" /></div>
+    </div>
+    <button class="btn" onclick="calcDate()">Calculate Difference</button>
+    <div class="result" id="dateResult">
+      <div class="result-label">Difference</div>
+      <div class="result-value" id="dateValue">—</div>
+      <div class="result-sub" id="dateSub"></div>
+    </div>
+  </div>
+
 </div>
+
+<!-- ─── Footer ─── -->
+<footer>
+  Free tools for everyone &middot; <a href="#">calculatorhub</a> &middot; No ads &middot; No signup
+</footer>
 
 <script>
-// ── STATE ──
-let tipPct=18, people=1, milesMode='mi', mortYears=30, bmiUnit='imperial', taxStatus='single', freq=12;
+  // ─── Dark Mode ───
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
 
-// ── TOOL SWITCHER ──
-const titles={age:['🎂 Age Calculator','Find your exact age in years, months & days'],tip:['🍽️ Tip Calculator','Split restaurant bills easily'],gpa:['🎓 GPA Calculator','Calculate your Grade Point Average'],miles:['🛣️ Miles ↔ KM Converter','Convert miles to kilometers & back'],mortgage:['🏠 Mortgage Calculator','Calculate monthly home loan payments'],bmi:['💪 BMI Calculator','Check your Body Mass Index'],tax:['📋 Tax Calculator','Estimate your US income tax'],compound:['📈 Compound Interest','Grow your savings over time']};
-function showTool(id,btn){
-  document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  document.getElementById('cardTitle').textContent=titles[id][0];
-  document.getElementById('cardDesc').textContent=titles[id][1];
-}
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
 
-// ── AGE ──
-document.getElementById('dob').max=new Date().toISOString().split('T')[0];
-function calcAge(){
-  const dob=new Date(document.getElementById('dob').value);
-  if(!dob.getTime())return;
-  const now=new Date();
-  let y=now.getFullYear()-dob.getFullYear(),m=now.getMonth()-dob.getMonth(),d=now.getDate()-dob.getDate();
-  if(d<0){m--;d+=30}if(m<0){y--;m+=12}
-  const total=Math.floor((now-dob)/86400000);
-  const next=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());
-  if(next<now)next.setFullYear(now.getFullYear()+1);
-  const daysTo=Math.floor((next-now)/86400000);
-  document.getElementById('ageMain').textContent=y+' Years Old';
-  document.getElementById('ageMonths').textContent=m;
-  document.getElementById('ageDays').textContent=d;
-  document.getElementById('ageTotalDays').textContent=total.toLocaleString();
-  document.getElementById('ageBirthday').textContent='🎂 Next birthday in '+daysTo+' days!';
-  document.getElementById('ageResult').style.display='block';
-}
+  // ─── Tool Switcher ───
+  const tools = ['age','tip','gpa','miles','mortgage','bmi','tax','interest','currency','date'];
+  function showTool(id, btn) {
+    tools.forEach(t => {
+      document.getElementById('tool-' + t).style.display = t === id ? 'block' : 'none';
+    });
+    document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
 
-// ── TIP ──
-function setTip(v,btn){tipPct=v;document.querySelectorAll('#tip .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function changePeople(d){people=Math.max(1,people+d);document.getElementById('peopleCount').textContent=people}
-function calcTip(){
-  const b=parseFloat(document.getElementById('tipBill').value);if(!b)return;
-  const t=(b*tipPct)/100,total=b+t;
-  document.getElementById('tipMain').textContent='$'+(total/people).toFixed(2)+' per person';
-  document.getElementById('tipTotal').textContent='$'+total.toFixed(2);
-  document.getElementById('tipAmt').textContent='$'+t.toFixed(2);
-  document.getElementById('tipPer').textContent='$'+(t/people).toFixed(2);
-  document.getElementById('tipResult').style.display='block';
-}
+  // ─── AGE ───
+  function calcAge() {
+    const dob = new Date(document.getElementById('ageDob').value);
+    if (!document.getElementById('ageDob').value) return alert('Please enter your date of birth');
+    const today = new Date();
+    let y = today.getFullYear() - dob.getFullYear();
+    let m = today.getMonth() - dob.getMonth();
+    let d = today.getDate() - dob.getDate();
+    if (d < 0) { m--; d += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+    if (m < 0) { y--; m += 12; }
+    const totalDays = Math.floor((today - dob) / 86400000);
+    document.getElementById('ageValue').textContent = `${y} yrs, ${m} mos, ${d} days`;
+    document.getElementById('ageSub').textContent = `That's ${totalDays.toLocaleString()} total days lived!`;
+    document.getElementById('ageResult').classList.add('show');
+  }
 
-// ── GPA ──
-const gp={'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D':1.0,'F':0};
-function calcGPA(){
-  const rows=document.querySelectorAll('#courseList > div');
-  let pts=0,cr=0;
-  rows.forEach(r=>{
-    const sel=r.querySelector('select').value;
-    const c=parseFloat(r.querySelectorAll('input')[1].value)||0;
-    pts+=(gp[sel]||0)*c;cr+=c;
-  });
-  if(!cr)return;
-  const g=(pts/cr).toFixed(2);
-  const s=g>=3.7?'Summa Cum Laude 🏆':g>=3.3?'Magna Cum Laude 🎖️':g>=3.0?'Cum Laude 🎓':g>=2.0?'Good Standing ✅':'Academic Probation ⚠️';
-  document.getElementById('gpaMain').textContent=g+' GPA';
-  document.getElementById('gpaStanding').textContent=s;
-  document.getElementById('gpaResult').style.display='block';
-}
+  // ─── TIP ───
+  function calcTip() {
+    const bill = +document.getElementById('tipBill').value;
+    const pct  = +document.getElementById('tipPct').value;
+    const split= +document.getElementById('tipSplit').value || 1;
+    if (!bill) return alert('Enter a bill amount');
+    const tip   = bill * pct / 100;
+    const total = (bill + tip) / split;
+    document.getElementById('tipValue').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('tipSub').textContent = `Tip: $${tip.toFixed(2)} · Total: $${(bill+tip).toFixed(2)} · Split ${split} ways`;
+    document.getElementById('tipResult').classList.add('show');
+  }
 
-// ── MILES ──
-function setMilesMode(m,btn){milesMode=m;document.querySelectorAll('#miles .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById('milesLabel').textContent=m==='mi'?'Miles':'Kilometers'}
-function calcMiles(){
-  const v=parseFloat(document.getElementById('milesVal').value);if(!v)return;
-  let main,sub;
-  if(milesMode==='mi'){main=(v*1.60934).toFixed(3)+' Kilometers';sub='Also: '+(v*5280).toLocaleString()+' feet'}
-  else{main=(v/1.60934).toFixed(3)+' Miles';sub='Also: '+(v*1000).toLocaleString()+' meters'}
-  document.getElementById('milesMain').textContent=main;
-  document.getElementById('milesSub').textContent=sub;
-  document.getElementById('milesResult').style.display='block';
-}
+  // ─── GPA ───
+  function calcGPA() {
+    const grades  = [...document.querySelectorAll('.gGrade')].map(i => +i.value);
+    const credits = [...document.querySelectorAll('.gCredit')].map(i => +i.value);
+    let totalPoints = 0, totalCredits = 0;
+    grades.forEach((g, i) => { if (g && credits[i]) { totalPoints += g * credits[i]; totalCredits += credits[i]; } });
+    if (!totalCredits) return alert('Enter at least one course');
+    const gpa = (totalPoints / totalCredits).toFixed(2);
+    const cat = gpa >= 3.7 ? 'Excellent 🏆' : gpa >= 3.0 ? 'Good 👍' : gpa >= 2.0 ? 'Satisfactory' : 'Needs Improvement';
+    document.getElementById('gpaValue').textContent = gpa;
+    document.getElementById('gpaSub').textContent = `${cat} · Based on ${totalCredits} credit hours`;
+    document.getElementById('gpaResult').classList.add('show');
+  }
 
-// ── MORTGAGE ──
-function setYears(y,btn){mortYears=y;document.querySelectorAll('#mortgage .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function calcMortgage(){
-  const p=parseFloat(document.getElementById('mPrice').value)-(parseFloat(document.getElementById('mDown').value)||0);
-  const r=parseFloat(document.getElementById('mRate').value)/100/12;
-  const n=mortYears*12;
-  if(!p||!r||p<=0)return;
-  const m=(p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
-  const tot=m*n,int=tot-p;
-  document.getElementById('mortgageMain').textContent='$'+Math.round(m).toLocaleString()+'/month';
-  document.getElementById('mortLoan').textContent='$'+(p/1000).toFixed(0)+'K';
-  document.getElementById('mortInterest').textContent='$'+(int/1000).toFixed(0)+'K';
-  document.getElementById('mortTotal').textContent='$'+(tot/1000).toFixed(0)+'K';
-  document.getElementById('mortgageResult').style.display='block';
-}
+  // ─── MILES ───
+  function autoConvert(from) {
+    if (from === 'miles') {
+      const m = +document.getElementById('milesVal').value;
+      document.getElementById('kmVal').value = m ? (m * 1.60934).toFixed(3) : '';
+    } else {
+      const k = +document.getElementById('kmVal').value;
+      document.getElementById('milesVal').value = k ? (k / 1.60934).toFixed(3) : '';
+    }
+  }
 
-// ── BMI ──
-function setBmiUnit(u,btn){bmiUnit=u;document.querySelectorAll('#bmi .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById('bmiImperial').style.display=u==='imperial'?'block':'none';document.getElementById('bmiMetric').style.display=u==='metric'?'block':'none'}
-function calcBMI(){
-  let bmi;
-  if(bmiUnit==='imperial'){const t=(parseFloat(document.getElementById('bmiFt').value)||0)*12+(parseFloat(document.getElementById('bmiIn').value)||0);bmi=703*parseFloat(document.getElementById('bmiLbs').value)/(t*t)}
-  else{const h=parseFloat(document.getElementById('bmiCm').value)/100;bmi=parseFloat(document.getElementById('bmiKg').value)/(h*h)}
-  if(!bmi||isNaN(bmi))return;
-  bmi=bmi.toFixed(1);
-  const s=bmi<18.5?['Underweight','#3b82f6','Consider a balanced diet']:bmi<25?['Normal Weight ✅','#10b981','You are in a healthy range!']:bmi<30?['Overweight','#f59e0b','Light exercise can help']:['Obese','#ef4444','Consult a healthcare provider'];
-  document.getElementById('bmiMain').textContent=bmi+' BMI';
-  document.getElementById('bmiStatus').textContent=s[0];document.getElementById('bmiStatus').style.color=s[1];
-  document.getElementById('bmiAdvice').textContent=s[2];
-  document.getElementById('bmiResult').style.display='block';
-}
+  // ─── MORTGAGE ───
+  function calcMortgage() {
+    const P = +document.getElementById('mortLoan').value;
+    const r = +document.getElementById('mortRate').value / 100 / 12;
+    const n = +document.getElementById('mortYears').value * 12;
+    if (!P || !r || !n) return alert('Fill all fields');
+    const M = r === 0 ? P/n : P * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
+    const total = M * n;
+    document.getElementById('mortValue').textContent = `$${M.toFixed(2)}/mo`;
+    document.getElementById('mortSub').textContent = `Total paid: $${total.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')} · Interest: $${(total-P).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')}`;
+    document.getElementById('mortResult').classList.add('show');
+  }
 
-// ── TAX ──
-function setTaxStatus(s,btn){taxStatus=s;document.querySelectorAll('#tax .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function calcTax(){
-  const inc=parseFloat(document.getElementById('taxIncome').value);if(!inc)return;
-  const b=taxStatus==='single'?[[11600,.10],[47150,.12],[100525,.22],[191950,.24],[243725,.32],[609350,.35],[Infinity,.37]]:[[23200,.10],[94300,.12],[201050,.22],[383900,.24],[487450,.32],[731200,.35],[Infinity,.37]];
-  let tax=0,prev=0;
-  for(const[l,r]of b){if(inc<=prev)break;tax+=(Math.min(inc,l)-prev)*r;prev=l}
-  const rate=((tax/inc)*100).toFixed(1),after=inc-tax;
-  document.getElementById('taxMain').textContent='-$'+Math.round(tax).toLocaleString()+' Tax';
-  document.getElementById('taxRate').textContent=rate+'%';
-  document.getElementById('taxAfter').textContent='$'+(after/1000).toFixed(1)+'K';
-  document.getElementById('taxMonthly').textContent='$'+Math.round(after/12).toLocaleString();
-  document.getElementById('taxResult').style.display='block';
-}
+  // ─── BMI ───
+  function calcBMI() {
+    const w = +document.getElementById('bmiWeight').value;
+    const h = +document.getElementById('bmiHeight').value / 100;
+    if (!w || !h) return alert('Enter weight and height');
+    const bmi = (w / (h * h)).toFixed(1);
+    const cat = bmi < 18.5 ? 'Underweight 🔵' : bmi < 25 ? 'Normal Weight ✅' : bmi < 30 ? 'Overweight 🟡' : 'Obese 🔴';
+    document.getElementById('bmiValue').textContent = bmi;
+    document.getElementById('bmiSub').textContent = cat;
+    document.getElementById('bmiResult').classList.add('show');
+  }
 
-// ── COMPOUND ──
-function setFreq(f,btn){freq=f;document.querySelectorAll('#compound .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function calcCompound(){
-  const p=parseFloat(document.getElementById('cPrincipal').value);
-  const r=parseFloat(document.getElementById('cRate').value)/100;
-  const t=parseFloat(document.getElementById('cYears').value);
-  if(!p||!r||!t)return;
-  const amt=p*Math.pow(1+r/freq,freq*t);
-  const int=amt-p,growth=((int/p)*100).toFixed(1);
-  document.getElementById('compoundMain').textContent='$'+amt.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-  document.getElementById('compoundGrowth').textContent='+'+growth+'%';
-  document.getElementById('compoundInterest').textContent='$'+int.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-  document.getElementById('compoundResult').style.display='block';
-}
+  // ─── TAX ───
+  function calcTax() {
+    const price = +document.getElementById('taxPrice').value;
+    const rate  = +document.getElementById('taxRate').value;
+    if (!price || !rate) return alert('Enter price and tax rate');
+    const tax   = price * rate / 100;
+    const total = price + tax;
+    document.getElementById('taxValue').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('taxSub').textContent = `Tax amount: $${tax.toFixed(2)} on $${price.toFixed(2)}`;
+    document.getElementById('taxResult').classList.add('show');
+  }
+
+  // ─── INTEREST ───
+  function calcInterest() {
+    const P = +document.getElementById('intPrincipal').value;
+    const r = +document.getElementById('intRate').value / 100;
+    const t = +document.getElementById('intYears').value;
+    const type = document.getElementById('intType').value;
+    if (!P || !r || !t) return alert('Fill all fields');
+    let total, interest;
+    if (type === 'simple') {
+      interest = P * r * t;
+      total = P + interest;
+    } else {
+      total = P * Math.pow(1 + r, t);
+      interest = total - P;
+    }
+    document.getElementById('intValue').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('intSub').textContent = `Interest earned: $${interest.toFixed(2)} (${type === 'simple' ? 'Simple' : 'Compound'})`;
+    document.getElementById('intResult').classList.add('show');
+  }
+
+  // ─── CURRENCY ───
+  // Approximate rates relative to USD (May 2025)
+  const rates = { USD:1, EUR:0.92, GBP:0.79, PKR:278, INR:83.5, AED:3.67, SAR:3.75, JPY:157, CAD:1.36, AUD:1.53 };
+  function calcCurrency() {
+    const amt  = +document.getElementById('currAmount').value;
+    const from = document.getElementById('currFrom').value;
+    const to   = document.getElementById('currTo').value;
+    if (!amt) return alert('Enter an amount');
+    const inUSD  = amt / rates[from];
+    const result = inUSD * rates[to];
+    document.getElementById('currValue').textContent = `${result.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} ${to}`;
+    document.getElementById('currSub').textContent = `1 ${from} ≈ ${(rates[to]/rates[from]).toFixed(4)} ${to} · Rates are approximate`;
+    document.getElementById('currResult').classList.add('show');
+  }
+
+  // ─── DATE DIFF ───
+  function calcDate() {
+    const s = new Date(document.getElementById('dateStart').value);
+    const e = new Date(document.getElementById('dateEnd').value);
+    if (!document.getElementById('dateStart').value || !document.getElementById('dateEnd').value) return alert('Select both dates');
+    const diffMs   = Math.abs(e - s);
+    const diffDays = Math.floor(diffMs / 86400000);
+    const weeks    = Math.floor(diffDays / 7);
+    const months   = Math.abs((e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth()));
+    document.getElementById('dateValue').textContent = `${diffDays.toLocaleString()} days`;
+    document.getElementById('dateSub').textContent = `≈ ${weeks} weeks · ≈ ${months} months`;
+    document.getElementById('dateResult').classList.add('show');
+  }
 </script>
 </body>
 </html>
