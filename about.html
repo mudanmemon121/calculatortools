@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — CalcHub</title>
+<meta name="description" content="About CalcHub — Free Online Calculator Tools for everyone. Fast, accurate, no signup required.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#16a34a;--green-dark:#15803d;--green-light:#f0fdf4;--green-border:#bbf7d0;--text:#0f172a;--text-2:#64748b;--border:#e2e8f0;--bg:#f8fafc;--white:#ffffff}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:680px;margin:0 auto;padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:18px;font-weight:800;color:var(--text);text-decoration:none}
+.logo span{color:var(--green)}
+.nav-tag{background:var(--green-light);color:var(--green);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid var(--green-border)}
+
+.hero{background:var(--green);padding:32px 16px;text-align:center;color:#fff}
+.hero h1{font-size:clamp(22px,5vw,30px);font-weight:800;margin-bottom:8px}
+.hero p{font-size:13px;opacity:0.85;max-width:400px;margin:0 auto}
+
+.main{max-width:680px;margin:0 auto;padding:28px 16px 60px}
+
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;margin-bottom:20px;transition:background 0.15s}
+.back-btn:hover{background:var(--green-dark)}
+
+/* MISSION CARD */
+.mission-card{background:var(--green);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin-bottom:20px}
+.mission-card h2{font-size:22px;font-weight:800;margin-bottom:10px}
+.mission-card p{font-size:14px;opacity:0.9;line-height:1.7;max-width:480px;margin:0 auto}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:18px 12px;text-align:center}
+.stat-num{font-size:28px;font-weight:800;color:var(--green);margin-bottom:4px}
+.stat-lbl{font-size:12px;color:var(--text-2);font-weight:600}
+
+/* INFO CARDS */
+.card{background:#fff;border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.card-head{padding:16px 20px;border-bottom:1px solid var(--border);background:var(--green-light);display:flex;align-items:center;gap:10px}
+.card-icon{width:36px;height:36px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.card-head h2{font-size:15px;font-weight:700;color:var(--text)}
+.card-body{padding:18px 20px}
+.card-body p{font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:10px}
+.card-body p:last-child{margin-bottom:0}
+.card-body ul{list-style:none;padding:0}
+.card-body ul li{font-size:14px;color:var(--text-2);line-height:1.7;padding:5px 0;padding-left:22px;position:relative;border-bottom:1px solid var(--border)}
+.card-body ul li:last-child{border-bottom:none}
+.card-body ul li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+
+/* TOOLS GRID */
+.tools-showcase{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tool-item{background:var(--green-light);border:1.5px solid var(--green-border);border-radius:10px;padding:14px 8px;text-align:center}
+.tool-emoji{font-size:24px;display:block;margin-bottom:6px}
+.tool-name{font-size:11px;font-weight:700;color:var(--green-dark);text-transform:uppercase;letter-spacing:0.4px}
+
+/* CTA */
+.cta-card{background:linear-gradient(135deg,var(--green),var(--green-dark));border-radius:16px;padding:24px;text-align:center;color:#fff;margin-top:20px}
+.cta-card h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.cta-card p{font-size:13px;opacity:0.9;margin-bottom:16px}
+.cta-btn{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--green-dark);text-decoration:none;padding:11px 24px;border-radius:8px;font-size:14px;font-weight:700;transition:all 0.15s}
+.cta-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+
+footer{background:#fff;border-top:1px solid var(--border);padding:22px 16px;text-align:center}
+.f-logo{font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px}
+.f-logo span{color:var(--green)}
+.f-links{display:flex;justify-content:center;gap:18px;margin-bottom:10px;flex-wrap:wrap}
+.f-links a{font-size:13px;color:var(--text-2);text-decoration:none;font-weight:500}
+.f-links a:hover{color:var(--green)}
+.f-copy{font-size:12px;color:#94a3b8}
+
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  .tools-showcase{grid-template-columns:repeat(4,1fr)}
+  .stat-num{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">Calc<span>Hub</span></a>
+    <div class="nav-tag">✦ Free Tools</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>About CalcHub</h1>
+  <p>Free, fast, and accurate calculator tools for everyone around the world</p>
+</div>
+
+<div class="main">
+
+  <a class="back-btn" href="index.html">← Back to CalcHub</a>
+
+  <!-- MISSION -->
+  <div class="mission-card">
+    <h2>🎯 Our Mission</h2>
+    <p>To provide free, fast, and accurate calculator tools that help people make better decisions in their daily lives — whether it's calculating a tip, checking a BMI, or planning a mortgage.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">8+</div>
+      <div class="stat-lbl">Free Tools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Free Always</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-lbl">Signup Needed</div>
+    </div>
+  </div>
+
+  <!-- WHO WE ARE -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">👋</div>
+      <h2>Who We Are</h2>
+    </div>
+    <div class="card-body">
+      <p>CalcHub is a free online calculator platform designed to make everyday calculations simple, fast, and accessible to everyone. We believe that useful tools should be free and easy to use — no sign-up, no subscription, no hidden fees.</p>
+      <p>Our tools are built with simplicity in mind. Whether you're a student calculating your GPA, a homebuyer estimating mortgage payments, or someone splitting a restaurant bill — CalcHub has you covered.</p>
+    </div>
+  </div>
+
+  <!-- WHAT WE OFFER -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">🛠️</div>
+      <h2>Our Calculator Tools</h2>
+    </div>
+    <div class="card-body">
+      <div class="tools-showcase">
+        <div class="tool-item"><span class="tool-emoji">🎂</span><div class="tool-name">Age</div></div>
+        <div class="tool-item"><span class="tool-emoji">🍽️</span><div class="tool-name">Tip</div></div>
+        <div class="tool-item"><span class="tool-emoji">🎓</span><div class="tool-name">GPA</div></div>
+        <div class="tool-item"><span class="tool-emoji">🛣️</span><div class="tool-name">Miles↔KM</div></div>
+        <div class="tool-item"><span class="tool-emoji">🏠</span><div class="tool-name">Mortgage</div></div>
+        <div class="tool-item"><span class="tool-emoji">💪</span><div class="tool-name">BMI</div></div>
+        <div class="tool-item"><span class="tool-emoji">📋</span><div class="tool-name">Tax</div></div>
+        <div class="tool-item"><span class="tool-emoji">📈</span><div class="tool-name">Interest</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY CALCHUB -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">⭐</div>
+      <h2>Why Choose CalcHub?</h2>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>Completely free — no hidden charges ever</li>
+        <li>No account or registration required</li>
+        <li>Works perfectly on mobile and desktop</li>
+        <li>Instant results — no page reloads</li>
+        <li>Clean and simple interface</li>
+        <li>Data stays in your browser — never stored on servers</li>
+        <li>New tools added regularly</li>
+        <li>Works worldwide for all users</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- OUR VALUES -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">💚</div>
+      <h2>Our Values</h2>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>Free & Accessible — tools for everyone, everywhere</li>
+        <li>Privacy First — your data is never collected or sold</li>
+        <li>Accuracy — all calculations are verified and tested</li>
+        <li>Simplicity — easy to use for all age groups</li>
+        <li>Speed — fast loading, instant results</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <h3>Ready to Use Our Tools?</h3>
+    <p>All tools are free, instant, and require no signup</p>
+    <a class="cta-btn" href="index.html">🚀 Try CalcHub Now</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="f-logo">Calc<span>Hub</span></div>
+  <div class="f-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="f-copy">CalcHub · Free Online Calculator Tools · No signup required</div>
+</footer>
+
+</body>
+</html>
