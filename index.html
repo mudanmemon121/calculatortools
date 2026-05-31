@@ -1,520 +1,883 @@
-<!DOCTYPE html>
-<html lang="en">
-<head <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NMC7N0QZMB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-NMC7N0QZMB');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CalcHub — Free Online Calculator Tools</title>
-<meta name="description" content="Free online calculator tools. Age, BMI, Tip, GPA, Mortgage, Tax and more. Fast, accurate, no signup.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --green:#16a34a;
-  --green-dark:#15803d;
-  --green-light:#f0fdf4;
-  --green-border:#bbf7d0;
-  --text:#0f172a;
-  --text-2:#64748b;
-  --border:#e2e8f0;
-  --bg:#f8fafc;
-  --white:#ffffff;
-}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+import { useState, useEffect, useRef } from "react";
 
-/* NAV */
-nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.nav-inner{max-width:680px;margin:0 auto;padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:18px;font-weight:800;color:var(--text);text-decoration:none}
-.logo span{color:var(--green)}
-.nav-links{display:flex;align-items:center;gap:2px}
-.nav-link{font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all 0.15s}
-.nav-link:hover{color:var(--green);background:var(--green-light)}
-.nav-link.active{color:var(--green);background:var(--green-light)}
-.nav-menu-btn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:transparent}
-.nav-menu-btn span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
-.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--border);padding:8px 16px 12px}
-.mobile-menu a{display:block;font-size:14px;font-weight:600;color:var(--text-2);text-decoration:none;padding:10px 12px;border-radius:8px}
-.mobile-menu a:hover,.mobile-menu a.active{color:var(--green);background:var(--green-light)}
-.mobile-menu.open{display:block}
-@media(max-width:520px){.nav-links{display:none}.nav-menu-btn{display:flex}}
-
-/* HERO */
-.hero{background:var(--green);padding:32px 16px 28px;text-align:center;color:#fff}
-.hero h1{font-size:clamp(22px,5vw,32px);font-weight:800;margin-bottom:8px;letter-spacing:-0.5px}
-.hero p{font-size:13px;opacity:0.85;margin-bottom:18px}
-.hero-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.hero-pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:600}
-
-/* MAIN */
-.main{max-width:680px;margin:0 auto;padding:20px 16px 60px}
-
-/* TOOLS */
-.tools-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-2);margin-bottom:10px}
-.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
-.tool-btn{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;transition:all 0.15s}
-.tool-btn:hover{border-color:var(--green);transform:translateY(-1px)}
-.tool-btn.active{border-color:var(--green);background:var(--green-light)}
-.tool-btn.active .t-name{color:var(--green-dark)}
-.t-icon{font-size:22px;display:block;margin-bottom:5px}
-.t-name{font-size:9.5px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.4px}
-
-/* CARD */
-.card{background:#fff;border:1.5px solid var(--border);border-radius:16px;overflow:hidden}
-.card-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.card-head-icon{width:42px;height:42px;background:var(--green-light);border:1.5px solid var(--green-border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.card-head h2{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px}
-.card-head p{font-size:12px;color:var(--text-2)}
-.card-body{padding:20px}
-
-/* FORM */
-.calc-section{display:none}
-.calc-section.active{display:block}
-.f-label{display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;margin-top:14px}
-.f-label:first-child{margin-top:0}
-.f-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:11px 13px;color:var(--text);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.15s;-webkit-appearance:none}
-.f-input:focus{border-color:var(--green);background:#fff}
-.f-input::placeholder{color:#cbd5e1}
-select.f-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;appearance:none}
-.row2{display:flex;gap:10px}
-.row2 > div{flex:1}
-
-/* CHIPS */
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
-.chip{padding:7px 13px;border-radius:6px;border:1.5px solid var(--border);background:var(--bg);font-size:12px;font-weight:600;color:var(--text-2);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
-.chip:hover{border-color:var(--green);color:var(--green)}
-.chip.on{background:var(--green);border-color:var(--green);color:#fff}
-
-/* COUNTER */
-.counter{display:inline-flex;align-items:center;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg)}
-.c-btn{width:38px;height:38px;border:none;background:#fff;font-size:20px;font-weight:700;color:var(--green);cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s}
-.c-btn:hover{background:var(--green-light)}
-.c-val{min-width:42px;text-align:center;font-size:16px;font-weight:700;color:var(--text);border-left:1.5px solid var(--border);border-right:1.5px solid var(--border);height:38px;line-height:38px;background:#fff}
-
-/* COURSE */
-.c-row{display:flex;gap:7px;align-items:center;margin-bottom:7px}
-.c-row .f-input{margin:0;padding:9px 10px}
-.c-name{flex:2!important}
-.c-cr{flex:0.65!important}
-.c-del{width:32px;height:36px;border-radius:6px;border:1.5px solid #fca5a5;background:#fff;color:#ef4444;font-size:13px;cursor:pointer;flex-shrink:0}
-.add-btn{width:100%;padding:9px;border-radius:8px;border:1.5px dashed var(--border);background:transparent;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;margin-top:2px}
-.add-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
-
-/* INFO */
-.info{background:var(--green-light);border:1px solid var(--green-border);border-radius:8px;padding:9px 13px;font-size:12px;color:var(--green-dark);margin-top:12px}
-
-/* SUBMIT */
-.go-btn{width:100%;margin-top:18px;padding:13px;background:var(--green);border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.18s;box-shadow:0 4px 14px rgba(22,163,74,0.25)}
-.go-btn:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(22,163,74,0.35)}
-.go-btn:active{transform:translateY(0)}
-
-/* RESULT */
-.result{margin-top:16px;border:1.5px solid var(--green-border);border-radius:12px;overflow:hidden;display:none;animation:up 0.25s ease}
-@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.r-head{background:var(--green);padding:16px 18px;text-align:center;color:#fff}
-.r-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.8;margin-bottom:4px}
-.r-main{font-size:30px;font-weight:800;letter-spacing:-0.5px}
-.r-sub{font-size:13px;opacity:0.85;margin-top:3px;font-weight:500}
-.r-body{background:#fff;padding:14px 16px}
-.s-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.s-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 6px;text-align:center}
-.s-num{font-size:15px;font-weight:700;color:var(--text)}
-.s-lbl{font-size:10px;color:var(--text-2);font-weight:600;text-transform:uppercase;margin-top:2px}
-.s-green{color:var(--green)!important}
-.s-red{color:#dc2626!important}
-.r-note{font-size:13px;color:var(--text-2);text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-
-/* FOOTER */
-footer{background:#fff;border-top:1px solid var(--border);padding:22px 16px;text-align:center}
-.f-logo{font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px}
-.f-logo span{color:var(--green)}
-.f-links{display:flex;justify-content:center;gap:18px;margin-bottom:10px}
-.f-links a{font-size:13px;color:var(--text-2);text-decoration:none;font-weight:500}
-.f-links a:hover{color:var(--green)}
-.f-copy{font-size:12px;color:#94a3b8}
-
-@media(max-width:480px){
-  .tools-grid{gap:6px}
-  .tool-btn{padding:10px 4px}
-  .t-icon{font-size:19px}
-  .t-name{font-size:8.5px}
-  .card-body{padding:16px}
-  .r-main{font-size:26px}
-  .row2{flex-direction:column;gap:8px}
-  .hero{padding:26px 16px 22px}
-}
-</style>
-</head>
-<body>
-
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="index.html">Calc<span>Hub</span></a>
-    <div class="nav-links">
-      <a class="nav-link active" href="index.html">Home</a>
-      <a class="nav-link" href="about.html">About</a>
-      <a class="nav-link" href="privacy.html">Privacy</a>
+// ── Intersection-observer fade-up ────────────────────────────────────────────
+function FadeUp({ children, delay = 0, style = {} }) {
+  const ref = useRef(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const ob = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVis(true); ob.disconnect(); } }, { threshold: 0.08 });
+    ob.observe(el); return () => ob.disconnect();
+  }, []);
+  return (
+    <div ref={ref} style={{ opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: `opacity 0.65s ease ${delay}s, transform 0.65s ease ${delay}s`, ...style }}>
+      {children}
     </div>
-    <button class="nav-menu-btn" onclick="document.getElementById('mm').classList.toggle('open')">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <div class="mobile-menu" id="mm">
-    <a class="active" href="index.html">🏠 Home</a>
-    <a href="about.html">👋 About Us</a>
-    <a href="privacy.html">🔒 Privacy Policy</a>
-  </div>
-</nav>
+  );
+}
 
-<div class="hero">
-  <h1>Free Calculator Tools</h1>
-  <p>Fast & accurate tools — no signup, no ads, always free</p>
-  <div class="hero-pills">
-    <div class="hero-pill">⚡ Instant Results</div>
-    <div class="hero-pill">📱 Mobile Friendly</div>
-    <div class="hero-pill">🌍 Used Worldwide</div>
-  </div>
-</div>
+// ── SVG Icons (no emojis, no external deps) ──────────────────────────────────
+const Icons = {
+  Age: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+  ),
+  Tip: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+    </svg>
+  ),
+  GPA: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+    </svg>
+  ),
+  Miles: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </svg>
+  ),
+  Mortgage: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+  ),
+  BMI: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  ),
+  Tax: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="13" y2="12"/>
+    </svg>
+  ),
+  Interest: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+    </svg>
+  ),
+  Check: () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  ),
+  Arrow: () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    </svg>
+  ),
+  Plus: () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+  ),
+  Trash: () => (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+    </svg>
+  ),
+};
 
-<div class="main">
-  <div class="tools-label">Select a Tool</div>
-  <div class="tools-grid">
-    <div class="tool-btn active" onclick="show('age',this,'🎂','Age Calculator','Find your exact age instantly')"><span class="t-icon">🎂</span><div class="t-name">Age</div></div>
-    <div class="tool-btn" onclick="show('tip',this,'🍽️','Tip Calculator','Split restaurant bills easily')"><span class="t-icon">🍽️</span><div class="t-name">Tip</div></div>
-    <div class="tool-btn" onclick="show('gpa',this,'🎓','GPA Calculator','Calculate your Grade Point Average')"><span class="t-icon">🎓</span><div class="t-name">GPA</div></div>
-    <div class="tool-btn" onclick="show('miles',this,'🛣️','Miles ↔ KM','Convert miles to kilometers')"><span class="t-icon">🛣️</span><div class="t-name">Miles↔KM</div></div>
-    <div class="tool-btn" onclick="show('mortgage',this,'🏠','Mortgage Calculator','Monthly home loan payment')"><span class="t-icon">🏠</span><div class="t-name">Mortgage</div></div>
-    <div class="tool-btn" onclick="show('bmi',this,'💪','BMI Calculator','Check your Body Mass Index')"><span class="t-icon">💪</span><div class="t-name">BMI</div></div>
-    <div class="tool-btn" onclick="show('tax',this,'📋','US Tax Calculator','Estimate your federal income tax')"><span class="t-icon">📋</span><div class="t-name">Tax</div></div>
-    <div class="tool-btn" onclick="show('compound',this,'📈','Compound Interest','Grow your savings over time')"><span class="t-icon">📈</span><div class="t-name">Interest</div></div>
-  </div>
+// ── Noise overlay ─────────────────────────────────────────────────────────────
+function Noise() {
+  return <div style={{ position: "fixed", inset: 0, zIndex: 0, opacity: 0.022, pointerEvents: "none", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "128px" }} />;
+}
 
-  <div class="card">
-    <div class="card-head">
-      <div class="card-head-icon" id="cIcon">🎂</div>
-      <div><h2 id="cTitle">Age Calculator</h2><p id="cDesc">Find your exact age instantly</p></div>
-    </div>
-    <div class="card-body">
+function Orb({ style }) {
+  return <div style={{ position: "absolute", borderRadius: "50%", filter: "blur(80px)", pointerEvents: "none", ...style }} />;
+}
 
-      <!-- AGE -->
-      <div class="calc-section active" id="age">
-        <label class="f-label">Date of Birth</label>
-        <input class="f-input" type="date" id="dob">
-        <button class="go-btn" onclick="calcAge()">⚡ Calculate Age</button>
-        <div class="result" id="ageR">
-          <div class="r-head"><div class="r-tag">Your Age</div><div class="r-main" id="ageMain"></div><div class="r-sub" id="ageBday"></div></div>
-          <div class="r-body"><div class="s-grid">
-            <div class="s-item"><div class="s-num s-green" id="ageM"></div><div class="s-lbl">Months</div></div>
-            <div class="s-item"><div class="s-num s-green" id="ageD"></div><div class="s-lbl">Days</div></div>
-            <div class="s-item"><div class="s-num" id="ageTD"></div><div class="s-lbl">Total Days</div></div>
-          </div></div>
-        </div>
-      </div>
+// ── Sticky Navbar ─────────────────────────────────────────────────────────────
+const NAV_LINKS = ["Home", "Calculators", "About", "Docs"];
 
-      <!-- TIP -->
-      <div class="calc-section" id="tip">
-        <label class="f-label">Bill Amount ($)</label>
-        <input class="f-input" type="number" id="tBill" placeholder="e.g. 85.50">
-        <label class="f-label">Tip %</label>
-        <div class="chips">
-          <button class="chip" onclick="setTip(10,this)">10%</button>
-          <button class="chip" onclick="setTip(15,this)">15%</button>
-          <button class="chip on" onclick="setTip(18,this)">18%</button>
-          <button class="chip" onclick="setTip(20,this)">20%</button>
-          <button class="chip" onclick="setTip(25,this)">25%</button>
-        </div>
-        <label class="f-label">People</label>
-        <div class="counter">
-          <button class="c-btn" onclick="cp(-1)">−</button>
-          <div class="c-val" id="ppl">1</div>
-          <button class="c-btn" onclick="cp(1)">+</button>
-        </div>
-        <button class="go-btn" onclick="calcTip()">⚡ Calculate Tip</button>
-        <div class="result" id="tipR">
-          <div class="r-head"><div class="r-tag">Per Person</div><div class="r-main" id="tMain"></div></div>
-          <div class="r-body"><div class="s-grid">
-            <div class="s-item"><div class="s-num" id="tTotal"></div><div class="s-lbl">Total Bill</div></div>
-            <div class="s-item"><div class="s-num s-green" id="tAmt"></div><div class="s-lbl">Total Tip</div></div>
-            <div class="s-item"><div class="s-num s-green" id="tPer"></div><div class="s-lbl">Tip/Person</div></div>
-          </div></div>
-        </div>
-      </div>
+function Navbar({ activeSection, setActiveSection }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
 
-      <!-- GPA -->
-      <div class="calc-section" id="gpa">
-        <label class="f-label">Your Courses</label>
-        <div id="cList">
-          <div class="c-row"><input class="f-input c-name" placeholder="Course Name"><select class="f-input"><option>A+</option><option>A</option><option selected>A-</option><option>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select><input class="f-input c-cr" type="number" value="3" placeholder="Cr"></div>
-          <div class="c-row"><input class="f-input c-name" placeholder="Course Name"><select class="f-input"><option>A+</option><option>A</option><option>A-</option><option selected>B+</option><option>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select><input class="f-input c-cr" type="number" value="3" placeholder="Cr"></div>
-        </div>
-        <button class="add-btn" onclick="addC()">+ Add Course</button>
-        <button class="go-btn" onclick="calcGPA()">⚡ Calculate GPA</button>
-        <div class="result" id="gpaR">
-          <div class="r-head"><div class="r-tag">Grade Point Average</div><div class="r-main" id="gMain"></div><div class="r-sub" id="gStand"></div></div>
-        </div>
-      </div>
-
-      <!-- MILES -->
-      <div class="calc-section" id="miles">
-        <label class="f-label">Direction</label>
-        <div class="chips">
-          <button class="chip on" onclick="setM('mi',this)">Miles → KM</button>
-          <button class="chip" onclick="setM('km',this)">KM → Miles</button>
-        </div>
-        <label class="f-label" id="mLbl">Miles</label>
-        <input class="f-input" type="number" id="mVal" placeholder="e.g. 26.2">
-        <button class="go-btn" onclick="calcMiles()">⚡ Convert</button>
-        <div class="result" id="milesR">
-          <div class="r-head"><div class="r-tag">Result</div><div class="r-main" id="mMain"></div><div class="r-sub" id="mSub"></div></div>
-        </div>
-      </div>
-
-      <!-- MORTGAGE -->
-      <div class="calc-section" id="mortgage">
-        <label class="f-label">Home Price ($)</label>
-        <input class="f-input" type="number" id="hPrice" placeholder="e.g. 350,000">
-        <label class="f-label">Down Payment ($)</label>
-        <input class="f-input" type="number" id="hDown" placeholder="e.g. 70,000">
-        <div class="row2">
-          <div><label class="f-label">Interest Rate (%)</label><input class="f-input" type="number" id="hRate" placeholder="6.8" step="0.1"></div>
-          <div><label class="f-label">Loan Term</label><select class="f-input" id="hYrs"><option value="10">10 Years</option><option value="15">15 Years</option><option value="20">20 Years</option><option value="30" selected>30 Years</option></select></div>
-        </div>
-        <button class="go-btn" onclick="calcMort()">⚡ Calculate Payment</button>
-        <div class="result" id="mortR">
-          <div class="r-head"><div class="r-tag">Monthly Payment</div><div class="r-main" id="mPay"></div></div>
-          <div class="r-body"><div class="s-grid">
-            <div class="s-item"><div class="s-num" id="mLoan"></div><div class="s-lbl">Loan</div></div>
-            <div class="s-item"><div class="s-num s-red" id="mInt"></div><div class="s-lbl">Interest</div></div>
-            <div class="s-item"><div class="s-num" id="mTot"></div><div class="s-lbl">Total Paid</div></div>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- BMI -->
-      <div class="calc-section" id="bmi">
-        <label class="f-label">Unit</label>
-        <div class="chips">
-          <button class="chip on" onclick="setBmi('imp',this)">Imperial (US)</button>
-          <button class="chip" onclick="setBmi('met',this)">Metric</button>
-        </div>
-        <div id="bImp">
-          <div class="row2">
-            <div><label class="f-label">Feet</label><input class="f-input" type="number" id="bFt" placeholder="5"></div>
-            <div><label class="f-label">Inches</label><input class="f-input" type="number" id="bIn" placeholder="8"></div>
+  return (
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, transition: "all 0.3s", borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent", backdropFilter: scrolled ? "blur(20px)" : "none", background: scrolled ? "rgba(6,6,12,0.9)" : "transparent" }}>
+      <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", height: 60, display: "flex", alignItems: "center", gap: 32 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 9, flexShrink: 0, cursor: "pointer" }} onClick={() => setActiveSection("home")}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#6366f1,#22d3ee)", display: "grid", placeItems: "center" }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
-          <label class="f-label">Weight (lbs)</label>
-          <input class="f-input" type="number" id="bLbs" placeholder="160">
+          <span style={{ fontWeight: 700, fontSize: 16, color: "white", letterSpacing: "-0.3px", fontFamily: "'Sora',sans-serif" }}>CalcHub</span>
         </div>
-        <div id="bMet" style="display:none">
-          <label class="f-label">Height (cm)</label><input class="f-input" type="number" id="bCm" placeholder="175">
-          <label class="f-label">Weight (kg)</label><input class="f-input" type="number" id="bKg" placeholder="70">
+        <div style={{ display: "flex", gap: 2, flex: 1 }}>
+          {NAV_LINKS.map(l => (
+            <button key={l} onClick={() => setActiveSection(l.toLowerCase())}
+              style={{ padding: "5px 14px", borderRadius: 8, fontSize: 13, fontWeight: 500, color: activeSection === l.toLowerCase() ? "#22d3ee" : "rgba(255,255,255,0.48)", background: activeSection === l.toLowerCase() ? "rgba(34,211,238,0.08)" : "transparent", border: "none", cursor: "pointer", transition: "all 0.15s", fontFamily: "inherit" }}>
+              {l}
+            </button>
+          ))}
         </div>
-        <button class="go-btn" onclick="calcBMI()">⚡ Calculate BMI</button>
-        <div class="result" id="bmiR">
-          <div class="r-head"><div class="r-tag">BMI Score</div><div class="r-main" id="bMain"></div><div class="r-sub" id="bStat"></div></div>
-          <div class="r-body"><div class="r-note" id="bAdv"></div></div>
-        </div>
-      </div>
-
-      <!-- TAX -->
-      <div class="calc-section" id="tax">
-        <label class="f-label">Annual Income ($)</label>
-        <input class="f-input" type="number" id="txInc" placeholder="e.g. 75,000">
-        <label class="f-label">Filing Status</label>
-        <div class="chips">
-          <button class="chip on" onclick="setTax('s',this)">Single</button>
-          <button class="chip" onclick="setTax('m',this)">Married Jointly</button>
-        </div>
-        <div class="info">📌 Based on 2024 US Federal Tax Brackets</div>
-        <button class="go-btn" onclick="calcTax()">⚡ Estimate Tax</button>
-        <div class="result" id="taxR">
-          <div class="r-head"><div class="r-tag">Federal Tax</div><div class="r-main s-red" id="txMain"></div></div>
-          <div class="r-body"><div class="s-grid">
-            <div class="s-item"><div class="s-num" id="txRate"></div><div class="s-lbl">Eff. Rate</div></div>
-            <div class="s-item"><div class="s-num s-green" id="txAfter"></div><div class="s-lbl">After Tax/yr</div></div>
-            <div class="s-item"><div class="s-num s-green" id="txMo"></div><div class="s-lbl">Take Home/mo</div></div>
-          </div></div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <button style={{ fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.45)", background: "transparent", border: "none", cursor: "pointer", fontFamily: "inherit" }}>Sign in</button>
+          <button onClick={() => setActiveSection("calculators")} style={{ padding: "7px 18px", borderRadius: 9, fontSize: 13, fontWeight: 600, background: "linear-gradient(135deg,#6366f1,#818cf8)", color: "white", border: "none", cursor: "pointer", fontFamily: "inherit", boxShadow: "0 0 18px rgba(99,102,241,0.4)" }}>
+            Get started
+          </button>
         </div>
       </div>
+    </nav>
+  );
+}
 
-      <!-- COMPOUND -->
-      <div class="calc-section" id="compound">
-        <label class="f-label">Initial Investment ($)</label>
-        <input class="f-input" type="number" id="iP" placeholder="e.g. 10,000">
-        <div class="row2">
-          <div><label class="f-label">Annual Rate (%)</label><input class="f-input" type="number" id="iR" placeholder="7" step="0.1"></div>
-          <div><label class="f-label">Years</label><input class="f-input" type="number" id="iY" placeholder="10"></div>
-        </div>
-        <label class="f-label">Frequency</label>
-        <div class="chips">
-          <button class="chip" onclick="setFr(1,this)">Yearly</button>
-          <button class="chip" onclick="setFr(4,this)">Quarterly</button>
-          <button class="chip on" onclick="setFr(12,this)">Monthly</button>
-          <button class="chip" onclick="setFr(365,this)">Daily</button>
-        </div>
-        <button class="go-btn" onclick="calcComp()">⚡ Calculate Growth</button>
-        <div class="result" id="compR">
-          <div class="r-head"><div class="r-tag">Final Amount</div><div class="r-main" id="cAmt"></div></div>
-          <div class="r-body"><div class="s-grid">
-            <div class="s-item"><div class="s-num s-green" id="cGrow"></div><div class="s-lbl">Growth %</div></div>
-            <div class="s-item"><div class="s-num s-green" id="cInt"></div><div class="s-lbl">Earned</div></div>
-          </div></div>
-        </div>
+// ── Hero Section ──────────────────────────────────────────────────────────────
+function Hero({ setActiveSection }) {
+  const sparkData = [40,55,35,70,60,80,65,90,75,95,80,100];
+  const barData   = [65,80,45,90,70,55,85,60,95,75,88,72];
+  const [sidebarActive, setSidebarActive] = useState(0);
+
+  return (
+    <section style={{ position: "relative", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "120px 24px 80px", overflow: "hidden", textAlign: "center" }}>
+      <Orb style={{ width: 750, height: 750, top: -260, left: "50%", transform: "translateX(-50%)", background: "radial-gradient(circle,rgba(99,102,241,0.14) 0%,transparent 70%)" }} />
+      <Orb style={{ width: 400, height: 400, top: 100, left: "6%", background: "radial-gradient(circle,rgba(34,211,238,0.07) 0%,transparent 70%)" }} />
+      <Orb style={{ width: 400, height: 400, top: 180, right: "4%", background: "radial-gradient(circle,rgba(168,85,247,0.07) 0%,transparent 70%)" }} />
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)", backgroundSize: "72px 72px", maskImage: "radial-gradient(ellipse 80% 55% at 50% 25%,black,transparent)" }} />
+
+      <div style={{ position: "relative", maxWidth: 900, margin: "0 auto" }}>
+        <FadeUp delay={0}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "5px 14px 5px 8px", borderRadius: 100, background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.22)", marginBottom: 32 }}>
+            <span style={{ fontSize: 10, fontWeight: 700, padding: "3px 9px", borderRadius: 100, background: "linear-gradient(135deg,#6366f1,#818cf8)", color: "white", letterSpacing: "0.5px" }}>NEW</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.6)" }}>AI-powered calculation engine now live</span>
+            <span style={{ color: "#818cf8", fontSize: 13 }}>→</span>
+          </div>
+        </FadeUp>
+        <FadeUp delay={0.1}>
+          <h1 style={{ fontSize: "clamp(42px,6.5vw,82px)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-3px", margin: "0 0 24px", fontFamily: "'Sora',sans-serif" }}>
+            <span style={{ color: "white" }}>Every calculator</span><br />
+            <span style={{ background: "linear-gradient(135deg,#818cf8 15%,#22d3ee 85%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>you'll ever need.</span>
+          </h1>
+        </FadeUp>
+        <FadeUp delay={0.2}>
+          <p style={{ fontSize: 18, color: "rgba(255,255,255,0.48)", maxWidth: 520, margin: "0 auto 44px", lineHeight: 1.7 }}>
+            Age, mortgage, BMI, GPA, tax, interest and more — all in one clean, fast, professional platform. No signup, no ads, always free.
+          </p>
+        </FadeUp>
+        <FadeUp delay={0.3}>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 56 }}>
+            <button onClick={() => setActiveSection("calculators")} style={{ padding: "13px 30px", borderRadius: 11, fontSize: 15, fontWeight: 600, background: "linear-gradient(135deg,#6366f1,#818cf8)", color: "white", border: "none", cursor: "pointer", fontFamily: "inherit", boxShadow: "0 0 36px rgba(99,102,241,0.5)" }}>
+              Open calculators →
+            </button>
+            <button style={{ padding: "13px 30px", borderRadius: 11, fontSize: 15, fontWeight: 500, background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.1)", cursor: "pointer", fontFamily: "inherit" }}>
+              See all tools
+            </button>
+          </div>
+        </FadeUp>
+        <FadeUp delay={0.4}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 72 }}>
+            <div style={{ display: "flex" }}>
+              {["#6366f1","#0ea5e9","#ec4899","#f59e0b","#22d3ee"].map((c,i) => (
+                <div key={i} style={{ width: 28, height: 28, borderRadius: "50%", background: c, border: "2px solid #06060c", marginLeft: i > 0 ? -8 : 0, display: "grid", placeItems: "center", fontSize: 10, fontWeight: 700, color: "white" }}>
+                  {["SC","MW","PN","JK","AL"][i]}
+                </div>
+              ))}
+            </div>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>Used by <strong style={{ color: "rgba(255,255,255,0.72)" }}>2.4M+</strong> people worldwide</span>
+          </div>
+        </FadeUp>
       </div>
 
+      {/* Dashboard mockup */}
+      <FadeUp delay={0.5} style={{ width: "100%", maxWidth: 1060, margin: "0 auto" }}>
+        <div style={{ padding: "0 20px", position: "relative" }}>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 35% at 50% 100%,rgba(99,102,241,0.12),transparent)", pointerEvents: "none" }} />
+          {/* Window */}
+          <div style={{ borderRadius: 18, overflow: "hidden", background: "rgba(10,10,18,0.97)", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 40px 100px rgba(0,0,0,0.8)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 7, padding: "10px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.015)" }}>
+              {["#ff5f57","#febc2e","#28c840"].map((c,i) => <div key={i} style={{ width: 11, height: 11, borderRadius: "50%", background: c }} />)}
+              <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.28)", background: "rgba(255,255,255,0.05)", padding: "3px 14px", borderRadius: 7 }}>app.calchub.io/dashboard</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", minHeight: 380 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 5, padding: 8, borderRight: "1px solid rgba(255,255,255,0.05)" }}>
+                {[0,1,2,3,4].map(i => (
+                  <button key={i} onClick={() => setSidebarActive(i)} style={{ width: 34, height: 34, borderRadius: 9, display: "grid", placeItems: "center", cursor: "pointer", background: sidebarActive===i ? "rgba(99,102,241,0.2)" : "transparent", border: sidebarActive===i ? "1px solid rgba(99,102,241,0.3)" : "1px solid transparent", transition: "all 0.15s" }}>
+                    <div style={{ width: 16, height: 2, background: sidebarActive===i ? "#818cf8" : "rgba(255,255,255,0.2)", borderRadius: 1 }} />
+                  </button>
+                ))}
+              </div>
+              <div style={{ flex: 1, padding: 14, display: "flex", flexDirection: "column", gap: 10 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8 }}>
+                  {[{l:"Calculations",v:"2.4M",d:"+12%",c:"#22d3ee"},{l:"Active users",v:"84.2k",d:"+8%",c:"#818cf8"},{l:"Accuracy",v:"99.9%",d:"verified",c:"#34d399"},{l:"Avg speed",v:"48ms",d:"−12ms",c:"#f59e0b"}].map((m,i) => (
+                    <div key={i} style={{ borderRadius: 10, padding: "10px 12px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.28)", marginBottom: 5 }}>{m.l}</div>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: m.c, fontFamily: "monospace", letterSpacing: "-0.5px" }}>{m.v}</div>
+                      <div style={{ fontSize: 10, color: "#34d399", marginTop: 3 }}>{m.d}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 10, flex: 1 }}>
+                  <div style={{ borderRadius: 10, padding: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                      <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>Usage · Last 12 months</span>
+                      <span style={{ fontSize: 10, padding: "2px 7px", borderRadius: 100, background: "rgba(34,211,238,0.1)", color: "#22d3ee", border: "1px solid rgba(34,211,238,0.2)" }}>+18.2%</span>
+                    </div>
+                    <svg viewBox="0 0 260 65" style={{ width: "100%", flex: 1 }}>
+                      <defs><linearGradient id="sg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#22d3ee" stopOpacity="0.22"/><stop offset="100%" stopColor="#22d3ee" stopOpacity="0"/></linearGradient></defs>
+                      {(() => { const pts = sparkData.map((v,i)=>`${i*(260/11)},${65-v*0.57}`).join(" "); return <><polyline points={pts} fill="none" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><polygon points={`0,65 ${pts} 260,65`} fill="url(#sg2)"/></>; })()}
+                    </svg>
+                  </div>
+                  <div style={{ borderRadius: 10, padding: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column" }}>
+                    <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontWeight: 600, marginBottom: 10 }}>By category</div>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: "2px", flex: 1 }}>
+                      {barData.map((v,i) => <div key={i} style={{ flex: 1, borderRadius: 2, height: `${v}%`, background: i===8 ? "rgba(129,140,248,0.85)" : "rgba(129,140,248,0.22)", minWidth: 0 }}/>)}
+                    </div>
+                  </div>
+                </div>
+                <div style={{ borderRadius: 10, overflow: "hidden", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                  {[{n:"Age Calculator",t:"Most used",c:94},{n:"Mortgage Calculator",t:"Finance",c:81},{n:"BMI Calculator",t:"Health",c:73}].map((r,i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", fontSize: 11, borderBottom: i<2 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
+                      <span style={{ flex: 1, color: "rgba(255,255,255,0.6)" }}>{r.n}</span>
+                      <span style={{ color: "rgba(255,255,255,0.28)", minWidth: 52 }}>{r.t}</span>
+                      <div style={{ width: 55, height: 3, borderRadius: 3, background: "rgba(255,255,255,0.07)" }}><div style={{ height: "100%", width: `${r.c}%`, background: "linear-gradient(90deg,#6366f1,#22d3ee)", borderRadius: 3 }}/></div>
+                      <span style={{ color: "#22d3ee", fontFamily: "monospace", minWidth: 28 }}>{r.c}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeUp>
+    </section>
+  );
+}
+
+// ── Stats strip ───────────────────────────────────────────────────────────────
+function Stats() {
+  const items = [
+    { v: "2.4M+", l: "Calculations run" },
+    { v: "8", l: "Calculator types" },
+    { v: "99.9%", l: "Accuracy rate" },
+    { v: "0ms", l: "Signup required" },
+  ];
+  return (
+    <section style={{ padding: "0 24px 80px" }}>
+      <div style={{ maxWidth: 1060, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 1, background: "rgba(255,255,255,0.055)", borderRadius: 18, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
+        {items.map((m,i) => (
+          <FadeUp key={i} delay={i * 0.07}>
+            <div style={{ background: "#06060c", padding: "36px 28px", textAlign: "center" }}>
+              <div style={{ fontSize: "clamp(32px,3.5vw,46px)", fontWeight: 800, letterSpacing: "-2px", fontFamily: "'Sora',sans-serif", background: "linear-gradient(135deg,white 40%,rgba(255,255,255,0.45))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", marginBottom: 8 }}>{m.v}</div>
+              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.32)" }}>{m.l}</div>
+            </div>
+          </FadeUp>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ── Calculator Section ────────────────────────────────────────────────────────
+const TOOL_LIST = [
+  { id: "age",      label: "Age",       Icon: Icons.Age },
+  { id: "tip",      label: "Tip",       Icon: Icons.Tip },
+  { id: "gpa",      label: "GPA",       Icon: Icons.GPA },
+  { id: "miles",    label: "Miles ↔ KM",Icon: Icons.Miles },
+  { id: "mortgage", label: "Mortgage",  Icon: Icons.Mortgage },
+  { id: "bmi",      label: "BMI",       Icon: Icons.BMI },
+  { id: "tax",      label: "Tax",       Icon: Icons.Tax },
+  { id: "interest", label: "Interest",  Icon: Icons.Interest },
+];
+
+// Shared field & button styles
+const fld = (extra={}) => ({ width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "white", padding: "10px 14px", borderRadius: 10, fontSize: 14, fontFamily: "inherit", outline: "none", transition: "border-color 0.15s", ...extra });
+const sel = () => ({ ...fld(), cursor: "pointer", appearance: "none", WebkitAppearance: "none" });
+const twoCol = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
+const Field = ({ label, children }) => (
+  <div style={{ marginBottom: 16 }}>
+    <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 7 }}>{label}</label>
+    {children}
+  </div>
+);
+
+function ResultBox({ items }) {
+  if (!items) return null;
+  return (
+    <div style={{ marginTop: 20, background: "rgba(34,211,238,0.05)", border: "1px solid rgba(34,211,238,0.18)", borderRadius: 12, padding: "16px 18px" }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "#22d3ee", textTransform: "uppercase", letterSpacing: "0.7px", marginBottom: 12 }}>Results</div>
+      {items.map((item,i) => (
+        <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < items.length-1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>{item.l}</span>
+          <span style={{ fontSize: 14, fontWeight: 600, color: item.highlight ? "#22d3ee" : "white", fontFamily: item.mono ? "monospace" : "inherit" }}>{item.v}</span>
+        </div>
+      ))}
     </div>
-  </div>
-</div>
-
-<footer>
-  <div class="f-logo">Calc<span>Hub</span></div>
-  <div class="f-links">
-    <a href="#">Home</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <div class="f-copy">© 2025 CalcHub · Free Online Calculator Tools · No signup required</div>
-</footer>
-
-<script>
-function show(id,el,icon,title,desc){
-  document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  el.classList.add('active');
-  document.getElementById('cIcon').textContent=icon;
-  document.getElementById('cTitle').textContent=title;
-  document.getElementById('cDesc').textContent=desc;
-}
-function showR(id){document.getElementById(id).style.display='block'}
-
-// AGE
-document.getElementById('dob').max=new Date().toISOString().split('T')[0];
-function calcAge(){
-  const dob=new Date(document.getElementById('dob').value);if(!dob.getTime())return;
-  const now=new Date();
-  let y=now.getFullYear()-dob.getFullYear(),m=now.getMonth()-dob.getMonth(),d=now.getDate()-dob.getDate();
-  if(d<0){m--;d+=30}if(m<0){y--;m+=12}
-  const total=Math.floor((now-dob)/86400000);
-  const next=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());
-  if(next<=now)next.setFullYear(now.getFullYear()+1);
-  document.getElementById('ageMain').textContent=y+' Years Old';
-  document.getElementById('ageBday').textContent='🎂 Next birthday in '+Math.floor((next-now)/86400000)+' days';
-  document.getElementById('ageM').textContent=m;
-  document.getElementById('ageD').textContent=d;
-  document.getElementById('ageTD').textContent=total.toLocaleString();
-  showR('ageR');
+  );
 }
 
-// TIP
-let tipP=18,ppl=1;
-function setTip(v,b){tipP=v;document.querySelectorAll('#tip .chip').forEach(c=>c.classList.remove('on'));b.classList.add('on')}
-function cp(d){ppl=Math.max(1,ppl+d);document.getElementById('ppl').textContent=ppl}
-function calcTip(){
-  const b=parseFloat(document.getElementById('tBill').value);if(!b)return;
-  const t=b*tipP/100,tot=b+t;
-  document.getElementById('tMain').textContent='$'+(tot/ppl).toFixed(2);
-  document.getElementById('tTotal').textContent='$'+tot.toFixed(2);
-  document.getElementById('tAmt').textContent='$'+t.toFixed(2);
-  document.getElementById('tPer').textContent='$'+(t/ppl).toFixed(2);
-  showR('tipR');
+function ErrorBox({ msg }) {
+  if (!msg) return null;
+  return <div style={{ marginTop: 16, background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.22)", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "#fca5a5" }}>{msg}</div>;
 }
 
-// GPA
-const gp={'A+':4,'A':4,'A-':3.7,'B+':3.3,'B':3,'B-':2.7,'C+':2.3,'C':2,'C-':1.7,'D':1,'F':0};
-function addC(){
-  const d=document.createElement('div');d.className='c-row';
-  d.innerHTML='<input class="f-input c-name" placeholder="Course Name"><select class="f-input"><option>A+</option><option>A</option><option>A-</option><option>B+</option><option selected>B</option><option>B-</option><option>C+</option><option>C</option><option>C-</option><option>D</option><option>F</option></select><input class="f-input c-cr" type="number" value="3" placeholder="Cr"><button class="c-del" onclick="this.parentNode.remove()">✕</button>';
-  document.getElementById('cList').appendChild(d);
-}
-function calcGPA(){
-  let pts=0,cr=0;
-  document.querySelectorAll('#cList .c-row').forEach(r=>{
-    const s=r.querySelector('select').value,c=parseFloat(r.querySelectorAll('input')[1].value)||0;
-    pts+=(gp[s]||0)*c;cr+=c;
-  });
-  if(!cr)return;
-  const g=(pts/cr).toFixed(2);
-  document.getElementById('gMain').textContent=g+' / 4.0';
-  document.getElementById('gStand').textContent=g>=3.7?'Summa Cum Laude 🏆':g>=3.3?'Magna Cum Laude 🎖️':g>=3.0?'Cum Laude 🎓':g>=2.0?'Good Standing ✅':'Academic Probation ⚠️';
-  showR('gpaR');
+function CalcBtn({ onClick, label = "Calculate" }) {
+  return (
+    <button onClick={onClick} style={{ width: "100%", marginTop: 4, padding: "12px", borderRadius: 10, fontSize: 14, fontWeight: 600, background: "linear-gradient(135deg,#6366f1,#818cf8)", color: "white", border: "none", cursor: "pointer", fontFamily: "inherit", boxShadow: "0 0 20px rgba(99,102,241,0.35)", transition: "all 0.15s" }}>
+      {label}
+    </button>
+  );
 }
 
-// MILES
-let mMode='mi';
-function setM(m,b){mMode=m;document.querySelectorAll('#miles .chip').forEach(c=>c.classList.remove('on'));b.classList.add('on');document.getElementById('mLbl').textContent=m==='mi'?'Miles':'Kilometers'}
-function calcMiles(){
-  const v=parseFloat(document.getElementById('mVal').value);if(!v)return;
-  if(mMode==='mi'){document.getElementById('mMain').textContent=(v*1.60934).toFixed(3)+' km';document.getElementById('mSub').textContent=(v*5280).toLocaleString()+' feet'}
-  else{document.getElementById('mMain').textContent=(v/1.60934).toFixed(3)+' miles';document.getElementById('mSub').textContent=(v*1000).toLocaleString()+' meters'}
-  showR('milesR');
+// ── Individual calculators ────────────────────────────────────────────────────
+function AgeCalc() {
+  const today = new Date().toISOString().split("T")[0];
+  const [dob, setDob] = useState("");
+  const [asof, setAsof] = useState(today);
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const calc = () => {
+    if (!dob) return setErr("Please enter date of birth."), setRes(null);
+    const d = new Date(dob), a = new Date(asof);
+    if (d >= a) return setErr("Date of birth must be before the 'as of' date."), setRes(null);
+    let y = a.getFullYear()-d.getFullYear(), m = a.getMonth()-d.getMonth(), day = a.getDate()-d.getDate();
+    if (day<0){m--;day+=new Date(a.getFullYear(),a.getMonth(),0).getDate();}
+    if (m<0){y--;m+=12;}
+    const days = Math.floor((a-d)/86400000);
+    let nb = new Date(a.getFullYear(),d.getMonth(),d.getDate());
+    if (nb<=a) nb.setFullYear(nb.getFullYear()+1);
+    const nextBday = Math.ceil((nb-a)/86400000);
+    setErr(""); setRes([
+      { l:"Age", v:`${y} yrs, ${m} mo, ${day} days`, highlight: true },
+      { l:"Total months", v:(y*12+m).toLocaleString(), mono: true },
+      { l:"Total days",   v:days.toLocaleString(), mono: true },
+      { l:"Total weeks",  v:Math.floor(days/7).toLocaleString(), mono: true },
+      { l:"Next birthday in", v:`${nextBday} days` },
+    ]);
+  };
+  return <>
+    <Field label="Date of Birth"><input type="date" style={fld()} max={today} value={dob} onChange={e=>setDob(e.target.value)}/></Field>
+    <Field label="As of Date"><input type="date" style={fld()} value={asof} onChange={e=>setAsof(e.target.value)}/></Field>
+    <CalcBtn onClick={calc} label="Calculate Age"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
 }
 
-// MORTGAGE
-function calcMort(){
-  const p=parseFloat(document.getElementById('hPrice').value)-(parseFloat(document.getElementById('hDown').value)||0);
-  const r=parseFloat(document.getElementById('hRate').value)/100/12;
-  const n=parseInt(document.getElementById('hYrs').value)*12;
-  if(!p||!r||p<=0)return;
-  const m=(p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1),tot=m*n,int=tot-p;
-  document.getElementById('mPay').textContent='$'+Math.round(m).toLocaleString()+'/mo';
-  document.getElementById('mLoan').textContent='$'+(p/1000).toFixed(0)+'K';
-  document.getElementById('mInt').textContent='$'+(int/1000).toFixed(0)+'K';
-  document.getElementById('mTot').textContent='$'+(tot/1000).toFixed(0)+'K';
-  showR('mortR');
+function TipCalc() {
+  const [bill, setBill] = useState(""); const [tip, setTip] = useState("18"); const [split, setSplit] = useState("2");
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const calc = () => {
+    const b=parseFloat(bill), t=parseFloat(tip), s=parseInt(split)||1;
+    if (!b||b<=0) return setErr("Enter a valid bill amount."), setRes(null);
+    const tipAmt=b*t/100, total=b+tipAmt;
+    setErr(""); setRes([
+      { l:"Tip amount",        v:`$${tipAmt.toFixed(2)}`, highlight: true, mono: true },
+      { l:"Total bill",        v:`$${total.toFixed(2)}`, mono: true },
+      { l:"Per person (tip)",  v:`$${(tipAmt/s).toFixed(2)}`, mono: true },
+      { l:"Per person (total)",v:`$${(total/s).toFixed(2)}`, mono: true },
+    ]);
+  };
+  return <>
+    <Field label="Bill Amount ($)"><input type="number" style={fld()} placeholder="0.00" value={bill} onChange={e=>setBill(e.target.value)}/></Field>
+    <div style={twoCol}>
+      <Field label="Tip %"><select style={sel()} value={tip} onChange={e=>setTip(e.target.value)}>{["10","15","18","20","25","30"].map(v=><option key={v}>{v}</option>)}</select></Field>
+      <Field label="Split between"><input type="number" style={fld()} min="1" max="50" value={split} onChange={e=>setSplit(e.target.value)}/></Field>
+    </div>
+    <CalcBtn onClick={calc} label="Calculate Tip"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
 }
 
-// BMI
-let bmiU='imp';
-function setBmi(u,b){bmiU=u;document.querySelectorAll('#bmi .chip').forEach(c=>c.classList.remove('on'));b.classList.add('on');document.getElementById('bImp').style.display=u==='imp'?'block':'none';document.getElementById('bMet').style.display=u==='met'?'block':'none'}
-function calcBMI(){
-  let bmi;
-  if(bmiU==='imp'){const t=(parseFloat(document.getElementById('bFt').value)||0)*12+(parseFloat(document.getElementById('bIn').value)||0);bmi=703*(parseFloat(document.getElementById('bLbs').value)||0)/(t*t)}
-  else{const h=(parseFloat(document.getElementById('bCm').value)||0)/100;bmi=(parseFloat(document.getElementById('bKg').value)||0)/(h*h)}
-  if(!bmi||isNaN(bmi))return;bmi=bmi.toFixed(1);
-  const s=bmi<18.5?['Underweight','Consider a balanced nutritious diet']:bmi<25?['Normal Weight ✅','You are in a healthy range!']:bmi<30?['Overweight','Regular exercise can help']:['Obese','Please consult a healthcare provider'];
-  document.getElementById('bMain').textContent=bmi;
-  document.getElementById('bStat').textContent=s[0];
-  document.getElementById('bAdv').textContent=s[1];
-  showR('bmiR');
+function GPACalc() {
+  const GRADES=["A+","A","A-","B+","B","B-","C+","C","C-","D+","D","F"];
+  const GMAP={"A+":4,"A":4,"A-":3.7,"B+":3.3,"B":3,"B-":2.7,"C+":2.3,"C":2,"C-":1.7,"D+":1.3,"D":1,"F":0};
+  const [courses, setCourses] = useState([
+    { name:"Mathematics", grade:"A",  credits:"3" },
+    { name:"English",     grade:"B+", credits:"3" },
+    { name:"Science",     grade:"A-", credits:"4" },
+  ]);
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const upd = (i,k,v) => setCourses(c=>c.map((r,j)=>j===i?{...r,[k]:v}:r));
+  const add = () => setCourses(c=>[...c,{name:"",grade:"B",credits:"3"}]);
+  const rem = i => setCourses(c=>c.filter((_,j)=>j!==i));
+  const calc = () => {
+    let tp=0, tc=0;
+    for (const c of courses) { const cr=parseFloat(c.credits)||0; tp+=(GMAP[c.grade]||0)*cr; tc+=cr; }
+    if (!tc) return setErr("Add at least one course with credits."), setRes(null);
+    const gpa=tp/tc;
+    const letter=gpa>=3.7?"A":gpa>=3.3?"B+":gpa>=3?"B":gpa>=2.7?"B-":gpa>=2.3?"C+":gpa>=2?"C":gpa>=1?"D":"F";
+    const standing=gpa>=3.7?"Summa Cum Laude":gpa>=3.5?"Magna Cum Laude":gpa>=3?"Cum Laude":gpa>=2?"Satisfactory":"Academic Probation";
+    setErr(""); setRes([
+      { l:"GPA",          v:`${gpa.toFixed(2)} / 4.00`, highlight: true, mono: true },
+      { l:"Letter grade", v:letter },
+      { l:"Total credits",v:tc.toString(), mono: true },
+      { l:"Standing",     v:standing },
+    ]);
+  };
+  return <>
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 90px 80px 32px", gap: 8, marginBottom: 6 }}>
+        {["Course","Grade","Credits",""].map((h,i)=><span key={i} style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.5px" }}>{h}</span>)}
+      </div>
+      {courses.map((c,i) => (
+        <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 90px 80px 32px", gap: 8, marginBottom: 8, alignItems: "center" }}>
+          <input style={fld({padding:"8px 12px",fontSize:13})} placeholder="Course name" value={c.name} onChange={e=>upd(i,"name",e.target.value)}/>
+          <select style={{...sel(),padding:"8px 10px",fontSize:13}} value={c.grade} onChange={e=>upd(i,"grade",e.target.value)}>
+            {GRADES.map(g=><option key={g}>{g}</option>)}
+          </select>
+          <input type="number" style={fld({padding:"8px 10px",fontSize:13})} min="1" max="6" value={c.credits} onChange={e=>upd(i,"credits",e.target.value)}/>
+          <button onClick={()=>rem(i)} style={{ background: "transparent", border: "1px solid rgba(248,113,113,0.25)", color: "#f87171", borderRadius: 8, width: 32, height: 36, cursor: "pointer", display: "grid", placeItems: "center" }}><Icons.Trash/></button>
+        </div>
+      ))}
+    </div>
+    <button onClick={add} style={{ width: "100%", padding: "9px", marginBottom: 14, background: "transparent", border: "1px dashed rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.4)", borderRadius: 10, cursor: "pointer", fontSize: 13, fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+      <Icons.Plus/> Add course
+    </button>
+    <CalcBtn onClick={calc} label="Calculate GPA"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
 }
 
-// TAX
-let txS='s';
-function setTax(s,b){txS=s;document.querySelectorAll('#tax .chip').forEach(c=>c.classList.remove('on'));b.classList.add('on')}
-function calcTax(){
-  const inc=parseFloat(document.getElementById('txInc').value);if(!inc)return;
-  const br=txS==='s'?[[11600,.10],[47150,.12],[100525,.22],[191950,.24],[243725,.32],[609350,.35],[Infinity,.37]]:[[23200,.10],[94300,.12],[201050,.22],[383900,.24],[487450,.32],[731200,.35],[Infinity,.37]];
-  let tax=0,prev=0;
-  for(const[l,r]of br){if(inc<=prev)break;tax+=(Math.min(inc,l)-prev)*r;prev=l}
-  const after=inc-tax;
-  document.getElementById('txMain').textContent='-$'+Math.round(tax).toLocaleString();
-  document.getElementById('txRate').textContent=((tax/inc)*100).toFixed(1)+'%';
-  document.getElementById('txAfter').textContent='$'+(after/1000).toFixed(1)+'K';
-  document.getElementById('txMo').textContent='$'+Math.round(after/12).toLocaleString();
-  showR('taxR');
+function MilesCalc() {
+  const [val, setVal] = useState(""); const [dir, setDir] = useState("mtok");
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const fromLabel = dir==="mtok" ? "Miles" : "Kilometers";
+  const toUnit    = dir==="mtok" ? "km"    : "miles";
+  const calc = () => {
+    const v=parseFloat(val);
+    if (isNaN(v)||v<0) return setErr("Enter a valid positive number."), setRes(null);
+    const r = dir==="mtok" ? v*1.60934 : v/1.60934;
+    setErr(""); setRes([
+      { l:`${v.toLocaleString()} ${fromLabel} =`, v:`${r.toFixed(4)} ${toUnit}`, highlight: true, mono: true },
+      { l:"Rounded",   v:`${Math.round(r).toLocaleString()} ${toUnit}`, mono: true },
+      { l:"1 mile =",  v:"1.60934 km",  mono: true },
+      { l:"1 km =",    v:"0.62137 miles", mono: true },
+    ]);
+  };
+  return <>
+    <Field label="Direction">
+      <select style={sel()} value={dir} onChange={e=>setDir(e.target.value)}>
+        <option value="mtok">Miles → Kilometers</option>
+        <option value="ktom">Kilometers → Miles</option>
+      </select>
+    </Field>
+    <Field label={fromLabel}><input type="number" style={fld()} placeholder="0" value={val} onChange={e=>setVal(e.target.value)} min="0" step="any"/></Field>
+    <CalcBtn onClick={calc} label="Convert"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
 }
 
-// COMPOUND
-let freq=12;
-function setFr(f,b){freq=f;document.querySelectorAll('#compound .chip').forEach(c=>c.classList.remove('on'));b.classList.add('on')}
-function calcComp(){
-  const p=parseFloat(document.getElementById('iP').value),r=parseFloat(document.getElementById('iR').value)/100,t=parseFloat(document.getElementById('iY').value);
-  if(!p||!r||!t)return;
-  const amt=p*Math.pow(1+r/freq,freq*t),int=amt-p;
-  document.getElementById('cAmt').textContent='$'+Math.round(amt).toLocaleString();
-  document.getElementById('cGrow').textContent='+'+((int/p)*100).toFixed(1)+'%';
-  document.getElementById('cInt').textContent='$'+Math.round(int).toLocaleString();
-  showR('compR');
+function MortgageCalc() {
+  const [price, setPrice] = useState("400000"); const [down, setDown] = useState("80000");
+  const [rate, setRate]   = useState("6.5");    const [term, setTerm] = useState("30");
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const calc = () => {
+    const p=parseFloat(price)-parseFloat(down||0), r=parseFloat(rate)/100/12, n=parseInt(term)*12;
+    if (p<=0) return setErr("Loan amount must be positive."), setRes(null);
+    if (!r||r<=0) return setErr("Enter a valid interest rate."), setRes(null);
+    const pmt = r===0 ? p/n : p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+    const total=pmt*n, interest=total-p, ltv=(p/parseFloat(price)*100);
+    setErr(""); setRes([
+      { l:"Monthly payment", v:`$${pmt.toFixed(2)}`,                    highlight: true, mono: true },
+      { l:"Loan amount",     v:`$${p.toLocaleString()}`,                mono: true },
+      { l:"Total interest",  v:`$${Math.round(interest).toLocaleString()}`, mono: true },
+      { l:"Total cost",      v:`$${Math.round(total).toLocaleString()}`,    mono: true },
+      { l:"LTV ratio",       v:`${ltv.toFixed(1)}%`,                    mono: true },
+    ]);
+  };
+  return <>
+    <Field label="Home Price ($)"><input type="number" style={fld()} value={price} onChange={e=>setPrice(e.target.value)}/></Field>
+    <div style={twoCol}>
+      <Field label="Down Payment ($)"><input type="number" style={fld()} value={down} onChange={e=>setDown(e.target.value)}/></Field>
+      <Field label="Interest Rate (%)"><input type="number" style={fld()} value={rate} step="0.01" onChange={e=>setRate(e.target.value)}/></Field>
+    </div>
+    <Field label="Loan Term">
+      <select style={sel()} value={term} onChange={e=>setTerm(e.target.value)}>
+        {["30","20","15","10"].map(v=><option key={v} value={v}>{v} years</option>)}
+      </select>
+    </Field>
+    <CalcBtn onClick={calc} label="Calculate Payment"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
 }
-</script>
-</body>
-</html>
+
+function BMICalc() {
+  const [unit, setUnit] = useState("metric");
+  const [wt, setWt] = useState("70"); const [ht, setHt] = useState("170");
+  const [wtI, setWtI] = useState("154"); const [htI, setHtI] = useState("67");
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const calc = () => {
+    let bmi;
+    if (unit==="metric"){
+      const w=parseFloat(wt), h=parseFloat(ht)/100;
+      if (!w||!h||h<=0) return setErr("Enter valid weight and height."), setRes(null);
+      bmi=w/(h*h);
+    } else {
+      const w=parseFloat(wtI), h=parseFloat(htI);
+      if (!w||!h||h<=0) return setErr("Enter valid weight and height."), setRes(null);
+      bmi=703*w/(h*h);
+    }
+    const cat=bmi<18.5?"Underweight":bmi<25?"Normal weight":bmi<30?"Overweight":"Obese";
+    const htM = unit==="metric" ? parseFloat(ht)/100 : parseFloat(htI)*0.0254;
+    const lo=(18.5*htM*htM), hi=(24.9*htM*htM);
+    const range = unit==="metric" ? `${lo.toFixed(1)} – ${hi.toFixed(1)} kg` : `${Math.round(lo/0.453592)} – ${Math.round(hi/0.453592)} lbs`;
+    setErr(""); setRes([
+      { l:"BMI",           v:bmi.toFixed(1), highlight: true, mono: true },
+      { l:"Category",      v:cat },
+      { l:"Healthy range", v:range },
+    ]);
+  };
+  return <>
+    <Field label="Unit system">
+      <select style={sel()} value={unit} onChange={e=>setUnit(e.target.value)}>
+        <option value="metric">Metric (kg, cm)</option>
+        <option value="imperial">Imperial (lbs, in)</option>
+      </select>
+    </Field>
+    {unit==="metric" ? (
+      <div style={twoCol}>
+        <Field label="Weight (kg)"><input type="number" style={fld()} value={wt} onChange={e=>setWt(e.target.value)}/></Field>
+        <Field label="Height (cm)"><input type="number" style={fld()} value={ht} onChange={e=>setHt(e.target.value)}/></Field>
+      </div>
+    ) : (
+      <div style={twoCol}>
+        <Field label="Weight (lbs)"><input type="number" style={fld()} value={wtI} onChange={e=>setWtI(e.target.value)}/></Field>
+        <Field label="Height (in)"><input type="number" style={fld()} value={htI} onChange={e=>setHtI(e.target.value)}/></Field>
+      </div>
+    )}
+    <CalcBtn onClick={calc} label="Calculate BMI"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
+}
+
+function TaxCalc() {
+  const [inc, setInc] = useState("75000"); const [fil, setFil] = useState("single");
+  const [dedType, setDedType] = useState("std"); const [itemized, setItemized] = useState("0");
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const calc = () => {
+    const income=parseFloat(inc)||0;
+    const std={single:14600,mfj:29200,hoh:21900};
+    const deduction = dedType==="std" ? (std[fil]||14600) : (parseFloat(itemized)||0);
+    const taxable=Math.max(0,income-deduction);
+    const brackets = fil==="mfj"
+      ? [[0,23200,.10],[23200,94300,.12],[94300,201050,.22],[201050,383900,.24],[383900,487450,.32],[487450,731200,.35],[731200,Infinity,.37]]
+      : [[0,11600,.10],[11600,47150,.12],[47150,100525,.22],[100525,191950,.24],[191950,243725,.32],[243725,609350,.35],[609350,Infinity,.37]];
+    let tax=0; brackets.forEach(([lo,hi,r])=>{if(taxable>lo)tax+=(Math.min(taxable,hi)-lo)*r;});
+    const eff=income>0?tax/income*100:0;
+    setErr(""); setRes([
+      { l:"Federal tax owed",   v:`$${Math.round(tax).toLocaleString()}`,    highlight: true, mono: true },
+      { l:"Effective rate",     v:`${eff.toFixed(2)}%`,                      mono: true },
+      { l:"Taxable income",     v:`$${Math.round(taxable).toLocaleString()}`, mono: true },
+      { l:"Deduction used",     v:`$${deduction.toLocaleString()}`,          mono: true },
+      { l:"After-tax income",   v:`$${Math.round(income-tax).toLocaleString()}`, mono: true },
+    ]);
+  };
+  return <>
+    <Field label="Annual Income ($)"><input type="number" style={fld()} value={inc} onChange={e=>setInc(e.target.value)}/></Field>
+    <div style={twoCol}>
+      <Field label="Filing Status">
+        <select style={sel()} value={fil} onChange={e=>setFil(e.target.value)}>
+          <option value="single">Single</option>
+          <option value="mfj">Married jointly</option>
+          <option value="hoh">Head of household</option>
+        </select>
+      </Field>
+      <Field label="Deduction Type">
+        <select style={sel()} value={dedType} onChange={e=>setDedType(e.target.value)}>
+          <option value="std">Standard</option>
+          <option value="item">Itemized</option>
+        </select>
+      </Field>
+    </div>
+    {dedType==="item" && <Field label="Itemized Amount ($)"><input type="number" style={fld()} value={itemized} onChange={e=>setItemized(e.target.value)}/></Field>}
+    <CalcBtn onClick={calc} label="Estimate Tax"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
+}
+
+function InterestCalc() {
+  const [principal, setPrincipal] = useState("10000"); const [rate, setRate] = useState("5");
+  const [time, setTime] = useState("10"); const [type, setType] = useState("compound"); const [freq, setFreq] = useState("12");
+  const [res, setRes] = useState(null); const [err, setErr] = useState("");
+  const calc = () => {
+    const p=parseFloat(principal), r=parseFloat(rate)/100, t=parseFloat(time), n=parseInt(freq);
+    if (!p||p<=0||!r||r<=0||!t||t<=0) return setErr("Enter valid values for all fields."), setRes(null);
+    const A = type==="compound" ? p*Math.pow(1+r/n,n*t) : p*(1+r*t);
+    const interest=A-p;
+    setErr(""); setRes([
+      { l:"Final amount",   v:`$${Math.round(A).toLocaleString()}`,       highlight: true, mono: true },
+      { l:"Interest earned",v:`$${Math.round(interest).toLocaleString()}`, mono: true },
+      { l:"Principal",      v:`$${p.toLocaleString()}`,                   mono: true },
+      { l:"Growth",         v:`${((interest/p)*100).toFixed(1)}%`,        mono: true },
+    ]);
+  };
+  return <>
+    <Field label="Principal Amount ($)"><input type="number" style={fld()} value={principal} onChange={e=>setPrincipal(e.target.value)}/></Field>
+    <div style={twoCol}>
+      <Field label="Annual Rate (%)"><input type="number" style={fld()} value={rate} step="0.01" onChange={e=>setRate(e.target.value)}/></Field>
+      <Field label="Time (years)"><input type="number" style={fld()} value={time} step="0.5" onChange={e=>setTime(e.target.value)}/></Field>
+    </div>
+    <div style={twoCol}>
+      <Field label="Interest Type">
+        <select style={sel()} value={type} onChange={e=>setType(e.target.value)}>
+          <option value="compound">Compound</option>
+          <option value="simple">Simple</option>
+        </select>
+      </Field>
+      <Field label="Compounding">
+        <select style={sel()} value={freq} onChange={e=>setFreq(e.target.value)}>
+          <option value="365">Daily</option>
+          <option value="12">Monthly</option>
+          <option value="4">Quarterly</option>
+          <option value="2">Semi-annually</option>
+          <option value="1">Annually</option>
+        </select>
+      </Field>
+    </div>
+    <CalcBtn onClick={calc} label="Calculate Interest"/>
+    <ErrorBox msg={err}/><ResultBox items={res}/>
+  </>;
+}
+
+const CALC_COMPONENTS = { age: AgeCalc, tip: TipCalc, gpa: GPACalc, miles: MilesCalc, mortgage: MortgageCalc, bmi: BMICalc, tax: TaxCalc, interest: InterestCalc };
+const CALC_META = {
+  age:      { name: "Age Calculator",      desc: "Calculate exact age, total days, weeks, and next birthday." },
+  tip:      { name: "Tip Calculator",      desc: "Split bills with customizable tip percentage." },
+  gpa:      { name: "GPA Calculator",      desc: "Weighted GPA from courses, grades, and credit hours." },
+  miles:    { name: "Miles ↔ KM",          desc: "Convert between miles and kilometers instantly." },
+  mortgage: { name: "Mortgage Calculator", desc: "Monthly payments, total interest, and LTV ratio." },
+  bmi:      { name: "BMI Calculator",      desc: "Body Mass Index with healthy weight range." },
+  tax:      { name: "Tax Calculator",      desc: "US 2025 federal income tax estimate by bracket." },
+  interest: { name: "Interest Calculator", desc: "Simple and compound interest with growth projection." },
+};
+
+function CalculatorsSection() {
+  const [active, setActive] = useState("age");
+  const meta = CALC_META[active];
+  const CalcComponent = CALC_COMPONENTS[active];
+
+  return (
+    <section style={{ padding: "80px 24px 100px", maxWidth: 1060, margin: "0 auto" }}>
+      <FadeUp>
+        <div style={{ marginBottom: 48 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ width: 20, height: 1, background: "#818cf8" }} /> Tools
+          </div>
+          <h2 style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 800, letterSpacing: "-1.5px", color: "white", marginBottom: 14, fontFamily: "'Sora',sans-serif", lineHeight: 1.1 }}>
+            All calculators,<br />
+            <span style={{ background: "linear-gradient(135deg,#818cf8,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>one platform.</span>
+          </h2>
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 500, lineHeight: 1.65 }}>
+            Select a tool below. Instant results, no data stored, no signup required.
+          </p>
+        </div>
+      </FadeUp>
+
+      {/* Tool selector */}
+      <FadeUp delay={0.1}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(110px,1fr))", gap: 8, marginBottom: 32 }}>
+          {TOOL_LIST.map(({ id, label, Icon }) => (
+            <button key={id} onClick={() => setActive(id)}
+              style={{ padding: "14px 10px 12px", borderRadius: 14, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, cursor: "pointer", transition: "all 0.18s", fontFamily: "inherit",
+                background: active===id ? "rgba(99,102,241,0.12)" : "rgba(255,255,255,0.03)",
+                border: active===id ? "1px solid rgba(99,102,241,0.4)" : "1px solid rgba(255,255,255,0.07)",
+                boxShadow: active===id ? "0 0 20px rgba(99,102,241,0.15)" : "none",
+                color: active===id ? "#818cf8" : "rgba(255,255,255,0.38)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}><Icon /></div>
+              <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.4px", lineHeight: 1.2, textAlign: "center" }}>{label}</span>
+            </button>
+          ))}
+        </div>
+      </FadeUp>
+
+      {/* Calculator panel */}
+      <FadeUp delay={0.15}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, alignItems: "start" }}>
+          {/* Input panel */}
+          <div style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: "28px 28px 24px", position: "sticky", top: 80 }}>
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+                <div style={{ width: 38, height: 38, borderRadius: 10, background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.25)", display: "grid", placeItems: "center", color: "#818cf8" }}>
+                  {React.createElement(CALC_COMPONENTS[active] === AgeCalc ? Icons.Age : active==="tip" ? Icons.Tip : active==="gpa" ? Icons.GPA : active==="miles" ? Icons.Miles : active==="mortgage" ? Icons.Mortgage : active==="bmi" ? Icons.BMI : active==="tax" ? Icons.Tax : Icons.Interest)}
+                </div>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: "white", letterSpacing: "-0.2px" }}>{meta.name}</div>
+                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.38)" }}>{meta.desc}</div>
+                </div>
+              </div>
+            </div>
+            <CalcComponent key={active} />
+          </div>
+
+          {/* Info / about panel */}
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 18, padding: "28px 28px 24px", display: "flex", flexDirection: "column", gap: 20 }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.7px", marginBottom: 12 }}>About this tool</div>
+              <div style={{ fontSize: 14, color: "rgba(255,255,255,0.48)", lineHeight: 1.75 }}>
+                {active==="age"      && "The Age Calculator determines your exact age in years, months, days, weeks, and total days from any date of birth. Useful for legal, medical, and personal planning contexts."}
+                {active==="tip"      && "Calculate how much to tip at restaurants, salons, or any service. Set any tip percentage and split the bill evenly across multiple people."}
+                {active==="gpa"      && "Enter your courses, letter grades, and credit hours to compute your cumulative GPA on a 4.0 scale. Supports A+ through F with standard grade point values."}
+                {active==="miles"    && "Convert between miles and kilometers with high precision. Uses the exact factor of 1.60934 km per mile as defined by international standards."}
+                {active==="mortgage" && "Estimate monthly mortgage payments using the standard amortization formula. Includes loan-to-value ratio and total interest over the full term."}
+                {active==="bmi"      && "Body Mass Index is a screening tool calculated from height and weight. A BMI between 18.5 and 24.9 is considered normal weight for most adults."}
+                {active==="tax"      && "Uses 2025 IRS tax brackets for federal income tax estimation. Supports standard and itemized deductions for Single, Married Filing Jointly, and Head of Household."}
+                {active==="interest" && "Calculate growth with simple or compound interest. Compound interest compounds can be daily, monthly, quarterly, semi-annually, or annually."}
+              </div>
+            </div>
+            <div style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "16px 18px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.28)", textTransform: "uppercase", letterSpacing: "0.7px", marginBottom: 14 }}>All 8 tools</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                {TOOL_LIST.map(({ id, label, Icon }) => (
+                  <button key={id} onClick={() => setActive(id)}
+                    style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", borderRadius: 9, cursor: "pointer", transition: "all 0.15s", fontFamily: "inherit", background: active===id ? "rgba(99,102,241,0.1)" : "transparent", border: active===id ? "1px solid rgba(99,102,241,0.2)" : "1px solid transparent", color: active===id ? "#818cf8" : "rgba(255,255,255,0.45)", textAlign: "left" }}>
+                    <Icon />
+                    <span style={{ fontSize: 13, fontWeight: active===id ? 600 : 400 }}>{label}</span>
+                    {active===id && <span style={{ marginLeft: "auto" }}><Icons.Arrow /></span>}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeUp>
+    </section>
+  );
+}
+
+// ── Logos ─────────────────────────────────────────────────────────────────────
+const LOGOS = ["Stripe","Vercel","Linear","Notion","Figma","Resend","Raycast","Loom"];
+function LogoBar() {
+  return (
+    <section style={{ padding: "52px 24px", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.22)", marginBottom: 26, letterSpacing: "1.2px", textTransform: "uppercase", fontWeight: 600 }}>Trusted by teams worldwide</p>
+      <div style={{ display: "flex", justifyContent: "center", gap: 44, flexWrap: "wrap", maxWidth: 900, margin: "0 auto" }}>
+        {LOGOS.map(l => <span key={l} style={{ fontSize: 16, fontWeight: 700, color: "rgba(255,255,255,0.16)", letterSpacing: "-0.3px", fontFamily: "'Sora',sans-serif" }}>{l}</span>)}
+      </div>
+    </section>
+  );
+}
+
+// ── CTA ───────────────────────────────────────────────────────────────────────
+function CTA({ setActiveSection }) {
+  return (
+    <section style={{ padding: "60px 24px 100px" }}>
+      <FadeUp>
+        <div style={{ maxWidth: 860, margin: "0 auto", borderRadius: 26, padding: "68px 52px", textAlign: "center", position: "relative", overflow: "hidden", background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.18)" }}>
+          <Orb style={{ width: 440, height: 440, top: -130, left: "50%", transform: "translateX(-50%)", background: "radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%)" }} />
+          <div style={{ position: "relative" }}>
+            <h2 style={{ fontSize: "clamp(28px,4.5vw,52px)", fontWeight: 800, letterSpacing: "-2px", color: "white", marginBottom: 18, fontFamily: "'Sora',sans-serif", lineHeight: 1.1 }}>
+              All tools, zero friction.<br />
+              <span style={{ background: "linear-gradient(135deg,#818cf8,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Always free.</span>
+            </h2>
+            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", marginBottom: 40, maxWidth: 400, margin: "0 auto 40px" }}>No account required. No data stored. Just fast, accurate calculations.</p>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+              <button onClick={() => setActiveSection("calculators")} style={{ padding: "13px 32px", borderRadius: 11, fontSize: 14, fontWeight: 600, background: "linear-gradient(135deg,#6366f1,#818cf8)", color: "white", border: "none", cursor: "pointer", fontFamily: "inherit", boxShadow: "0 0 36px rgba(99,102,241,0.45)" }}>Open calculators →</button>
+            </div>
+          </div>
+        </div>
+      </FadeUp>
+    </section>
+  );
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+function Footer() {
+  const cols = [
+    { title: "Tools",   links: ["Age","Tip","GPA","Miles ↔ KM","Mortgage","BMI","Tax","Interest"] },
+    { title: "Company", links: ["About","Blog","Privacy","Terms"] },
+    { title: "More",    links: ["API","Embed","Changelog","Status"] },
+  ];
+  return (
+    <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "64px 24px 40px" }}>
+      <div style={{ maxWidth: 1060, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 56 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 14 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#6366f1,#22d3ee)", display: "grid", placeItems: "center" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <span style={{ fontWeight: 700, fontSize: 15, color: "white", letterSpacing: "-0.3px", fontFamily: "'Sora',sans-serif" }}>CalcHub</span>
+            </div>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", lineHeight: 1.65, maxWidth: 230 }}>Professional-grade calculators for everyone. Fast, accurate, and completely free.</p>
+          </div>
+          {cols.map((col,i) => (
+            <div key={i}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 16 }}>{col.title}</div>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                {col.links.map(l => <li key={l}><a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>{l}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 28, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 14 }}>
+          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.2)" }}>© 2025 CalcHub. All rights reserved.</span>
+          <div style={{ display: "flex", gap: 10 }}>
+            {["No signup required","Privacy first","Always free"].map(b => (
+              <span key={b} style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", padding: "3px 10px", borderRadius: 100, border: "1px solid rgba(255,255,255,0.07)", fontWeight: 600 }}>{b}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ── App ───────────────────────────────────────────────────────────────────────
+export default function App() {
+  const [activeSection, setActiveSection] = useState("home");
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: #06060c; color: rgba(255,255,255,0.85); font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        ::selection { background: rgba(99,102,241,0.3); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #06060c; }
+        ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.4); border-radius: 4px; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { opacity: 0.4; }
+        input[type=date]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
+        select option { background: #0f0f1a; color: white; }
+        input:focus, select:focus { border-color: rgba(99,102,241,0.5) !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+        @media (max-width: 700px) {
+          .calc-two-col { grid-template-columns: 1fr !important; }
+          .footer-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+      `}</style>
+      <Noise />
+      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
+      <main>
+        {activeSection === "home" && (
+          <>
+            <Hero setActiveSection={setActiveSection} />
+            <LogoBar />
+            <Stats />
+            <CTA setActiveSection={setActiveSection} />
+            <Footer />
+          </>
+        )}
+        {activeSection === "calculators" && (
+          <>
+            <div style={{ paddingTop: 60 }}>
+              <CalculatorsSection />
+            </div>
+            <CTA setActiveSection={setActiveSection} />
+            <Footer />
+          </>
+        )}
+        {(activeSection === "about" || activeSection === "docs") && (
+          <div style={{ paddingTop: 60 }}>
+            <div style={{ maxWidth: 1060, margin: "0 auto", padding: "80px 24px" }}>
+              <h1 style={{ fontSize: 40, fontWeight: 800, color: "white", letterSpacing: "-1.5px", fontFamily: "'Sora',sans-serif", marginBottom: 16 }}>
+                {activeSection === "about" ? "About CalcHub" : "Documentation"}
+              </h1>
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, maxWidth: 540 }}>
+                {activeSection === "about"
+                  ? "CalcHub is a free, professional-grade calculator platform built for accuracy and speed. No signups, no ads, no data collection — ever."
+                  : "CalcHub calculators run entirely in your browser. All formulas follow standard published sources: IRS publications, ISO standards, and established actuarial tables."}
+              </p>
+            </div>
+            <Footer />
+          </div>
+        )}
+      </main>
+    </>
+  );
+}
