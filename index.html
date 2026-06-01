@@ -429,7 +429,7 @@ const TOOL_IDS=['age','tip','gpa','miles','mortgage','bmi','tax','interest'];
 function toolCardHTML(id){
   const t=TOOLS[id];
   const url=TOOL_URLS[id]||'#';
-  return `<a class="home-tool-card" href="${url}">
+  return `<a class="home-tool-card" href="${url}" target="_blank">
     <div class="htc-icon">${ico(id,20)}</div>
     <div>
       <div class="htc-name">${t.name}</div>
