@@ -11,140 +11,189 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Mortgage Calculator – Monthly Home Loan Payment | CalcTools</title>
-  <meta name="description" content="Free mortgage calculator. Calculate your monthly home loan payment, total interest and more."/>
-  <meta name="keywords" content="mortgage calculator, home loan calculator, monthly payment"/>
+  <title>Mortgage Calculator – Monthly Payment | CalcTools</title>
+  <meta name="description" content="Free mortgage calculator. Estimate monthly payments, total interest, and LTV ratio."/>
   <meta name="robots" content="index,follow"/>
   <link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/mortgage-calculator.html"/>
-  <meta property="og:title" content="Mortgage Calculator – Monthly Home Loan Payment | CalcTools"/>
-  <meta property="og:description" content="Free mortgage calculator. Calculate your monthly home loan payment, total interest and more."/>
+  <meta property="og:title" content="Mortgage Calculator – Monthly Payment | CalcTools"/>
+  <meta property="og:description" content="Free mortgage calculator. Estimate monthly payments, total interest, and LTV ratio."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://mudanmemon121.github.io/calculatortools/mortgage-calculator.html"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --bg:#f0f4ff;--surface:#fff;--surface2:#e8edf8;--border:#d4dcf0;
-      --text:#0f1623;--text2:#4a5568;--accent:#3b6cf8;--accent2:#6c3bf8;
-      --accent-light:#eef2ff;--card-shadow:0 4px 24px rgba(59,108,248,.10);
-      --radius:18px;--transition:.25s cubic-bezier(.4,0,.2,1);
-    }
-    [data-theme="dark"]{
-      --bg:#0d0f1a;--surface:#161927;--surface2:#1e2235;--border:#2a2f4a;
-      --text:#eef0ff;--text2:#8892b0;--accent:#5b8dff;--accent2:#9b6bff;
-      --accent-light:#1a2040;--card-shadow:0 4px 24px rgba(0,0,0,.4);
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background var(--transition),color var(--transition);}
-    header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);transition:background var(--transition);}
-    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
-    .header-right{display:flex;align-items:center;gap:12px;}
-    .back-btn{font-size:.82rem;font-weight:600;padding:7px 16px;border-radius:99px;background:var(--accent-light);color:var(--accent);border:1px solid var(--border);cursor:pointer;text-decoration:none;transition:all var(--transition);}
-    .back-btn:hover{background:var(--accent);color:#fff;}
-    .theme-toggle{width:48px;height:26px;background:var(--surface2);border:1.5px solid var(--border);border-radius:99px;cursor:pointer;position:relative;transition:background var(--transition);outline:none;}
-    .theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:transform var(--transition);}
-    [data-theme="dark"] .theme-toggle::after{transform:translateX(22px);}
-    .hero{text-align:center;padding:48px 24px 28px;}
-    .hero-icon{font-size:3rem;margin-bottom:12px;}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;margin-bottom:8px;}
-    .hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .hero p{color:var(--text2);font-size:1rem;}
-    .container{max-width:600px;margin:0 auto;padding:0 20px 60px;}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:32px;box-shadow:var(--card-shadow);animation:fadeUp .3s ease;}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-    .field{margin-bottom:18px;}
-    label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
-    input,select{width:100%;padding:13px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:1rem;transition:border-color var(--transition),background var(--transition);outline:none;-webkit-appearance:none;}
-    input:focus,select:focus{border-color:var(--accent);}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    @media(max-width:500px){.row{grid-template-columns:1fr;}}
-    .btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;transition:opacity var(--transition),transform var(--transition);}
-    .btn:hover{opacity:.9;transform:translateY(-1px);}
-    .result{margin-top:20px;padding:20px 24px;background:linear-gradient(135deg,var(--accent-light),var(--surface2));border:1.5px solid var(--accent);border-radius:16px;display:none;animation:fadeUp .25s ease;}
-    .result.show{display:block;}
-    .result-label{font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
-    .result-value{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--text);}
-    .result-sub{font-size:.85rem;color:var(--text2);margin-top:4px;}
-    .other-tools{max-width:600px;margin:0 auto;padding:0 20px 60px;}
-    .other-tools h3{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:14px;}
-    .tools-chips{display:flex;flex-wrap:wrap;gap:10px;}
-    .chip{padding:8px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text2);text-decoration:none;transition:all var(--transition);}
-    .chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
-    footer{text-align:center;padding:24px;font-size:.82rem;color:var(--text2);border-top:1px solid var(--border);}
-    footer a{color:var(--accent);text-decoration:none;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#06060c;color:rgba(255,255,255,.85);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#06060c}
+::-webkit-scrollbar-thumb{background:rgba(99,102,241,.4);border-radius:4px}
+#noise{position:fixed;inset:0;z-index:0;opacity:.022;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(20px);background:rgba(6,6,12,.92);border-bottom:1px solid rgba(255,255,255,.07);height:60px;display:flex;align-items:center;padding:0 24px;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.logo-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#22d3ee);display:grid;place-items:center;flex-shrink:0}
+.logo-text{font-weight:700;font-size:16px;color:#fff;letter-spacing:-.3px;font-family:'Sora',sans-serif}
+.nav-right{display:flex;align-items:center;gap:10px}
+.all-tools-btn{padding:7px 16px;border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);cursor:pointer;text-decoration:none;transition:all .15s;font-family:inherit}
+.all-tools-btn:hover{color:#fff;background:rgba(255,255,255,.09)}
+.wrap{max-width:1060px;margin:0 auto;padding:100px 24px 80px;position:relative;z-index:1}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.38);cursor:pointer;margin-bottom:40px;background:transparent;border:none;font-family:inherit;transition:color .15s;padding:0;text-decoration:none}
+.back-btn:hover{color:#818cf8}
+.back-btn svg{flex-shrink:0}
+.page-header{margin-bottom:48px}
+.page-icon{width:52px;height:52px;border-radius:14px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.22);display:grid;place-items:center;color:#818cf8;margin-bottom:20px}
+.page-title{font-family:'Sora',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:10px}
+.page-title .grad{background:linear-gradient(135deg,#818cf8,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-tagline{font-size:15px;color:rgba(255,255,255,.4);line-height:1.65;max-width:560px}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.info-panel{position:static!important}}
+.calc-panel{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px;position:sticky;top:80px}
+.panel-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.field input,.field select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#fff;padding:11px 14px;border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none}
+.field input:focus,.field select:focus{border-color:rgba(99,102,241,.5);box-shadow:0 0 0 3px rgba(99,102,241,.08)}
+.field input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.4);cursor:pointer}
+select option{background:#0f0f1a;color:#fff}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.two-col{grid-template-columns:1fr}}
+.calc-btn{width:100%;margin-top:8px;padding:13px;border-radius:10px;font-size:14px;font-weight:600;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;border:none;cursor:pointer;font-family:inherit;letter-spacing:.1px;box-shadow:0 0 24px rgba(99,102,241,.3);transition:all .15s}
+.calc-btn:hover{transform:translateY(-1px);box-shadow:0 0 36px rgba(99,102,241,.5)}
+.result-box{margin-top:18px;background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.15);border-radius:12px;padding:16px 18px;display:none;animation:fadeUp .25s ease}
+.result-box.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.result-label{font-size:10px;font-weight:700;color:#22d3ee;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.result-row:last-child{border-bottom:none}
+.result-row-l{font-size:13px;color:rgba(255,255,255,.4)}
+.result-row-v{font-size:14px;font-weight:600;color:#fff;font-family:'DM Mono',monospace}
+.result-row-v.hl{color:#22d3ee}
+.err-box{margin-top:14px;background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:10px 14px;font-size:13px;color:#fca5a5;display:none}
+.err-box.show{display:block}
+.info-panel{background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:24px;position:sticky;top:80px}
+.info-section-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.info-text{font-size:14px;color:rgba(255,255,255,.44);line-height:1.75}
+.formula-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px 16px}
+.formula-text{font-size:12px;color:rgba(255,255,255,.38);line-height:1.7;font-family:'DM Mono',monospace;white-space:pre-wrap}
+.other-tools{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:16px}
+.other-tools-title{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.other-tool-link{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:rgba(255,255,255,.42);font-size:13px;transition:all .15s;border:1px solid transparent;margin-bottom:2px}
+.other-tool-link:hover{background:rgba(255,255,255,.03);color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.06)}
+.other-tool-link svg{flex-shrink:0;opacity:.6}
+.other-tool-link:hover svg{opacity:1}
+footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:center;font-size:12px;color:rgba(255,255,255,.2);position:relative;z-index:1}
+footer a{color:rgba(99,102,241,.7);text-decoration:none}
+/* GPA */
+.course-header{display:grid;grid-template-columns:1fr 90px 80px 34px;gap:8px;margin-bottom:6px}
+.course-header span{font-size:10px;font-weight:600;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.5px}
+.course-row{display:grid;grid-template-columns:1fr 90px 80px 34px;gap:8px;margin-bottom:8px;align-items:center}
+.course-row input,.course-row select{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#fff;padding:8px 10px;border-radius:9px;font-size:13px;font-family:inherit;outline:none;width:100%;appearance:none}
+.course-row input:focus,.course-row select:focus{border-color:rgba(99,102,241,.4)}
+.del-btn{width:34px;height:36px;background:transparent;border:1px solid rgba(248,113,113,.2);color:rgba(248,113,113,.6);border-radius:8px;cursor:pointer;display:grid;place-items:center;transition:all .15s}
+.del-btn:hover{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.4)}
+.add-btn{width:100%;padding:9px;margin-bottom:14px;background:transparent;border:1px dashed rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:9px;cursor:pointer;font-size:13px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+.add-btn:hover{border-color:rgba(99,102,241,.35);color:#818cf8}
 </style>
 </head>
 <body>
-<header>
-  <a class="logo" href="index.html">⚡ CalcTools</a>
-  <div class="header-right">
-    <a class="back-btn" href="index.html">← All Tools</a>
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+<div id="noise"></div>
+<nav>
+  <a class="logo" href="index.html">
+    <div class="logo-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <span class="logo-text">CalcTools</span>
+  </a>
+  <div class="nav-right">
+    <a class="all-tools-btn" href="index.html">All Tools</a>
   </div>
-</header>
-
-<div class="hero">
-  <div class="hero-icon">🏠</div>
-  <h1><span>Mortgage Calculator</span></h1>
-  <p>Estimate your monthly home loan payment</p>
-</div>
-
-<div class="container">
-  <div class="card">
-    <div class="row">
-      <div class="field"><label>Loan Amount ($)</label><input type="number" id="mortLoan" placeholder="e.g. 300000"/></div>
-      <div class="field"><label>Annual Interest %</label><input type="number" id="mortRate" placeholder="e.g. 6.5" step="0.1"/></div>
+</nav>
+<div class="wrap">
+  <a class="back-btn" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    All calculators
+  </a>
+  <div class="page-header">
+    <div class="page-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <h1 class="page-title">Mortgage <span class="grad">Calculator</span></h1>
+    <p class="page-tagline">Estimate your monthly mortgage payment, total interest paid, and loan-to-value ratio.</p>
+  </div>
+  <div class="layout">
+    <div class="calc-panel">
+      <div class="panel-label">Enter your values</div>
+      <div class="field"><label>Home Price ($)</label><input type="number" id="hp" value="400000" min="0"/></div>
+      <div class="two-col">
+        <div class="field"><label>Down Payment ($)</label><input type="number" id="dp" value="80000" min="0"/></div>
+        <div class="field"><label>Interest Rate (%)</label><input type="number" id="ir" value="6.5" step="0.01" min="0"/></div>
+      </div>
+      <div class="field"><label>Loan Term</label>
+        <select id="lt">
+          <option value="30" selected>30 years</option>
+          <option value="20">20 years</option>
+          <option value="15">15 years</option>
+          <option value="10">10 years</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="run()">Calculate Payment</button>
+      <div class="err-box" id="err"></div>
+      <div class="result-box" id="res">
+        <div class="result-label">Results</div>
+        <div id="resRows"></div>
+      </div>
     </div>
-    <div class="field"><label>Loan Term (Years)</label><input type="number" id="mortYears" placeholder="e.g. 30"/></div>
-    <button class="btn" onclick="calcMortgage()">Calculate Payment</button>
-    <div class="result" id="mortResult">
-      <div class="result-label">Monthly Payment</div>
-      <div class="result-value" id="mortValue">—</div>
-      <div class="result-sub" id="mortSub"></div>
+    <div class="info-panel">
+      <div>
+        <div class="info-section-label">About this tool</div>
+        <p class="info-text">Uses the standard amortization formula. Computes exact monthly payment based on home price, down payment, interest rate, and loan term.</p>
+      </div>
+      <div class="formula-box">
+        <div class="info-section-label" style="margin-bottom:8px">Formula</div>
+        <div class="formula-text">PMT = P × r(1+r)^n / ((1+r)^n − 1)
+P = Loan, r = monthly rate, n = months
+Total Interest = (PMT × n) − P</div>
+      </div>
+      <div class="other-tools">
+        <div class="other-tools-title">Other Calculators</div>
+        <a class="other-tool-link" href="age-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Age Calculator</span></a>
+<a class="other-tool-link" href="tip-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Tip Calculator</span></a>
+<a class="other-tool-link" href="gpa-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span>GPA Calculator</span></a>
+<a class="other-tool-link" href="miles-km-converter.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span>Miles to KM</span></a>
+<a class="other-tool-link" href="bmi-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span>BMI Calculator</span></a>
+<a class="other-tool-link" href="tax-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="13" y2="12"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>Tax Calculator</span></a>
+<a class="other-tool-link" href="interest-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span>Interest Calculator</span></a>
+<a class="other-tool-link" href="currency-converter.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg><span>Currency Converter</span></a>
+<a class="other-tool-link" href="date-calculator.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Date Difference</span></a>
+
+      </div>
     </div>
   </div>
 </div>
-
-<div class="other-tools">
-  <h3>Other Tools</h3>
-  <div class="tools-chips">
-<a class="chip" href="age-calculator.html">🎂 Age</a>
-<a class="chip" href="tip-calculator.html">💰 Tip</a>
-<a class="chip" href="gpa-calculator.html">🎓 GPA</a>
-<a class="chip" href="miles-km-converter.html">🛣️ Miles→KM</a>
-<a class="chip" href="bmi-calculator.html">💪 BMI</a>
-<a class="chip" href="tax-calculator.html">🧾 Tax</a>
-<a class="chip" href="interest-calculator.html">📈 Interest</a>
-<a class="chip" href="currency-converter.html">💱 Currency</a>
-<a class="chip" href="date-calculator.html">📅 Date Diff</a>
-
-  </div>
-</div>
-
-<footer>Free tools for everyone &middot; <a href="index.html">CalcTools</a> &middot; No ads &middot; No signup</footer>
-
+<footer>
+  Free tools for everyone &middot; <a href="index.html">CalcTools</a> &middot; No ads &middot; No signup
+</footer>
 <script>
-
-  const saved = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', saved);
-  function toggleTheme() {
-    const cur = document.documentElement.getAttribute('data-theme');
-    const next = cur === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }
-
-function calcMortgage(){
-    const P=+document.getElementById('mortLoan').value;
-    const r=+document.getElementById('mortRate').value/100/12;
-    const n=+document.getElementById('mortYears').value*12;
-    if(!P||!r||!n)return alert('Fill all fields');
-    const M=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-    const total=M*n;
-    document.getElementById('mortValue').textContent='$'+M.toFixed(2)+'/mo';
-    document.getElementById('mortSub').textContent='Total paid: $'+total.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+' · Interest: $'+(total-P).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-    document.getElementById('mortResult').classList.add('show');
-  }
+function g(id){return document.getElementById(id)?.value||'';}
+function gf(id){return parseFloat(g(id))||0;}
+function gi(id){return parseInt(g(id))||0;}
+function showRes(rows){
+  g('err'); document.getElementById('err').classList.remove('show');
+  document.getElementById('resRows').innerHTML=rows.map(r=>`<div class="result-row"><span class="result-row-l">${r.l}</span><span class="result-row-v${r.h?' hl':''}">${r.v}</span></div>`).join('');
+  document.getElementById('res').classList.add('show');
+}
+function showErr(msg){
+  const e=document.getElementById('err'); e.textContent=msg; e.classList.add('show');
+  document.getElementById('res').classList.remove('show');
+}
+function run(){
+  const p=gf('hp')-gf('dp'),r=gf('ir')/100/12,n=gi('lt')*12;
+  if(p<=0)return showErr('Loan amount must be positive.');
+  if(!r)return showErr('Enter a valid interest rate.');
+  const pmt=p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),tot=pmt*n,interest=tot-p,ltv=p/gf('hp')*100;
+  showRes([
+    {l:'Monthly payment',v:'$'+pmt.toFixed(2),h:true},
+    {l:'Total interest',v:'$'+Math.round(interest).toLocaleString()},
+    {l:'Total cost',v:'$'+Math.round(tot).toLocaleString()},
+    {l:'Loan amount',v:'$'+p.toLocaleString()},
+    {l:'LTV ratio',v:ltv.toFixed(1)+'%'},
+  ]);
+}
 </script>
 </body>
 </html>
