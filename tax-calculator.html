@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NMC7N0QZM8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NMC7N0QZM8');
+  </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Tax Calculator – Calculate Tax on Price | CalcTools</title>
+  <meta name="description" content="Free tax calculator. Calculate tax amount and total price after adding tax instantly."/>
+  <meta name="keywords" content="tax calculator, sales tax, price with tax"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/tax-calculator.html"/>
+  <meta property="og:title" content="Tax Calculator – Calculate Tax on Price | CalcTools"/>
+  <meta property="og:description" content="Free tax calculator. Calculate tax amount and total price after adding tax instantly."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://mudanmemon121.github.io/calculatortools/tax-calculator.html"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#f0f4ff;--surface:#fff;--surface2:#e8edf8;--border:#d4dcf0;
+      --text:#0f1623;--text2:#4a5568;--accent:#3b6cf8;--accent2:#6c3bf8;
+      --accent-light:#eef2ff;--card-shadow:0 4px 24px rgba(59,108,248,.10);
+      --radius:18px;--transition:.25s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="dark"]{
+      --bg:#0d0f1a;--surface:#161927;--surface2:#1e2235;--border:#2a2f4a;
+      --text:#eef0ff;--text2:#8892b0;--accent:#5b8dff;--accent2:#9b6bff;
+      --accent-light:#1a2040;--card-shadow:0 4px 24px rgba(0,0,0,.4);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background var(--transition),color var(--transition);}
+    header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);transition:background var(--transition);}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .header-right{display:flex;align-items:center;gap:12px;}
+    .back-btn{font-size:.82rem;font-weight:600;padding:7px 16px;border-radius:99px;background:var(--accent-light);color:var(--accent);border:1px solid var(--border);cursor:pointer;text-decoration:none;transition:all var(--transition);}
+    .back-btn:hover{background:var(--accent);color:#fff;}
+    .theme-toggle{width:48px;height:26px;background:var(--surface2);border:1.5px solid var(--border);border-radius:99px;cursor:pointer;position:relative;transition:background var(--transition);outline:none;}
+    .theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:transform var(--transition);}
+    [data-theme="dark"] .theme-toggle::after{transform:translateX(22px);}
+    .hero{text-align:center;padding:48px 24px 28px;}
+    .hero-icon{font-size:3rem;margin-bottom:12px;}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;margin-bottom:8px;}
+    .hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero p{color:var(--text2);font-size:1rem;}
+    .container{max-width:600px;margin:0 auto;padding:0 20px 60px;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:32px;box-shadow:var(--card-shadow);animation:fadeUp .3s ease;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .field{margin-bottom:18px;}
+    label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+    input,select{width:100%;padding:13px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:1rem;transition:border-color var(--transition),background var(--transition);outline:none;-webkit-appearance:none;}
+    input:focus,select:focus{border-color:var(--accent);}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:500px){.row{grid-template-columns:1fr;}}
+    .btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;transition:opacity var(--transition),transform var(--transition);}
+    .btn:hover{opacity:.9;transform:translateY(-1px);}
+    .result{margin-top:20px;padding:20px 24px;background:linear-gradient(135deg,var(--accent-light),var(--surface2));border:1.5px solid var(--accent);border-radius:16px;display:none;animation:fadeUp .25s ease;}
+    .result.show{display:block;}
+    .result-label{font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+    .result-value{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--text);}
+    .result-sub{font-size:.85rem;color:var(--text2);margin-top:4px;}
+    .other-tools{max-width:600px;margin:0 auto;padding:0 20px 60px;}
+    .other-tools h3{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:14px;}
+    .tools-chips{display:flex;flex-wrap:wrap;gap:10px;}
+    .chip{padding:8px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text2);text-decoration:none;transition:all var(--transition);}
+    .chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
+    footer{text-align:center;padding:24px;font-size:.82rem;color:var(--text2);border-top:1px solid var(--border);}
+    footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">⚡ CalcTools</a>
+  <div class="header-right">
+    <a class="back-btn" href="index.html">← All Tools</a>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-icon">🧾</div>
+  <h1><span>Tax Calculator</span></h1>
+  <p>Calculate tax amount and total price</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="row">
+      <div class="field"><label>Original Price ($)</label><input type="number" id="taxPrice" placeholder="e.g. 100"/></div>
+      <div class="field"><label>Tax Rate %</label><input type="number" id="taxRate" placeholder="e.g. 10"/></div>
+    </div>
+    <button class="btn" onclick="calcTax()">Calculate Tax</button>
+    <div class="result" id="taxResult">
+      <div class="result-label">Total with Tax</div>
+      <div class="result-value" id="taxValue">—</div>
+      <div class="result-sub" id="taxSub"></div>
+    </div>
+  </div>
+</div>
+
+<div class="other-tools">
+  <h3>Other Tools</h3>
+  <div class="tools-chips">
+<a class="chip" href="age-calculator.html">🎂 Age</a>
+<a class="chip" href="tip-calculator.html">💰 Tip</a>
+<a class="chip" href="gpa-calculator.html">🎓 GPA</a>
+<a class="chip" href="miles-km-converter.html">🛣️ Miles→KM</a>
+<a class="chip" href="mortgage-calculator.html">🏠 Mortgage</a>
+<a class="chip" href="bmi-calculator.html">💪 BMI</a>
+<a class="chip" href="interest-calculator.html">📈 Interest</a>
+<a class="chip" href="currency-converter.html">💱 Currency</a>
+<a class="chip" href="date-calculator.html">📅 Date Diff</a>
+
+  </div>
+</div>
+
+<footer>Free tools for everyone &middot; <a href="index.html">CalcTools</a> &middot; No ads &middot; No signup</footer>
+
+<script>
+
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+function calcTax(){
+    const price=+document.getElementById('taxPrice').value;
+    const rate=+document.getElementById('taxRate').value;
+    if(!price||!rate)return alert('Enter price and tax rate');
+    const tax=price*rate/100,total=price+tax;
+    document.getElementById('taxValue').textContent='$'+total.toFixed(2);
+    document.getElementById('taxSub').textContent='Tax amount: $'+tax.toFixed(2)+' on $'+price.toFixed(2);
+    document.getElementById('taxResult').classList.add('show');
+  }
+</script>
+</body>
+</html>
