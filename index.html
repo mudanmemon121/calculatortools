@@ -8,24 +8,20 @@
     <meta name="keywords" content="calculator, premium calculators, bmi calculator, loan calculator, emi calculator, salary calculator, finance tools">
     <link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/">
     
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mudanmemon121.github.io/calculatortools/">
     <meta property="og:title" content="CalcPro — Premium Multi-Calculator SaaS Platform">
     <meta property="og:description" content="Access premium, accurate, and lightning-fast financial, health, and productivity calculators.">
     
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://mudanmemon121.github.io/calculatortools/">
     <meta property="twitter:title" content="CalcPro — Premium Multi-Calculator SaaS Platform">
     <meta property="twitter:description" content="Access premium, accurate, and lightning-fast financial, health, and productivity calculators.">
 
-    <!-- Fonts: Poppins & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -41,10 +37,8 @@
         }
     </script>
 
-    <!-- Lucide Icons (UMD version) -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Dark/Light Mode Inline Script to Prevent Flash -->
     <script>
         if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             document.documentElement.classList.remove('dark');
@@ -54,9 +48,8 @@
     </script>
 
     <style>
-        /* Smooth transitions for theme switching */
-        body, card, header, footer {
-            transition: background-color 0.3s ease, border-color 0.3s ease, text-color 0.3s ease;
+        body, header, footer {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
         
         /* Premium Soft Glow and Glassmorphism */
@@ -93,7 +86,6 @@
         }
     </style>
 
-    <!-- Schema Markup JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -106,9 +98,8 @@
     }
     </script>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen dark:bg-slate-900 dark:text-slate-100 light:bg-slate-50 light:text-slate-800 transition-colors duration-300">
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen dark:bg-slate-900 dark:text-slate-100 light:bg-slate-50 light:text-slate-800">
 
-    <!-- Header Section -->
     <header class="border-b border-slate-800 dark:border-slate-800 light:border-slate-200 sticky top-0 bg-slate-900/80 dark:bg-slate-900/80 light:bg-white/80 backdrop-blur-md z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -118,7 +109,6 @@
                 <span class="text-2xl font-heading font-bold text-white dark:text-white light:text-slate-900 tracking-tight">Calc<span class="text-blue-500">Pro</span></span>
             </div>
             
-            <!-- Premium Dark/Light Mode Theme Toggle -->
             <button id="theme-toggle" class="p-2.5 rounded-xl border border-slate-800 dark:border-slate-800 light:border-slate-200 text-slate-400 dark:text-slate-400 light:text-slate-600 hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-slate-100 transition-all duration-200 focus:outline-none" aria-label="Toggle theme">
                 <i id="theme-toggle-dark-icon" data-lucide="moon" class="w-5 h-5 hidden"></i>
                 <i id="theme-toggle-light-icon" data-lucide="sun" class="w-5 h-5 hidden"></i>
@@ -126,7 +116,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center max-w-3xl mx-auto mb-20">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-white dark:text-white light:text-slate-900 tracking-tight mb-6">
@@ -137,16 +126,14 @@
             </p>
         </div>
 
-        <!-- Calculator Cards Grid System -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- 1. BMI Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="activity" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">BMI Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">BMI Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Calculate your Body Mass Index quickly to accurately analyze and track health metrics parameters.</p>
                 </div>
                 <a href="bmi-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -155,13 +142,12 @@
                 </a>
             </div>
 
-            <!-- 2. Age Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="calendar" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Age Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Age Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Find exact age intervals broken down meticulously into years, total months, active weeks, and days.</p>
                 </div>
                 <a href="age-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -170,13 +156,12 @@
                 </a>
             </div>
 
-            <!-- 3. GPA Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="graduation-cap" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">GPA Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">GPA Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Track semester academic performance dynamically with our automated course weight grade point calculator.</p>
                 </div>
                 <a href="gpa-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -185,13 +170,12 @@
                 </a>
             </div>
 
-            <!-- 4. Percentage Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="percent" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Percentage Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Percentage Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Determine absolute percentage distribution ratios, value steps, and percentage differences instantly.</p>
                 </div>
                 <a href="percentage-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -200,13 +184,12 @@
                 </a>
             </div>
 
-            <!-- 5. Loan Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="landmark" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Loan Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Loan Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Analyze comprehensive long-term amortization tables, financial debt components, and overall cost scales.</p>
                 </div>
                 <a href="loan-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -215,13 +198,12 @@
                 </a>
             </div>
 
-            <!-- 6. Discount Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="tags" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Discount Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Discount Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Compute standard sales margins, absolute pricing cuts, and net savings clearances with tax adjustment controls.</p>
                 </div>
                 <a href="discount-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -230,13 +212,12 @@
                 </a>
             </div>
 
-            <!-- 7. EMI Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="wallet" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">EMI Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">EMI Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Calculate monthly recurring payments accurately to plan structured financial investments.</p>
                 </div>
                 <a href="emi-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -245,13 +226,12 @@
                 </a>
             </div>
 
-            <!-- 8. Salary Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="coins" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Salary Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Salary Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Convert comprehensive gross wages directly to itemized monthly, weekly, and hourly pay metrics.</p>
                 </div>
                 <a href="salary-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -260,13 +240,12 @@
                 </a>
             </div>
 
-            <!-- 9. Calorie Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="apple" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Calorie Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">Calorie Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Evaluate exact basal metabolic rates alongside custom energetic output settings for safe muscle building.</p>
                 </div>
                 <a href="calorie-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -275,13 +254,12 @@
                 </a>
             </div>
 
-            <!-- 10. YouTube Money Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="youtube" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">YouTube Money Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">YouTube Money Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Estimate projected channels revenue streams using dynamic daily views scale patterns and RPM variables.</p>
                 </div>
                 <a href="youtube-money-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -290,13 +268,12 @@
                 </a>
             </div>
 
-            <!-- 11. VAT Calculator -->
             <div class="premium-card p-8 flex flex-col justify-between h-[280px]">
                 <div>
                     <div class="p-3 bg-blue-500/10 text-blue-500 rounded-xl w-fit mb-5">
                         <i data-lucide="receipt" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">VAT Calculator</h3>
+                    <h2 class="text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">VAT Calculator</h2>
                     <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-500 leading-relaxed line-clamp-2">Instantly process gross and net value added tax rates with simple input parameters.</p>
                 </div>
                 <a href="vat-calculator.html" class="inline-flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400 group transition-colors duration-200 mt-4 w-fit">
@@ -308,23 +285,19 @@
         </div>
     </main>
 
-    <!-- Footer Section -->
     <footer class="border-t border-slate-800 dark:border-slate-800 light:border-slate-200 mt-32 py-12 bg-slate-950 dark:bg-slate-950 light:bg-slate-100 text-center">
         <p class="text-sm text-slate-500 dark:text-slate-500 light:text-slate-600 font-normal">
             &copy; 2026 CalcPro SaaS Platform. All Rights Reserved. Engineered for maximum accuracy and responsive speed.
         </p>
     </footer>
 
-    <!-- Theme Switcher & Icons Initialization Logic -->
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
         const themeToggleBtn = document.getElementById('theme-toggle');
 
-        // Sync local interface state based on classes
         function syncToggleIcons() {
             if (document.documentElement.classList.contains('dark')) {
                 themeToggleLightIcon.classList.remove('hidden');
@@ -335,11 +308,9 @@
             }
         }
 
-        // Run on initial page layout execution
         syncToggleIcons();
 
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle classes seamlessly
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
                 document.documentElement.classList.add('light');
