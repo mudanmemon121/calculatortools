@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>GPA Calculator | CalcPro</title>
-<meta name="description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="keywords" content="GPA calculator,grade point average,college GPA,high school GPA,weighted GPA,cumulative GPA"/>
-<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/gpa-calculator.html"/>
-<meta property="og:title" content="GPA Calculator | CalcPro"/><meta property="og:description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="GPA Calculator | CalcPro"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GPA Calculator","description":"Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.","applicationCategory":"EducationalApplication"}<\/script>
+<title>VAT Calculator | CalcPro</title>
+<meta name="description" content="Add or remove VAT from any price. Supports 5%, 10%, 15%, 17%, 18%, 20% and custom VAT rates. Free online VAT and GST calculator."/>
+<meta name="keywords" content="VAT calculator,add VAT,remove VAT,VAT inclusive exclusive,GST calculator,value added tax"/>
+<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/vat-calculator.html"/>
+<meta property="og:title" content="VAT Calculator | CalcPro"/><meta property="og:description" content="Add or remove VAT from any price. Supports 5%, 10%, 15%, 17%, 18%, 20% and custom VAT rates. Free online VAT and GST calculator."/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="VAT Calculator | CalcPro"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"VAT Calculator","description":"Add or remove VAT from any price. Supports 5%, 10%, 15%, 17%, 18%, 20% and custom VAT rates. Free online VAT and GST calculator.","applicationCategory":"FinanceApplication"}<\/script>
 <script>
 (function(){var t=localStorage.getItem('calcpro-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})();
 </script>
@@ -204,73 +204,75 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:36px
   <nav class="bc" aria-label="Breadcrumb">
     <a href="index.html">Home</a><span class="bc-sep">›</span>
     <a href="index.html#tools">Calculators</a><span class="bc-sep">›</span>
-    <span>GPA Calculator</span>
+    <span>VAT Calculator</span>
   </nav>
   <div class="ph">
-    <div class="ph-icon" style="background:rgba(167,139,250,.12)"><div class="ph-icon" style="background:rgba(167,139,250,.12);box-shadow:0 0 0 1px var(--purple)20;color:var(--purple)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div></div>
-    <h1>GPA Calculator</h1>
-    <p>Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.</p>
+    <div class="ph-icon" style="background:rgba(99,102,241,.12)"><div class="ph-icon" style="background:rgba(99,102,241,.12);box-shadow:0 0 0 1px var(--blue)20;color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8H8M16 12H8M12 16H8"/></svg></div></div>
+    <h1>VAT Calculator</h1>
+    <p>Add or remove VAT from any price. Supports 5%, 10%, 15%, 17%, 18%, 20% and custom VAT rates. Free online VAT and GST calculator.</p>
   </div>
   <div class="cl">
   <div class="pn">
-    <div class="pn-title">Enter Your Courses</div>
-    <div class="ig"><div class="lbl">GPA Scale</div>
-      <div class="tg"><button class="tb on" onclick="setScale('4',this)">Unweighted (4.0)</button><button class="tb" onclick="setScale('5',this)">Weighted (5.0)</button></div>
+    <div class="pn-title">VAT Details</div>
+    <div class="ig"><div class="lbl">Calculation Type</div>
+      <div class="tg"><button class="tb on" id="vb1" onclick="setVM('add')">Add VAT</button><button class="tb" id="vb2" onclick="setVM('remove')">Remove VAT</button></div>
     </div>
-    <div id="courses">
-      <div class="crow" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end">
-        <div><div class="lbl">Course</div><input class="inp" placeholder="e.g. Mathematics"/></div>
-        <div><div class="lbl">Grade</div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div>
-        <div><div class="lbl">Credits</div><input class="inp cred" type="number" value="3" min="1" max="6"/></div>
-        <div style="padding-top:22px"><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer">✕</button></div>
-      </div>
+    <div class="ig"><label class="lbl">Amount ($)</label><input class="inp" id="va" type="number" placeholder="100" value="100"/></div>
+    <div class="ig"><label class="lbl">VAT Rate</label>
+      <select class="inp" id="vr" onchange="document.getElementById('vc').style.display=this.value==='custom'?'block':'none'">
+        <option value="5">5% — Reduced Rate</option>
+        <option value="10">10%</option>
+        <option value="15">15%</option>
+        <option value="17">17%</option>
+        <option value="18">18% — GST India</option>
+        <option value="20" selected>20% — UK Standard</option>
+        <option value="21">21%</option>
+        <option value="25">25%</option>
+        <option value="custom">Custom Rate</option>
+      </select>
     </div>
-    <button onclick="addRow()" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:12px;color:var(--t2);cursor:pointer;font-size:14px;margin-bottom:12px;transition:.2s;font-family:var(--fb)" onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--cyan)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--t2)'">+ Add Course</button>
-    <button class="btn bp" onclick="calcGPA()">Calculate GPA</button>
+    <div class="ig" id="vc" style="display:none"><label class="lbl">Custom Rate (%)</label><input class="inp" id="vcr" type="number" placeholder="Enter rate"/></div>
+    <button class="btn bp" onclick="calcVAT()">Calculate VAT</button>
   </div>
   <div class="pn">
-    <div class="pn-title">GPA Results</div>
+    <div class="pn-title">VAT Results</div>
     <div class="res" id="res">
-      <div class="rl">Your GPA</div>
-      <div class="rv" id="gpaV">-- <span>/ 4.0</span></div>
-      <div class="rsub" id="gpaSub"></div>
+      <div class="rl" id="vrl">Price with VAT</div>
+      <div class="rv">$<span id="vf">--</span></div>
+      <div class="rsub" id="vsub"></div>
       <div class="rg">
-        <div class="ri"><div class="ri-l">Total Credits</div><div class="ri-v" id="gpaC">--</div></div>
-        <div class="ri"><div class="ri-l">Quality Points</div><div class="ri-v" id="gpaQ">--</div></div>
-        <div class="ri"><div class="ri-l">Standing</div><div class="ri-v" id="gpaS" style="color:var(--green)">--</div></div>
-        <div class="ri"><div class="ri-l">Letter Grade</div><div class="ri-v" id="gpaL" style="color:var(--cyan)">--</div></div>
+        <div class="ri"><div class="ri-l">Net (Ex-VAT)</div><div class="ri-v" id="vn">--</div></div>
+        <div class="ri"><div class="ri-l">VAT Amount</div><div class="ri-v" id="vvat" style="color:var(--amber)">--</div></div>
+        <div class="ri"><div class="ri-l">Gross (Inc-VAT)</div><div class="ri-v" id="vg" style="color:var(--cyan)">--</div></div>
+        <div class="ri"><div class="ri-l">VAT Rate</div><div class="ri-v" id="vrv">--</div></div>
       </div>
     </div>
-    <div class="info"><strong>Formula:</strong> GPA = Σ(Grade Points × Credits) ÷ Σ(Credits)<br>A=4.0, A-=3.7, B+=3.3, B=3.0, B-=2.7, C+=2.3, C=2.0</div>
+    <div class="info"><strong>Note:</strong> VAT rates vary by country and product type. UK standard is 20%, EU rates range 17–27%. Verify with your local tax authority.</div>
   </div>
 </div>
 <script>
-function setScale(s,btn){document.querySelectorAll('.tg .tb').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
-function addRow(){
-  const r=document.createElement('div');r.className='crow';r.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end';
-  r.innerHTML='<div><input class="inp" placeholder="Course name"/></div><div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div><div><input class="inp cred" type="number" value="3" min="1" max="6"/></div><div><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer;margin-top:22px">✕</button></div>';
-  document.getElementById('courses').appendChild(r);
-}
-function removeRow(b){const rows=document.querySelectorAll('.crow');if(rows.length>1)b.closest('.crow').remove()}
-function calcGPA(){
-  let pts=0,cr=0;
-  document.querySelectorAll('.crow').forEach(r=>{const g=+r.querySelector('.gsel').value,c=+r.querySelector('.cred').value||3;pts+=g*c;cr+=c});
-  const gpa=pts/cr;
-  document.getElementById('gpaV').innerHTML=gpa.toFixed(2)+' <span>/ 4.0</span>';
-  document.getElementById('gpaSub').textContent=document.querySelectorAll('.crow').length+' courses';
-  document.getElementById('gpaC').textContent=cr+' hrs';
-  document.getElementById('gpaQ').textContent=pts.toFixed(1);
-  let s=gpa>=3.9?'Summa Cum Laude':gpa>=3.7?'Magna Cum Laude':gpa>=3.5?'Cum Laude':gpa>=3.0?'Good Standing':gpa>=2.0?'Satisfactory':'Academic Warning';
-  let l=gpa>=3.7?'A':gpa>=3.3?'A-':gpa>=3.0?'B+':gpa>=2.7?'B':gpa>=2.3?'B-':gpa>=2.0?'C+':'C';
-  document.getElementById('gpaS').textContent=s;document.getElementById('gpaL').textContent=l;
+let vm='add';
+function setVM(m){vm=m;document.getElementById('vb1').classList.toggle('on',m==='add');document.getElementById('vb2').classList.toggle('on',m==='remove');document.getElementById('vrl').textContent=m==='add'?'Price with VAT':'Price without VAT'}
+function calcVAT(){
+  const amt=+document.getElementById('va').value;
+  let rate=document.getElementById('vr').value==='custom'?+document.getElementById('vcr').value:+document.getElementById('vr').value;
+  if(!amt||!rate){alert('Fill all fields');return}
+  let net,vat,gross;
+  if(vm==='add'){net=amt;vat=amt*rate/100;gross=amt+vat}else{gross=amt;net=amt/(1+rate/100);vat=amt-net}
+  document.getElementById('vf').textContent=(vm==='add'?gross:net).toFixed(2);
+  document.getElementById('vsub').textContent=rate+'% VAT '+(vm==='add'?'added':'removed');
+  document.getElementById('vn').textContent='$'+net.toFixed(2);
+  document.getElementById('vvat').textContent='$'+vat.toFixed(2);
+  document.getElementById('vg').textContent='$'+gross.toFixed(2);
+  document.getElementById('vrv').textContent=rate+'%';
   document.getElementById('res').classList.add('show');
 }
 </script>
   <div class="faq">
     <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
-    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is unweighted GPA?<span class="fqi">+</span></div><div class="fqa">Unweighted GPA uses a standard 4.0 scale for all classes. An A is always 4.0 regardless of course difficulty.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is weighted GPA?<span class="fqi">+</span></div><div class="fqa">Weighted GPA gives extra credit for harder courses like AP or honors. An A in an AP class may count as 5.0 instead of 4.0.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What GPA is needed for college?<span class="fqi">+</span></div><div class="fqa">Most universities look for 3.0+. Competitive schools prefer 3.5+. However, GPA is just one factor in admissions.</div></div>
+    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is VAT?<span class="fqi">+</span></div><div class="fqa">VAT (Value Added Tax) is a consumption tax on goods and services, collected at each production stage. The final consumer pays the full VAT.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">How to add VAT to a price?<span class="fqi">+</span></div><div class="fqa">Multiply the price by (1 + VAT rate/100). E.g. $100 + 20% VAT = $100 × 1.20 = $120.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">How to remove VAT from a price?<span class="fqi">+</span></div><div class="fqa">Divide the VAT-inclusive price by (1 + VAT rate/100). E.g. $120 ÷ 1.20 = $100 net price.</div></div>
 
   </div>
 </div></main>

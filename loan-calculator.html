@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>GPA Calculator | CalcPro</title>
-<meta name="description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="keywords" content="GPA calculator,grade point average,college GPA,high school GPA,weighted GPA,cumulative GPA"/>
-<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/gpa-calculator.html"/>
-<meta property="og:title" content="GPA Calculator | CalcPro"/><meta property="og:description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="GPA Calculator | CalcPro"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GPA Calculator","description":"Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.","applicationCategory":"EducationalApplication"}<\/script>
+<title>Loan Calculator | CalcPro</title>
+<meta name="description" content="Calculate monthly loan payments, total interest and amortization for any loan. Free loan payment calculator supporting personal, home, car and business loans."/>
+<meta name="keywords" content="loan calculator,monthly payment calculator,loan amortization,personal loan,auto loan calculator"/>
+<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/loan-calculator.html"/>
+<meta property="og:title" content="Loan Calculator | CalcPro"/><meta property="og:description" content="Calculate monthly loan payments, total interest and amortization for any loan. Free loan payment calculator supporting personal, home, car and business loans."/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Loan Calculator | CalcPro"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Loan Calculator","description":"Calculate monthly loan payments, total interest and amortization for any loan. Free loan payment calculator supporting personal, home, car and business loans.","applicationCategory":"FinanceApplication"}<\/script>
 <script>
 (function(){var t=localStorage.getItem('calcpro-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})();
 </script>
@@ -204,73 +204,70 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:36px
   <nav class="bc" aria-label="Breadcrumb">
     <a href="index.html">Home</a><span class="bc-sep">›</span>
     <a href="index.html#tools">Calculators</a><span class="bc-sep">›</span>
-    <span>GPA Calculator</span>
+    <span>Loan Calculator</span>
   </nav>
   <div class="ph">
-    <div class="ph-icon" style="background:rgba(167,139,250,.12)"><div class="ph-icon" style="background:rgba(167,139,250,.12);box-shadow:0 0 0 1px var(--purple)20;color:var(--purple)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div></div>
-    <h1>GPA Calculator</h1>
-    <p>Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.</p>
+    <div class="ph-icon" style="background:rgba(52,211,153,.12)"><div class="ph-icon" style="background:rgba(52,211,153,.12);box-shadow:0 0 0 1px var(--green)20;color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div></div>
+    <h1>Loan Calculator</h1>
+    <p>Calculate monthly loan payments, total interest and amortization for any loan. Free loan payment calculator supporting personal, home, car and business loans.</p>
   </div>
   <div class="cl">
   <div class="pn">
-    <div class="pn-title">Enter Your Courses</div>
-    <div class="ig"><div class="lbl">GPA Scale</div>
-      <div class="tg"><button class="tb on" onclick="setScale('4',this)">Unweighted (4.0)</button><button class="tb" onclick="setScale('5',this)">Weighted (5.0)</button></div>
-    </div>
-    <div id="courses">
-      <div class="crow" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end">
-        <div><div class="lbl">Course</div><input class="inp" placeholder="e.g. Mathematics"/></div>
-        <div><div class="lbl">Grade</div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div>
-        <div><div class="lbl">Credits</div><input class="inp cred" type="number" value="3" min="1" max="6"/></div>
-        <div style="padding-top:22px"><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer">✕</button></div>
+    <div class="pn-title">Loan Details</div>
+    <div class="ig"><label class="lbl">Loan Amount ($)</label><input class="inp" id="la" type="number" placeholder="e.g. 10000" value="10000"/></div>
+    <div class="ig"><label class="lbl">Annual Interest Rate (%)</label><input class="inp" id="lr" type="number" placeholder="e.g. 8.5" value="8.5" step="0.1"/></div>
+    <div class="ig"><label class="lbl">Loan Term</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <input class="inp" id="lt" type="number" placeholder="5" value="5"/>
+        <select class="inp" id="lu"><option value="years">Years</option><option value="months">Months</option></select>
       </div>
     </div>
-    <button onclick="addRow()" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:12px;color:var(--t2);cursor:pointer;font-size:14px;margin-bottom:12px;transition:.2s;font-family:var(--fb)" onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--cyan)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--t2)'">+ Add Course</button>
-    <button class="btn bp" onclick="calcGPA()">Calculate GPA</button>
+    <div class="ig"><label class="lbl">Loan Type</label>
+      <select class="inp"><option>Personal Loan</option><option>Home Loan</option><option>Car Loan</option><option>Education Loan</option><option>Business Loan</option></select>
+    </div>
+    <button class="btn bp" onclick="calcLoan()">Calculate Payment</button>
   </div>
   <div class="pn">
-    <div class="pn-title">GPA Results</div>
+    <div class="pn-title">Loan Results</div>
     <div class="res" id="res">
-      <div class="rl">Your GPA</div>
-      <div class="rv" id="gpaV">-- <span>/ 4.0</span></div>
-      <div class="rsub" id="gpaSub"></div>
+      <div class="rl">Monthly Payment</div>
+      <div class="rv">$<span id="lm">--</span></div>
+      <div class="rsub" id="lsub"></div>
       <div class="rg">
-        <div class="ri"><div class="ri-l">Total Credits</div><div class="ri-v" id="gpaC">--</div></div>
-        <div class="ri"><div class="ri-l">Quality Points</div><div class="ri-v" id="gpaQ">--</div></div>
-        <div class="ri"><div class="ri-l">Standing</div><div class="ri-v" id="gpaS" style="color:var(--green)">--</div></div>
-        <div class="ri"><div class="ri-l">Letter Grade</div><div class="ri-v" id="gpaL" style="color:var(--cyan)">--</div></div>
+        <div class="ri"><div class="ri-l">Total Payment</div><div class="ri-v" id="lt2">--</div></div>
+        <div class="ri"><div class="ri-l">Total Interest</div><div class="ri-v" id="li" style="color:var(--rose)">--</div></div>
+        <div class="ri"><div class="ri-l">Principal</div><div class="ri-v" id="lp" style="color:var(--green)">--</div></div>
+        <div class="ri"><div class="ri-l">Interest %</div><div class="ri-v" id="lip">--</div></div>
+      </div>
+      <div style="margin-top:18px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-bottom:5px;font-family:var(--fb)"><span>Principal</span><span>Interest</span></div>
+        <div style="height:8px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden"><div id="lbar" style="height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:999px;transition:width .8s ease"></div></div>
       </div>
     </div>
-    <div class="info"><strong>Formula:</strong> GPA = Σ(Grade Points × Credits) ÷ Σ(Credits)<br>A=4.0, A-=3.7, B+=3.3, B=3.0, B-=2.7, C+=2.3, C=2.0</div>
+    <div class="info"><strong>Note:</strong> Assumes fixed interest rate and equal monthly payments. Actual payments may vary by lender.</div>
   </div>
 </div>
 <script>
-function setScale(s,btn){document.querySelectorAll('.tg .tb').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
-function addRow(){
-  const r=document.createElement('div');r.className='crow';r.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end';
-  r.innerHTML='<div><input class="inp" placeholder="Course name"/></div><div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div><div><input class="inp cred" type="number" value="3" min="1" max="6"/></div><div><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer;margin-top:22px">✕</button></div>';
-  document.getElementById('courses').appendChild(r);
-}
-function removeRow(b){const rows=document.querySelectorAll('.crow');if(rows.length>1)b.closest('.crow').remove()}
-function calcGPA(){
-  let pts=0,cr=0;
-  document.querySelectorAll('.crow').forEach(r=>{const g=+r.querySelector('.gsel').value,c=+r.querySelector('.cred').value||3;pts+=g*c;cr+=c});
-  const gpa=pts/cr;
-  document.getElementById('gpaV').innerHTML=gpa.toFixed(2)+' <span>/ 4.0</span>';
-  document.getElementById('gpaSub').textContent=document.querySelectorAll('.crow').length+' courses';
-  document.getElementById('gpaC').textContent=cr+' hrs';
-  document.getElementById('gpaQ').textContent=pts.toFixed(1);
-  let s=gpa>=3.9?'Summa Cum Laude':gpa>=3.7?'Magna Cum Laude':gpa>=3.5?'Cum Laude':gpa>=3.0?'Good Standing':gpa>=2.0?'Satisfactory':'Academic Warning';
-  let l=gpa>=3.7?'A':gpa>=3.3?'A-':gpa>=3.0?'B+':gpa>=2.7?'B':gpa>=2.3?'B-':gpa>=2.0?'C+':'C';
-  document.getElementById('gpaS').textContent=s;document.getElementById('gpaL').textContent=l;
+function calcLoan(){
+  const P=+document.getElementById('la').value,r=+document.getElementById('lr').value/100/12;
+  let n=+document.getElementById('lt').value;if(document.getElementById('lu').value==='years')n*=12;
+  if(!P||!r||!n){alert('Please fill all fields');return}
+  const M=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=M*n,interest=total-P,pct=P/total*100;
+  document.getElementById('lm').textContent=M.toFixed(2);
+  document.getElementById('lsub').textContent='Over '+n+' months';
+  document.getElementById('lt2').textContent='$'+total.toFixed(0);
+  document.getElementById('li').textContent='$'+interest.toFixed(0);
+  document.getElementById('lp').textContent='$'+P.toFixed(0);
+  document.getElementById('lip').textContent=(100-pct).toFixed(1)+'%';
+  document.getElementById('lbar').style.width=pct+'%';
   document.getElementById('res').classList.add('show');
 }
 </script>
   <div class="faq">
     <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
-    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is unweighted GPA?<span class="fqi">+</span></div><div class="fqa">Unweighted GPA uses a standard 4.0 scale for all classes. An A is always 4.0 regardless of course difficulty.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is weighted GPA?<span class="fqi">+</span></div><div class="fqa">Weighted GPA gives extra credit for harder courses like AP or honors. An A in an AP class may count as 5.0 instead of 4.0.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What GPA is needed for college?<span class="fqi">+</span></div><div class="fqa">Most universities look for 3.0+. Competitive schools prefer 3.5+. However, GPA is just one factor in admissions.</div></div>
+    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">How is monthly payment calculated?<span class="fqi">+</span></div><div class="fqa">Using the EMI formula: M = P × r × (1+r)^n / ((1+r)^n - 1), where P=principal, r=monthly interest rate, n=number of months.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is a good loan interest rate?<span class="fqi">+</span></div><div class="fqa">Personal loans: 6–36%. Home loans: 3–8%. Auto loans: 4–12%. Lower rates mean you pay less overall.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">Can I pay my loan off early?<span class="fqi">+</span></div><div class="fqa">Most loans allow early repayment. Check if your lender charges a prepayment penalty first.</div></div>
 
   </div>
 </div></main>

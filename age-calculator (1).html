@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>GPA Calculator | CalcPro</title>
-<meta name="description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="keywords" content="GPA calculator,grade point average,college GPA,high school GPA,weighted GPA,cumulative GPA"/>
-<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/gpa-calculator.html"/>
-<meta property="og:title" content="GPA Calculator | CalcPro"/><meta property="og:description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="GPA Calculator | CalcPro"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GPA Calculator","description":"Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.","applicationCategory":"EducationalApplication"}<\/script>
+<title>Age Calculator | CalcPro</title>
+<meta name="description" content="Calculate your exact age in years, months, weeks and days. Find how many days until your next birthday. Free age calculator online."/>
+<meta name="keywords" content="age calculator,how old am I,date of birth calculator,birthday calculator,exact age"/>
+<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/age-calculator.html"/>
+<meta property="og:title" content="Age Calculator | CalcPro"/><meta property="og:description" content="Calculate your exact age in years, months, weeks and days. Find how many days until your next birthday. Free age calculator online."/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Age Calculator | CalcPro"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Age Calculator","description":"Calculate your exact age in years, months, weeks and days. Find how many days until your next birthday. Free age calculator online.","applicationCategory":"UtilityApplication"}<\/script>
 <script>
 (function(){var t=localStorage.getItem('calcpro-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})();
 </script>
@@ -204,73 +204,62 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:36px
   <nav class="bc" aria-label="Breadcrumb">
     <a href="index.html">Home</a><span class="bc-sep">›</span>
     <a href="index.html#tools">Calculators</a><span class="bc-sep">›</span>
-    <span>GPA Calculator</span>
+    <span>Age Calculator</span>
   </nav>
   <div class="ph">
-    <div class="ph-icon" style="background:rgba(167,139,250,.12)"><div class="ph-icon" style="background:rgba(167,139,250,.12);box-shadow:0 0 0 1px var(--purple)20;color:var(--purple)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div></div>
-    <h1>GPA Calculator</h1>
-    <p>Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.</p>
+    <div class="ph-icon" style="background:rgba(99,102,241,.12)"><div class="ph-icon" style="background:rgba(99,102,241,.12);box-shadow:0 0 0 1px var(--blue)20;color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></div></div>
+    <h1>Age Calculator</h1>
+    <p>Calculate your exact age in years, months, weeks and days. Find how many days until your next birthday. Free age calculator online.</p>
   </div>
   <div class="cl">
   <div class="pn">
-    <div class="pn-title">Enter Your Courses</div>
-    <div class="ig"><div class="lbl">GPA Scale</div>
-      <div class="tg"><button class="tb on" onclick="setScale('4',this)">Unweighted (4.0)</button><button class="tb" onclick="setScale('5',this)">Weighted (5.0)</button></div>
-    </div>
-    <div id="courses">
-      <div class="crow" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end">
-        <div><div class="lbl">Course</div><input class="inp" placeholder="e.g. Mathematics"/></div>
-        <div><div class="lbl">Grade</div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div>
-        <div><div class="lbl">Credits</div><input class="inp cred" type="number" value="3" min="1" max="6"/></div>
-        <div style="padding-top:22px"><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer">✕</button></div>
-      </div>
-    </div>
-    <button onclick="addRow()" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:12px;color:var(--t2);cursor:pointer;font-size:14px;margin-bottom:12px;transition:.2s;font-family:var(--fb)" onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--cyan)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--t2)'">+ Add Course</button>
-    <button class="btn bp" onclick="calcGPA()">Calculate GPA</button>
+    <div class="pn-title">Enter Your Dates</div>
+    <div class="ig"><label class="lbl">Date of Birth</label><input class="inp" id="dob" type="date"/></div>
+    <div class="ig"><label class="lbl">Calculate Age As Of</label><input class="inp" id="tod" type="date"/></div>
+    <button class="btn bp" onclick="calcAge()">Calculate Age</button>
   </div>
   <div class="pn">
-    <div class="pn-title">GPA Results</div>
+    <div class="pn-title">Your Age Results</div>
     <div class="res" id="res">
-      <div class="rl">Your GPA</div>
-      <div class="rv" id="gpaV">-- <span>/ 4.0</span></div>
-      <div class="rsub" id="gpaSub"></div>
+      <div class="rl">Exact Age</div>
+      <div class="rv" id="ageY">-- <span>yrs</span></div>
+      <div class="rsub" id="ageSub"></div>
       <div class="rg">
-        <div class="ri"><div class="ri-l">Total Credits</div><div class="ri-v" id="gpaC">--</div></div>
-        <div class="ri"><div class="ri-l">Quality Points</div><div class="ri-v" id="gpaQ">--</div></div>
-        <div class="ri"><div class="ri-l">Standing</div><div class="ri-v" id="gpaS" style="color:var(--green)">--</div></div>
-        <div class="ri"><div class="ri-l">Letter Grade</div><div class="ri-v" id="gpaL" style="color:var(--cyan)">--</div></div>
+        <div class="ri"><div class="ri-l">Total Months</div><div class="ri-v" id="ageM">--</div></div>
+        <div class="ri"><div class="ri-l">Total Weeks</div><div class="ri-v" id="ageW">--</div></div>
+        <div class="ri"><div class="ri-l">Total Days</div><div class="ri-v" id="ageD">--</div></div>
+        <div class="ri"><div class="ri-l">Next Birthday</div><div class="ri-v" id="nextB" style="color:var(--cyan)">--</div></div>
       </div>
     </div>
-    <div class="info"><strong>Formula:</strong> GPA = Σ(Grade Points × Credits) ÷ Σ(Credits)<br>A=4.0, A-=3.7, B+=3.3, B=3.0, B-=2.7, C+=2.3, C=2.0</div>
+    <div class="info"><strong>Tip:</strong> Leave "As Of" empty to use today's date automatically.</div>
   </div>
 </div>
 <script>
-function setScale(s,btn){document.querySelectorAll('.tg .tb').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
-function addRow(){
-  const r=document.createElement('div');r.className='crow';r.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end';
-  r.innerHTML='<div><input class="inp" placeholder="Course name"/></div><div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div><div><input class="inp cred" type="number" value="3" min="1" max="6"/></div><div><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer;margin-top:22px">✕</button></div>';
-  document.getElementById('courses').appendChild(r);
-}
-function removeRow(b){const rows=document.querySelectorAll('.crow');if(rows.length>1)b.closest('.crow').remove()}
-function calcGPA(){
-  let pts=0,cr=0;
-  document.querySelectorAll('.crow').forEach(r=>{const g=+r.querySelector('.gsel').value,c=+r.querySelector('.cred').value||3;pts+=g*c;cr+=c});
-  const gpa=pts/cr;
-  document.getElementById('gpaV').innerHTML=gpa.toFixed(2)+' <span>/ 4.0</span>';
-  document.getElementById('gpaSub').textContent=document.querySelectorAll('.crow').length+' courses';
-  document.getElementById('gpaC').textContent=cr+' hrs';
-  document.getElementById('gpaQ').textContent=pts.toFixed(1);
-  let s=gpa>=3.9?'Summa Cum Laude':gpa>=3.7?'Magna Cum Laude':gpa>=3.5?'Cum Laude':gpa>=3.0?'Good Standing':gpa>=2.0?'Satisfactory':'Academic Warning';
-  let l=gpa>=3.7?'A':gpa>=3.3?'A-':gpa>=3.0?'B+':gpa>=2.7?'B':gpa>=2.3?'B-':gpa>=2.0?'C+':'C';
-  document.getElementById('gpaS').textContent=s;document.getElementById('gpaL').textContent=l;
+document.getElementById('tod').valueAsDate=new Date();
+function calcAge(){
+  if(!document.getElementById('dob').value){alert('Enter date of birth');return}
+  const dob=new Date(document.getElementById('dob').value),to=new Date(document.getElementById('tod').value)||new Date();
+  let y=to.getFullYear()-dob.getFullYear(),m=to.getMonth()-dob.getMonth(),d=to.getDate()-dob.getDate();
+  if(d<0){m--;d+=new Date(to.getFullYear(),to.getMonth(),0).getDate()}
+  if(m<0){y--;m+=12}
+  const td=Math.floor((to-dob)/86400000);
+  const nb=new Date(to.getFullYear(),dob.getMonth(),dob.getDate());
+  if(nb<=to)nb.setFullYear(to.getFullYear()+1);
+  const dn=Math.floor((nb-to)/86400000);
+  document.getElementById('ageY').innerHTML=y+' <span>yrs</span>';
+  document.getElementById('ageSub').textContent=y+' years, '+m+' months, '+d+' days';
+  document.getElementById('ageM').textContent=(y*12+m)+' mo';
+  document.getElementById('ageW').textContent=Math.floor(td/7)+' wk';
+  document.getElementById('ageD').textContent=td.toLocaleString();
+  document.getElementById('nextB').textContent='In '+dn+' days';
   document.getElementById('res').classList.add('show');
 }
 </script>
   <div class="faq">
     <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
-    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is unweighted GPA?<span class="fqi">+</span></div><div class="fqa">Unweighted GPA uses a standard 4.0 scale for all classes. An A is always 4.0 regardless of course difficulty.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is weighted GPA?<span class="fqi">+</span></div><div class="fqa">Weighted GPA gives extra credit for harder courses like AP or honors. An A in an AP class may count as 5.0 instead of 4.0.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What GPA is needed for college?<span class="fqi">+</span></div><div class="fqa">Most universities look for 3.0+. Competitive schools prefer 3.5+. However, GPA is just one factor in admissions.</div></div>
+    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">How is exact age calculated?<span class="fqi">+</span></div><div class="fqa">The calculator finds the difference between your birth date and today, counting complete years, remaining months, then remaining days.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">Can I calculate age for a past date?<span class="fqi">+</span></div><div class="fqa">Yes! Change the "As Of" date to any date to find the age at that specific point in time.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is the maximum age the calculator supports?<span class="fqi">+</span></div><div class="fqa">The calculator can handle any age. It works with any valid date of birth, even for historical dates.</div></div>
 
   </div>
 </div></main>

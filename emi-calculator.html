@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>GPA Calculator | CalcPro</title>
-<meta name="description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="keywords" content="GPA calculator,grade point average,college GPA,high school GPA,weighted GPA,cumulative GPA"/>
-<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/gpa-calculator.html"/>
-<meta property="og:title" content="GPA Calculator | CalcPro"/><meta property="og:description" content="Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours."/>
-<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="GPA Calculator | CalcPro"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GPA Calculator","description":"Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.","applicationCategory":"EducationalApplication"}<\/script>
+<title>EMI Calculator | CalcPro</title>
+<meta name="description" content="Calculate your Equated Monthly Installment (EMI) for home, car or personal loans. Free EMI calculator with complete amortization breakdown."/>
+<meta name="keywords" content="EMI calculator,equated monthly installment,home loan EMI,car loan EMI,EMI formula"/>
+<link rel="canonical" href="https://mudanmemon121.github.io/calculatortools/emi-calculator.html"/>
+<meta property="og:title" content="EMI Calculator | CalcPro"/><meta property="og:description" content="Calculate your Equated Monthly Installment (EMI) for home, car or personal loans. Free EMI calculator with complete amortization breakdown."/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="EMI Calculator | CalcPro"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"EMI Calculator","description":"Calculate your Equated Monthly Installment (EMI) for home, car or personal loans. Free EMI calculator with complete amortization breakdown.","applicationCategory":"FinanceApplication"}<\/script>
 <script>
 (function(){var t=localStorage.getItem('calcpro-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})();
 </script>
@@ -204,73 +204,69 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:36px
   <nav class="bc" aria-label="Breadcrumb">
     <a href="index.html">Home</a><span class="bc-sep">›</span>
     <a href="index.html#tools">Calculators</a><span class="bc-sep">›</span>
-    <span>GPA Calculator</span>
+    <span>EMI Calculator</span>
   </nav>
   <div class="ph">
-    <div class="ph-icon" style="background:rgba(167,139,250,.12)"><div class="ph-icon" style="background:rgba(167,139,250,.12);box-shadow:0 0 0 1px var(--purple)20;color:var(--purple)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div></div>
-    <h1>GPA Calculator</h1>
-    <p>Calculate your high school or college GPA instantly. Supports weighted and unweighted GPA with course names, letter grades and credit hours.</p>
+    <div class="ph-icon" style="background:rgba(251,191,36,.12)"><div class="ph-icon" style="background:rgba(251,191,36,.12);box-shadow:0 0 0 1px var(--amber)20;color:var(--amber)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div></div>
+    <h1>EMI Calculator</h1>
+    <p>Calculate your Equated Monthly Installment (EMI) for home, car or personal loans. Free EMI calculator with complete amortization breakdown.</p>
   </div>
   <div class="cl">
   <div class="pn">
-    <div class="pn-title">Enter Your Courses</div>
-    <div class="ig"><div class="lbl">GPA Scale</div>
-      <div class="tg"><button class="tb on" onclick="setScale('4',this)">Unweighted (4.0)</button><button class="tb" onclick="setScale('5',this)">Weighted (5.0)</button></div>
-    </div>
-    <div id="courses">
-      <div class="crow" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end">
-        <div><div class="lbl">Course</div><input class="inp" placeholder="e.g. Mathematics"/></div>
-        <div><div class="lbl">Grade</div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div>
-        <div><div class="lbl">Credits</div><input class="inp cred" type="number" value="3" min="1" max="6"/></div>
-        <div style="padding-top:22px"><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer">✕</button></div>
+    <div class="pn-title">EMI Details</div>
+    <div class="ig"><label class="lbl">Principal Amount</label><input class="inp" id="ep" type="number" placeholder="e.g. 500000" value="500000"/></div>
+    <div class="ig"><label class="lbl">Annual Interest Rate (%)</label>
+      <input type="range" id="ers" min="1" max="30" step="0.1" value="8.5" oninput="document.getElementById('er').value=this.value"/>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:12px">
+        <input class="inp" id="er" type="number" value="8.5" step="0.1" style="width:100px" oninput="document.getElementById('ers').value=this.value"/>
+        <span style="font-size:13px;color:var(--t2);font-family:var(--fb);white-space:nowrap">% per annum</span>
       </div>
     </div>
-    <button onclick="addRow()" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:12px;color:var(--t2);cursor:pointer;font-size:14px;margin-bottom:12px;transition:.2s;font-family:var(--fb)" onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--cyan)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--t2)'">+ Add Course</button>
-    <button class="btn bp" onclick="calcGPA()">Calculate GPA</button>
+    <div class="ig"><label class="lbl">Loan Tenure (Years)</label>
+      <input type="range" id="ets" min="1" max="30" value="5" oninput="document.getElementById('et').value=this.value"/>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:12px">
+        <input class="inp" id="et" type="number" value="5" style="width:100px" oninput="document.getElementById('ets').value=this.value"/>
+        <span style="font-size:13px;color:var(--t2);font-family:var(--fb)">years</span>
+      </div>
+    </div>
+    <button class="btn bp" onclick="calcEMI()">Calculate EMI</button>
   </div>
   <div class="pn">
-    <div class="pn-title">GPA Results</div>
+    <div class="pn-title">EMI Breakdown</div>
     <div class="res" id="res">
-      <div class="rl">Your GPA</div>
-      <div class="rv" id="gpaV">-- <span>/ 4.0</span></div>
-      <div class="rsub" id="gpaSub"></div>
+      <div class="rl">Monthly EMI</div>
+      <div class="rv" id="ev">--</div>
+      <div class="rsub" id="esub"></div>
       <div class="rg">
-        <div class="ri"><div class="ri-l">Total Credits</div><div class="ri-v" id="gpaC">--</div></div>
-        <div class="ri"><div class="ri-l">Quality Points</div><div class="ri-v" id="gpaQ">--</div></div>
-        <div class="ri"><div class="ri-l">Standing</div><div class="ri-v" id="gpaS" style="color:var(--green)">--</div></div>
-        <div class="ri"><div class="ri-l">Letter Grade</div><div class="ri-v" id="gpaL" style="color:var(--cyan)">--</div></div>
+        <div class="ri"><div class="ri-l">Total Amount</div><div class="ri-v" id="et2">--</div></div>
+        <div class="ri"><div class="ri-l">Total Interest</div><div class="ri-v" id="ei" style="color:var(--rose)">--</div></div>
+        <div class="ri"><div class="ri-l">Principal</div><div class="ri-v" id="ep2" style="color:var(--green)">--</div></div>
+        <div class="ri"><div class="ri-l">Interest Ratio</div><div class="ri-v" id="er2">--</div></div>
       </div>
     </div>
-    <div class="info"><strong>Formula:</strong> GPA = Σ(Grade Points × Credits) ÷ Σ(Credits)<br>A=4.0, A-=3.7, B+=3.3, B=3.0, B-=2.7, C+=2.3, C=2.0</div>
+    <div class="info"><strong>Formula:</strong> EMI = [P × R × (1+R)^N] / [(1+R)^N - 1]<br>P = Principal, R = Monthly Rate, N = Months</div>
   </div>
 </div>
 <script>
-function setScale(s,btn){document.querySelectorAll('.tg .tb').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
-function addRow(){
-  const r=document.createElement('div');r.className='crow';r.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end';
-  r.innerHTML='<div><input class="inp" placeholder="Course name"/></div><div><select class="inp gsel"><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option><option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option><option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C-</option><option value="1.0">D</option><option value="0.0">F</option></select></div><div><input class="inp cred" type="number" value="3" min="1" max="6"/></div><div><button onclick="removeRow(this)" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);color:var(--rose);border-radius:8px;padding:10px 12px;cursor:pointer;margin-top:22px">✕</button></div>';
-  document.getElementById('courses').appendChild(r);
-}
-function removeRow(b){const rows=document.querySelectorAll('.crow');if(rows.length>1)b.closest('.crow').remove()}
-function calcGPA(){
-  let pts=0,cr=0;
-  document.querySelectorAll('.crow').forEach(r=>{const g=+r.querySelector('.gsel').value,c=+r.querySelector('.cred').value||3;pts+=g*c;cr+=c});
-  const gpa=pts/cr;
-  document.getElementById('gpaV').innerHTML=gpa.toFixed(2)+' <span>/ 4.0</span>';
-  document.getElementById('gpaSub').textContent=document.querySelectorAll('.crow').length+' courses';
-  document.getElementById('gpaC').textContent=cr+' hrs';
-  document.getElementById('gpaQ').textContent=pts.toFixed(1);
-  let s=gpa>=3.9?'Summa Cum Laude':gpa>=3.7?'Magna Cum Laude':gpa>=3.5?'Cum Laude':gpa>=3.0?'Good Standing':gpa>=2.0?'Satisfactory':'Academic Warning';
-  let l=gpa>=3.7?'A':gpa>=3.3?'A-':gpa>=3.0?'B+':gpa>=2.7?'B':gpa>=2.3?'B-':gpa>=2.0?'C+':'C';
-  document.getElementById('gpaS').textContent=s;document.getElementById('gpaL').textContent=l;
+function calcEMI(){
+  const P=+document.getElementById('ep').value,R=+document.getElementById('er').value/100/12,N=+document.getElementById('et').value*12;
+  if(!P||!R||!N){alert('Fill all fields');return}
+  const emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1),total=emi*N,interest=total-P;
+  const fmt=n=>n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('ev').textContent=fmt(emi);
+  document.getElementById('esub').textContent='For '+N+' months';
+  document.getElementById('et2').textContent=fmt(total);
+  document.getElementById('ei').textContent=fmt(interest);
+  document.getElementById('ep2').textContent=fmt(P);
+  document.getElementById('er2').textContent=(interest/total*100).toFixed(1)+'%';
   document.getElementById('res').classList.add('show');
 }
 </script>
   <div class="faq">
     <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
-    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is unweighted GPA?<span class="fqi">+</span></div><div class="fqa">Unweighted GPA uses a standard 4.0 scale for all classes. An A is always 4.0 regardless of course difficulty.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is weighted GPA?<span class="fqi">+</span></div><div class="fqa">Weighted GPA gives extra credit for harder courses like AP or honors. An A in an AP class may count as 5.0 instead of 4.0.</div></div>
-<div class="fq"><div class="fqq" onclick="toggleFaq(this)">What GPA is needed for college?<span class="fqi">+</span></div><div class="fqa">Most universities look for 3.0+. Competitive schools prefer 3.5+. However, GPA is just one factor in admissions.</div></div>
+    <div class="fq"><div class="fqq" onclick="toggleFaq(this)">What is EMI?<span class="fqi">+</span></div><div class="fqa">EMI (Equated Monthly Installment) is a fixed monthly payment made to a lender that includes both principal repayment and interest.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">How to reduce EMI?<span class="fqi">+</span></div><div class="fqa">Increase loan tenure, make a larger down payment, or negotiate a lower interest rate with your lender.</div></div>
+<div class="fq"><div class="fqq" onclick="toggleFaq(this)">Is EMI the same as a monthly payment?<span class="fqi">+</span></div><div class="fqa">Yes. EMI is the Indian banking term for what Western banks call a monthly loan installment.</div></div>
 
   </div>
 </div></main>
